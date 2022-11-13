@@ -4,6 +4,6 @@ services:
     build:
       context: frontend/docker/development/nginx
     ports:
-        -   "8080:80"
+        -   "${PORT}:80"
     volumes:
         -   ./frontend:/app
