@@ -2,8 +2,15 @@
 -   name: Provision Site
     hosts: auction
     remote_user: root
-    tasks:
-        -   import_tasks: tasks/setup_docker.yml
+    vars:
+        certbot_email: ruslan@skazkin.su
+        certbot_hosts:
+            - auction.mywebdev.ru
+            - api.auction.mywebdev.ru
+        tasks:
+            -   import_tasks: tasks/setup_docker.yml
+            -   import_tasks: tasks/setup_certbot.yml
+            -   import_tasks: tasks/generate_certificates.yml
     handlers:
         -   name: Start docker on boot
             systemd:
