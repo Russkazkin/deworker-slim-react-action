@@ -1,6 +1,6 @@
 ---
 -   name: Renew Certificates
-    hosts: auction
+    hosts: site
     remote_user: root
     tasks:
         -   name: Renew certificates
