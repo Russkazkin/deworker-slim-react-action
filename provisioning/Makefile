@@ -1,5 +1,5 @@
 site:
-	ansible-playbook -i hosts.yml site.yml
+	ansible-playbook -i hosts.yml site.yml -v
 
 renew-certificates:
 	ansible-playbook -i hosts.yml renew-certificates.yml
