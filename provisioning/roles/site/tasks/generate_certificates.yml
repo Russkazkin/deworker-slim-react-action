@@ -13,7 +13,9 @@
     ignore_errors: yes
 
 -   name: Up certbot standalone Apache
-    shell: "docker run -d --name apache -v /var/www/html:/usr/local/apache2/htdocs/ -p 80:80 httpd:2.4"
+    shell: "mkdir /sys/fs/cgroup/systemd;
+            mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd;
+            docker run -d --name apache -v /var/www/html:/usr/local/apache2/htdocs/ -p 80:80 httpd:2.4"
     when: port_check.failed == true
 
 -   name: Generate new certificate
