@@ -23,6 +23,9 @@ services:
         depends_on:
             - api-php-fpm
 
+    api-php-cli:
+        image: ${REGISTRY}/auction-api-php-cli:${IMAGE_TAG}
+
     api-php-fpm:
         image: ${REGISTRY}/auction-api-php-fpm:${IMAGE_TAG}
         restart: always
