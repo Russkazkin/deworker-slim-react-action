@@ -25,8 +25,8 @@ $container = $builder->build();
 
 $app = AppFactory::createFromContainer($container);
 
-$app->addErrorMiddleware($container->get('config')['debug'], true, true);
+(require __DIR__ . '/../config/middleware.php')($app, $container);
+(require __DIR__ . '/../config/routes.php')($app);
 
-$app->get('/', HomeAction::class);
 
 $app->run();
