@@ -37,7 +37,7 @@ build-api:
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build
 
-push: push-gateway push-frontend push-api
+push: push-gateway push-frontend push-api push-cli
 
 push-gateway:
 	docker push ${REGISTRY}/auction-gateway:${IMAGE_TAG}
@@ -48,6 +48,9 @@ push-frontend:
 push-api:
 	docker push ${REGISTRY}/auction-api:${IMAGE_TAG}
 	docker push ${REGISTRY}/auction-api-php-fpm:${IMAGE_TAG}
+
+push-cli:
+	docker push ${REGISTRY}/auction-api-php-cli:${IMAGE_TAG}
 
 deploy:
 	ssh ${HOST} -p ${PORT} 'rm -rf site_${BUILD_NUMBER}'
