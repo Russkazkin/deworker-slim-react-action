@@ -1,0 +1,25 @@
+{
+    "name": "skazkin/auction",
+    "description": "Auction App",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "config": {
+        "process-timeout": 0,
+        "sort-packages": true
+    },
+    "require": {
+        "php": "^8.1",
+        "ext-json": "*",
+        "php-di/php-di": "^6.0",
+        "slim/psr7": "^1.6",
+        "slim/slim": "^4.11"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}

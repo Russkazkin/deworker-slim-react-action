@@ -1,3 +1,5 @@
 REGISTRY=registry.mywebdev.ru IMAGE_TAG=master-1 make build
 REGISTRY=registry.mywebdev.ru IMAGE_TAG=master-1 make push
 HOST=deploy@192.168.1.102 PORT=22 REGISTRY=registry.mywebdev.ru IMAGE_TAG=master-1 BUILD_NUMBER=1 make deploy
+
+docker-compose run --rm api-php-cli composer require slim/slim slim/psr7
