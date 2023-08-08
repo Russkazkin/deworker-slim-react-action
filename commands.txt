@@ -4,3 +4,8 @@ HOST=deploy@192.168.1.102 PORT=22 REGISTRY=registry.mywebdev.ru IMAGE_TAG=master
 
 docker-compose run --rm api-php-cli composer require slim/slim slim/psr7
 docker-compose run --rm api-php-cli composer app hello
+
+proxmox user root
+
+cgroup problem solution
+https://forum.garudalinux.org/t/fresh-install-docker-cgroup-mountpoint-does-not-exist/1684/2
