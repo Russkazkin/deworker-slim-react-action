@@ -26,6 +26,6 @@
     },
     "scripts": {
         "app": "@php bin/app.php --ansi",
-        "lint": "phplint --no-cache"
+        "lint": "phplint"
     }
 }

@@ -4,6 +4,7 @@ extensions:
     - php
 exclude:
     - vendor
+    - var
 warning: true
 memory-limit: -1
-no-cache: true
+cache: var/phplint
