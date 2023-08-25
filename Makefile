@@ -26,6 +26,7 @@ api-permissions:
 
 api-lint:
 	docker-compose run --rm api-php-cli composer lint
+	docker-compose run --rm api-php-cli composer cs-check
 
 api-composer-install:
 	docker-compose run --rm api-php-cli composer install
