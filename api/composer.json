@@ -27,6 +27,11 @@
             "App\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "tests/"
+        }
+    },
     "scripts": {
         "app": "@php bin/app.php --ansi",
         "lint": "phplint",
