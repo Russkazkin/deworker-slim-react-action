@@ -1,7 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Test\Unit\Http;
+
 use App\Http\JsonResponse;
+use JsonException;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class JsonResponseTest extends TestCase
 {
