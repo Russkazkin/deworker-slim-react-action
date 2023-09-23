@@ -13,7 +13,6 @@ class JsonResponseTest extends TestCase
 {
     /**
      * @throws JsonException
-     * @covers \App\Http\JsonResponse
      */
     public function testWithCode(): void
     {
