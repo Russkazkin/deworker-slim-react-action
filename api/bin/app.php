@@ -3,6 +3,9 @@
 
 declare(strict_types=1);
 
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
@@ -15,6 +18,7 @@ $container = require  __DIR__ . '/../config/container.php';
 $cli = new Application('Console');
 
 $commands = $container->get('config')['console']['commands'];
+
 foreach ($commands as $name) {
     /** @var Command $command */
     $command = $container->get($name);

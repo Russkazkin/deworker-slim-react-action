@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Auth;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
@@ -20,13 +21,15 @@ return [
             $settings['metadata_dirs'],
             $settings['dev_mode'],
             $settings['proxy_dir'],
-            $settings['cache_dir'] ? new FilesystemAdapter($settings['cache_dir']) : new ArrayAdapter()
+            $settings['cache_dir'] ? new FilesystemAdapter($settings['cache_dir'], directory: $settings['base_cache_dir']) : new ArrayAdapter()
         );
 
         $config->setNamingStrategy(new UnderscoreNamingStrategy());
 
+        $connection = DriverManager::getConnection($settings['connection'], $config);
+
         return new EntityManager(
-            $settings['connection'],
+            $connection,
             $config
         );
     },
@@ -34,7 +37,8 @@ return [
     'config' => [
         'doctrine.php' => [
             'dev_mode' => false,
-            'cache_dir' => __DIR__ . '/../../var/cache/doctrine.php/cache',
+            'base_cache_dir' => '/../../var/cache/doctrine.php',
+            'cache_dir' => 'cache',
             'proxy_dir' => __DIR__ . '/../../var/cache/doctrine.php/proxy',
             'connection' => [
                 'driver' => 'pdo_pgsql',
