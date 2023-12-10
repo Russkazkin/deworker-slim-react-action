@@ -28,6 +28,7 @@ services:
         environment:
             APP_DEBUG: 0
             APP_ENV: prod
+            DB_URL: pgsql://app:${API_DB_PASSWORD}@api-postgres:5432/app
 
     api-php-fpm:
         image: ${REGISTRY}/auction-api-php-fpm:${IMAGE_TAG}
@@ -35,6 +36,7 @@ services:
         environment:
             APP_DEBUG: 0
             APP_ENV: prod
+            DB_URL: pgsql://app:${API_DB_PASSWORD}@api-postgres:5432/app
 
     api-postgres:
         image: postgres:15.5-alpine
