@@ -1,5 +1,9 @@
 FROM php:8.1-cli-alpine AS builder
 
+RUN apk add --no-cache postgresql-dev \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo_pgsql opcache
+
 RUN apk add --no-cache unzip
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
@@ -20,7 +24,9 @@ COPY ./ ./
 
 FROM php:8.1-fpm-alpine
 
-RUN docker-php-ext-install opcache
+RUN apk add --no-cache postgresql-dev \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo_pgsql opcache
 
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 
