@@ -7,6 +7,7 @@ namespace App\Auth\Entity\User;
 use App\Auth\Service\PasswordHasher;
 use ArrayObject;
 use DateTimeImmutable;
+use Doctrine\DBAL\Types\Types;
 use DomainException;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,8 +16,10 @@ use Doctrine\ORM\Mapping as ORM;
 class User
 {
     private Id $id;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $date;
     private Email $email;
+    #[ORM\Column(type: Types::STRING)]
     private ?string $passwordHash = null;
     private Status $status;
     private ?Token $joinConfirmToken = null;
