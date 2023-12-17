@@ -21,7 +21,9 @@ return [
             $settings['metadata_dirs'],
             $settings['dev_mode'],
             $settings['proxy_dir'],
-            $settings['cache_dir'] ? new FilesystemAdapter($settings['cache_dir'], directory: $settings['base_cache_dir']) : new ArrayAdapter()
+            $settings['cache_dir']
+                ? new FilesystemAdapter($settings['cache_dir'], directory: $settings['base_cache_dir'])
+                : new ArrayAdapter()
         );
 
         $config->setNamingStrategy(new UnderscoreNamingStrategy());
