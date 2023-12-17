@@ -63,9 +63,6 @@ api-test-functional-coverage:
 api-composer-install:
 	docker-compose run --rm api-php-cli composer install
 
-doctrine-run:
-		docker-compose run --rm api-php-cli php bin/doctrine
-
 #production
 build: build-gateway build-frontend build-api
 

@@ -37,6 +37,7 @@
     },
     "scripts": {
         "app": "@php bin/app.php --ansi",
+        "doctrine": "@php bin/doctrine.php --ansi",
         "lint": "phplint",
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
