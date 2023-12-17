@@ -15,11 +15,13 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: "auth_users")]
 class User
 {
+    #[ORM\Column(type: IdType::NAME)]
+    #[ORM\Id]
     private Id $id;
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $date;
     private Email $email;
-    #[ORM\Column(type: Types::STRING)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $passwordHash = null;
     private Status $status;
     private ?Token $joinConfirmToken = null;

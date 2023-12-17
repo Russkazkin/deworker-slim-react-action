@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Auth;
 use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
@@ -25,6 +26,12 @@ return [
                 ? new FilesystemAdapter($settings['cache_dir'], directory: $settings['base_cache_dir'])
                 : new ArrayAdapter()
         );
+
+        foreach ($settings['types'] as $name => $class) {
+            if (!Type::hasType($name)) {
+                Type::addType($name, $class);
+            }
+        }
 
         $config->setNamingStrategy(new UnderscoreNamingStrategy());
 
