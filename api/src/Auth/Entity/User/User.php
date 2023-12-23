@@ -20,14 +20,18 @@ class User
     private Id $id;
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $date;
+    #[ORM\Column(type: EmailType::NAME, unique: true)]
     private Email $email;
     #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $passwordHash = null;
+    #[ORM\Column(type: StatusType::NAME, length: 16)]
     private Status $status;
     private ?Token $joinConfirmToken = null;
     private ?Token $passwordResetToken = null;
+    #[ORM\Column(type: EmailType::NAME, nullable: true)]
     private ?Email $newEmail = null;
     private ?Token $newEmailToken = null;
+    #[ORM\Column(type: RoleType::NAME, length: 16)]
     private Role $role;
     private ArrayObject $networks;
 
