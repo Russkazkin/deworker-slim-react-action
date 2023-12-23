@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Auth\Entity\User;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\GuidType;
 
-class IdType
+class IdType extends GuidType
 {
     public const NAME = 'auth_user_id';
 

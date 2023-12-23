@@ -60,6 +60,9 @@ return [
             'metadata_dirs' => [
                 __DIR__ . '/../../src/Auth/Entity',
             ],
+            'types' => [
+                Auth\Entity\User\IdType::NAME => Auth\Entity\User\IdType::class,
+            ],
         ],
     ],
 ];
