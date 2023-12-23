@@ -5,13 +5,19 @@ declare(strict_types=1);
 namespace App\Auth\Entity\User;
 
 use DateTimeImmutable;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 use DomainException;
 use Webmozart\Assert\Assert;
 
+#[ORM\Embeddable]
 class Token
 {
-    private string $value;
-    private DateTimeImmutable $expires;
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    private ?string $value;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?DateTimeImmutable $expires;
 
     public function __construct(string $value, DateTimeImmutable $expires)
     {

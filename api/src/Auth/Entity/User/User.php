@@ -26,10 +26,13 @@ class User
     private ?string $passwordHash = null;
     #[ORM\Column(type: StatusType::NAME, length: 16)]
     private Status $status;
+    #[ORM\Embedded(class: Token::class)]
     private ?Token $joinConfirmToken = null;
+    #[ORM\Embedded(class: Token::class)]
     private ?Token $passwordResetToken = null;
     #[ORM\Column(type: EmailType::NAME, nullable: true)]
     private ?Email $newEmail = null;
+    #[ORM\Embedded(class: Token::class)]
     private ?Token $newEmailToken = null;
     #[ORM\Column(type: RoleType::NAME, length: 16)]
     private Role $role;
