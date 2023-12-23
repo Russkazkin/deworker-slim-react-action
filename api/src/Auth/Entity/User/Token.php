@@ -14,12 +14,10 @@ use Webmozart\Assert\Assert;
 class Token
 {
     #[ORM\Column(type: Types::STRING, nullable: true)]
-    /** @var string $value */
-    private mixed $value;
+    private ?string $value;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    /** @var DateTimeImmutable $expires */
-    private mixed $expires;
+    private ?DateTimeImmutable $expires;
 
     public function __construct(string $value, DateTimeImmutable $expires)
     {
@@ -45,12 +43,12 @@ class Token
 
     public function getValue(): string
     {
-        return $this->value;
+        return $this->value ?? '';
     }
 
     public function getExpires(): DateTimeImmutable
     {
-        return $this->expires;
+        return $this->expires ?? new DateTimeImmutable();
     }
 
     public function isExpiredTo(DateTimeImmutable $date): bool

@@ -5,6 +5,7 @@ restart: down up
 check: lint analyze test
 lint: api-lint
 analyze: api-analyze
+orm-check: orm-validate-schema
 test-coverage: api-test-coverage
 test: api-test
 test-unit: api-test-unit
@@ -62,6 +63,9 @@ api-test-functional-coverage:
 
 api-composer-install:
 	docker-compose run --rm api-php-cli composer install
+
+orm-validate-schema:
+	docker-compose run --rm api-php-cli composer doctrine orm:validate-schema
 
 #production
 build: build-gateway build-frontend build-api
