@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
+use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
 use Doctrine\Migrations\Configuration\Migration\PhpFile;
 use Doctrine\Migrations\DependencyFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Application;
 use Doctrine\Migrations\Tools\Console\Command;
-use Doctrine\Migrations\Configuration\Connection\ExistingConnection;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -17,10 +17,9 @@ $container = require __DIR__ . '/../config/container.php';
 
 /** @var EntityManagerInterface $entityManager */
 $entityManager = $container->get(EntityManagerInterface::class);
-$connection = $entityManager->getConnection();
 $config = new PhpFile('migrations.php');
 
-$dependencyFactory = DependencyFactory::fromConnection($config, new ExistingConnection($connection));
+$dependencyFactory = DependencyFactory::fromEntityManager($config, new ExistingEntityManager($entityManager));
 
 $cli = new Application('Doctrine Migrations');
 $cli->setCatchExceptions(true);
@@ -36,6 +35,7 @@ $cli->addCommands(array(
     new Command\StatusCommand($dependencyFactory),
     new Command\SyncMetadataCommand($dependencyFactory),
     new Command\VersionCommand($dependencyFactory),
+    new Command\DiffCommand($dependencyFactory),
 ));
 
 $cli->run();
