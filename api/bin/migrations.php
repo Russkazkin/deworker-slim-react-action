@@ -24,7 +24,7 @@ $dependencyFactory = DependencyFactory::fromEntityManager($config, new ExistingE
 $cli = new Application('Doctrine Migrations');
 $cli->setCatchExceptions(true);
 
-$cli->addCommands(array(
+$cli->addCommands([
     new Command\DumpSchemaCommand($dependencyFactory),
     new Command\ExecuteCommand($dependencyFactory),
     new Command\GenerateCommand($dependencyFactory),
@@ -36,6 +36,6 @@ $cli->addCommands(array(
     new Command\SyncMetadataCommand($dependencyFactory),
     new Command\VersionCommand($dependencyFactory),
     new Command\DiffCommand($dependencyFactory),
-));
+]);
 
 $cli->run();
