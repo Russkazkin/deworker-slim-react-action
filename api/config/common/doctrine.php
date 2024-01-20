@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use App\Auth;
+use Doctrine\Common\EventManager;
+use Doctrine\Common\EventSubscriber;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
@@ -16,7 +18,7 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 return [
     EntityManagerInterface::class => static function (ContainerInterface $container): EntityManagerInterface {
 
-        $settings = $container->get('config')['doctrine.php'];
+        $settings = $container->get('config')['doctrine'];
 
         $config = ORMSetup::createAttributeMetadataConfiguration(
             $settings['metadata_dirs'],
@@ -33,18 +35,27 @@ return [
             }
         }
 
+        $eventManager = new EventManager();
+
+        foreach ($settings['subscribers'] as $name) {
+            /** @var EventSubscriber $subscriber */
+            $subscriber = $container->get($name);
+            $eventManager->addEventSubscriber($subscriber);
+        }
+
         $config->setNamingStrategy(new UnderscoreNamingStrategy());
 
         $connection = DriverManager::getConnection($settings['connection'], $config);
 
         return new EntityManager(
             $connection,
-            $config
+            $config,
+            $eventManager,
         );
     },
 
     'config' => [
-        'doctrine.php' => [
+        'doctrine' => [
             'dev_mode' => false,
             'base_cache_dir' => '/../../var/cache/doctrine.php',
             'cache_dir' => 'cache',
@@ -57,6 +68,7 @@ return [
                 'dbname' => getenv('DB_NAME'),
                 'charset' => 'utf-8'
             ],
+            'subscribers' => [],
             'metadata_dirs' => [
                 __DIR__ . '/../../src/Auth/Entity',
             ],
