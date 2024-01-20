@@ -64,8 +64,14 @@ api-test-functional-coverage:
 api-composer-install:
 	docker-compose run --rm api-php-cli composer install
 
-orm-schema-validate:
+doctrine-schema-validate:
 	docker-compose run --rm api-php-cli composer doctrine orm:validate-schema
+
+migrations-diff:
+	docker-compose run --rm api-php-cli composer migrations migrations:diff
+
+migrations-migrate:
+	docker-compose run --rm api-php-cli composer migrations migrations:migrate
 
 #production
 build: build-gateway build-frontend build-api
