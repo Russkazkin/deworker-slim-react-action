@@ -31,7 +31,7 @@ docker-build:
 api-clear:
 	docker run --rm -v ${PWD}/api:/app -w /app alpine sh -c 'rm -rf var/*'
 
-api-init: api-permissions api-composer-install
+api-init: api-permissions api-composer-install api-wait-db migrations-migrate
 
 api-permissions:
 	docker run --rm -v ${PWD}/api:/app -w /app alpine chmod 777 var
@@ -63,6 +63,9 @@ api-test-functional-coverage:
 
 api-composer-install:
 	docker-compose run --rm api-php-cli composer install
+
+api-wait-db:
+	docker-compose run --rm api-php-cli wait-for-it api-postgres:5432 -t 30
 
 doctrine-schema-validate:
 	docker-compose run --rm api-php-cli composer doctrine orm:validate-schema
