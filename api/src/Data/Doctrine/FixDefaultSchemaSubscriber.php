@@ -23,6 +23,8 @@ class FixDefaultSchemaSubscriber implements EventSubscriber
     /**
      * @throws Exception
      * @throws SchemaException
+     * @psalm-suppress RedundantCondition
+     * @psalm-suppress InternalMethod
      */
     public function postGenerateSchema(GenerateSchemaEventArgs $args): void
     {
@@ -34,7 +36,6 @@ class FixDefaultSchemaSubscriber implements EventSubscriber
         if (!$schemaManager instanceof PostgreSqlSchemaManager) {
             return;
         }
-
         foreach ($schemaManager->getExistingSchemaSearchPaths() as $namespace) {
             if (!$args->getSchema()->hasNamespace($namespace)) {
                 $args->getSchema()->createNamespace($namespace);
