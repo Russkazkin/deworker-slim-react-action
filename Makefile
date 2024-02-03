@@ -74,7 +74,7 @@ migrations-diff:
 	docker-compose run --rm api-php-cli composer migrations migrations:diff
 
 migrations-migrate:
-	docker-compose run --rm api-php-cli composer migrations migrations:migrate
+	docker-compose run --rm api-php-cli composer migrations migrations:migrate --no-interaction
 
 #production
 build: build-gateway build-frontend build-api
@@ -115,6 +115,8 @@ deploy:
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_DB_PASSWORD=${API_DB_PASSWORD}" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml pull'
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml up --build --remove-orphans -d'
+	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose run --rm api-php-cli wait-for-it api-postgres:5432 -t 60'
+	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose run --rm api-php-cli php bin/migrations.php --ansi migrations:migrate --no-interaction'
 	ssh ${HOST} -p ${PORT} 'rm -f site'
 	ssh ${HOST} -p ${PORT} 'ln -sr site_${BUILD_NUMBER} site'
 
