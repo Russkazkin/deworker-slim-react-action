@@ -15,6 +15,7 @@ $container = require  __DIR__ . '/../config/container.php';
 $cli = new Application('Console');
 
 $commands = $container->get('config')['console']['commands'];
+
 foreach ($commands as $name) {
     /** @var Command $command */
     $command = $container->get($name);

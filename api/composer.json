@@ -10,6 +10,9 @@
     "require": {
         "php": "^8.1",
         "ext-json": "*",
+        "doctrine/migrations": "^3.7",
+        "doctrine/orm": "^2.17",
+        "laminas/laminas-config-aggregator": "^1.14",
         "php-di/php-di": "^6.0",
         "ramsey/uuid": "^4.7",
         "slim/psr7": "^1.6",
@@ -18,6 +21,7 @@
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
+        "doctrine/data-fixtures": "^1.7",
         "overtrue/phplint": "^9.0",
         "phpunit/phpunit": "^10.3",
         "roave/security-advisories": "dev-latest",
@@ -36,6 +40,8 @@
     },
     "scripts": {
         "app": "@php bin/app.php --ansi",
+        "doctrine": "@php bin/doctrine.php --ansi",
+        "migrations": "@php bin/migrations.php --ansi",
         "lint": "phplint",
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",

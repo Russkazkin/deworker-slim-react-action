@@ -28,6 +28,10 @@ services:
         environment:
             APP_DEBUG: 0
             APP_ENV: prod
+            DB_HOST: api-postgres
+            DB_USER: app
+            DB_PASSWORD: ${API_DB_PASSWORD}
+            DB_NAME: app
 
     api-php-fpm:
         image: ${REGISTRY}/auction-api-php-fpm:${IMAGE_TAG}
@@ -35,3 +39,20 @@ services:
         environment:
             APP_DEBUG: 0
             APP_ENV: prod
+            DB_HOST: api-postgres
+            DB_USER: app
+            DB_PASSWORD: ${API_DB_PASSWORD}
+            DB_NAME: app
+
+    api-postgres:
+        image: postgres:15.5-alpine
+        restart: always
+        environment:
+            POSTGRES_USER: app
+            POSTGRES_PASSWORD: ${API_DB_PASSWORD}
+            POSTGRES_DB: app
+        volumes:
+            - api-postgres:/var/lib/postgresql/data
+
+volumes:
+    api-postgres:

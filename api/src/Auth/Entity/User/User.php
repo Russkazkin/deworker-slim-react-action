@@ -5,23 +5,41 @@ declare(strict_types=1);
 namespace App\Auth\Entity\User;
 
 use App\Auth\Service\PasswordHasher;
-use ArrayObject;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use DomainException;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: "auth_users")]
 class User
 {
+    #[ORM\Column(type: IdType::NAME)]
+    #[ORM\Id]
     private Id $id;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeImmutable $date;
+    #[ORM\Column(type: EmailType::NAME, unique: true)]
     private Email $email;
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $passwordHash = null;
+    #[ORM\Column(type: StatusType::NAME, length: 16)]
     private Status $status;
+    #[ORM\Embedded(class: Token::class)]
     private ?Token $joinConfirmToken = null;
-    private ArrayObject $networks;
+    #[ORM\Embedded(class: Token::class)]
     private ?Token $passwordResetToken = null;
+    #[ORM\Column(type: EmailType::NAME, nullable: true)]
     private ?Email $newEmail = null;
+    #[ORM\Embedded(class: Token::class)]
     private ?Token $newEmailToken = null;
+    #[ORM\Column(type: RoleType::NAME, length: 16)]
     private Role $role;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserNetwork::class, cascade: ['all'], orphanRemoval: true)]
+    private Collection $networks;
 
     public function __construct(
         Id $id,
@@ -34,17 +52,17 @@ class User
         $this->email = $email;
         $this->status = $status;
         $this->role = Role::user();
-        $this->networks = new ArrayObject();
+        $this->networks = new ArrayCollection();
     }
 
     public static function joinByNetwork(
         Id $id,
         DateTimeImmutable $date,
         Email $email,
-        NetworkIdentity $identity
+        Network $network
     ): self {
         $user = new self($id, $date, $email, Status::active());
-        $user->networks->append($identity);
+        $user->networks->add(new UserNetwork($user, $network));
         return $user;
     }
 
@@ -71,15 +89,15 @@ class User
         $this->joinConfirmToken = null;
     }
 
-    public function attachNetwork(NetworkIdentity $identity): void
+    public function attachNetwork(Network $network): void
     {
-        /** @var NetworkIdentity $existing */
+        /** @var UserNetwork $existing */
         foreach ($this->networks as $existing) {
-            if ($existing->isEqualTo($identity)) {
+            if ($existing->getNetwork()->isEqualTo($network)) {
                 throw new DomainException('Network is already attached.');
             }
         }
-        $this->networks->append($identity);
+        $this->networks->add(new UserNetwork($this, $network));
     }
 
     public function requestPasswordReset(Token $token, DateTimeImmutable $date): void
@@ -209,11 +227,27 @@ class User
     }
 
     /**
-     * @return NetworkIdentity[]
+     * @return Network[]
      */
     public function getNetworks(): array
     {
-        /** @var NetworkIdentity[] */
-        return $this->networks->getArrayCopy();
+        /** @var Network[] */
+        return $this->networks->map(static function (UserNetwork $network) {
+            return $network->getNetwork();
+        })->toArray();
+    }
+
+    #[ORM\PostLoad]
+    public function checkEmbeds(): void
+    {
+        if ($this->joinConfirmToken && $this->joinConfirmToken->isEmpty()) {
+            $this->joinConfirmToken = null;
+        }
+        if ($this->passwordResetToken && $this->passwordResetToken->isEmpty()) {
+            $this->passwordResetToken = null;
+        }
+        if ($this->newEmailToken && $this->newEmailToken->isEmpty()) {
+            $this->newEmailToken = null;
+        }
     }
 }
