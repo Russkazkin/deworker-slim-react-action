@@ -31,7 +31,7 @@ docker-build:
 api-clear:
 	docker run --rm -v ${PWD}/api:/app -w /app alpine sh -c 'rm -rf var/*'
 
-api-init: api-permissions api-composer-install api-wait-db migrations-migrate
+api-init: api-permissions api-composer-install api-wait-db migrations-migrate api-fixtures
 
 api-permissions:
 	docker run --rm -v ${PWD}/api:/app -w /app alpine chmod 777 var
@@ -75,6 +75,10 @@ migrations-diff:
 
 migrations-migrate:
 	docker-compose run --rm api-php-cli composer migrations migrations:migrate --no-interaction
+
+api-fixtures:
+	docker-compose run --rm api-php-cli composer app fixtures:load
+
 
 #production
 build: build-gateway build-frontend build-api
