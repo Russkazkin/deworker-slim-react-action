@@ -6,8 +6,30 @@ namespace App\Auth\Service;
 
 use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\Token;
+use RuntimeException;
+use Swift_Mailer;
+use Swift_Message;
 
-interface JoinConfirmationSender
+class JoinConfirmationSender
 {
-    public function send(Email $email, Token $token): void;
+    private array $from;
+
+    public function __construct(private readonly Swift_Mailer $mailer, array $from)
+    {
+        $this->from = $from;
+    }
+
+    public function send(Email $email, Token $token): void
+    {
+        $message = (new Swift_Message('Join Confirmation'))
+            ->setFrom($this->from)
+            ->setTo($email->getValue())
+            ->setBody('/join/confirm?' . http_build_query([
+                    'token' => $token->getValue(),
+                ]));
+
+        if ($this->mailer->send($message) === 0) {
+            throw new RuntimeException('Unable to send email.');
+        }
+    }
 }
