@@ -19,7 +19,7 @@ return [
         return new UserRepository($em, $repo);
     },
 
-    JoinConfirmationSender::class => function (ContainerInterface $container): JoinConfirmationSender {
+    JoinConfirmationSender::class => static function (ContainerInterface $container): JoinConfirmationSender {
         /** @var Swift_Mailer $mailer */
         $mailer = $container->get(Swift_Mailer::class);
         /**

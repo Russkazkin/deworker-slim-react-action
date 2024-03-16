@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace App\Console;
 
+use App\Auth\Entity\User\Email;
+use App\Auth\Entity\User\Token;
+use App\Auth\Service\JoinConfirmationSender;
+use DateTimeImmutable;
+use Ramsey\Uuid\Uuid;
 use Swift_Mailer;
 use Swift_SmtpTransport;
 use Symfony\Component\Console\Command\Command;
@@ -12,6 +17,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class MailerCheckCommand extends Command
 {
+    public function __construct(private readonly JoinConfirmationSender $sender)
+    {
+        parent::__construct();
+    }
+
     protected function configure(): void
     {
         $this->setName('mailer:check');
@@ -21,21 +31,10 @@ class MailerCheckCommand extends Command
     {
         $output->writeln('<comment>Sending...</comment>');
 
-        $transport = (new Swift_SmtpTransport('mailer', 1025))
-            ->setUsername('app')
-            ->setPassword('secret')
-            ->setEncryption('tcp');
-
-        $mailer = new Swift_Mailer($transport);
-
-        $message = (new \Swift_Message('Join Confirmation'))
-            ->setFrom('mail@app.test')
-            ->setTo('user@app.test')
-            ->setBody('Confirm');
-
-        if ($mailer->send($message) === 0) {
-            throw new \RuntimeException('Unable to send mail.');
-        }
+        $this->sender->send(
+            new Email('user@app.test'),
+            new Token(Uuid::uuid4()->toString(), new DateTimeImmutable())
+        );
 
         $output->writeln('<info>Done!</info>');
 
