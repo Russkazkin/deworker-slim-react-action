@@ -79,6 +79,8 @@ migrations-migrate:
 api-fixtures:
 	docker-compose run --rm api-php-cli composer app fixtures:load
 
+mailer-check:
+	docker-compose run --rm api-php-cli composer app mailer:check
 
 #production
 build: build-gateway build-frontend build-api
