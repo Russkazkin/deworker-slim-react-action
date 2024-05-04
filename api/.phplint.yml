@@ -7,4 +7,4 @@ exclude:
     - var
 warning: true
 memory-limit: -1
-cache: var/phplint
+cache: var/cache/phplint
