@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\ErrorHandler\LogErrorHandler;
+use App\ErrorHandler\SentryDecorator;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Log\LoggerInterface;
@@ -32,7 +33,9 @@ return [
         /** @var LoggerInterface $logger */
         $logger = $container->get(LoggerInterface::class);
 
-        $middleware->setDefaultErrorHandler(new LogErrorHandler($callableResolver, $responseFactory, $logger));
+        $middleware->setDefaultErrorHandler(new SentryDecorator(
+            new LogErrorHandler($callableResolver, $responseFactory, $logger)
+        ));
 
         return $middleware;
     },
