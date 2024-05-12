@@ -5,9 +5,15 @@ declare(strict_types=1);
 use Psr\Container\ContainerInterface;
 use Slim\App;
 
+use function Sentry\init;
+
 http_response_code(500);
 
 require __DIR__ . '/../vendor/autoload.php';
+
+if (getenv('SENTRY_DSN')) {
+    init(['dsn' => getenv('SENTRY_DSN'), 'traces_sample_rate' => 1.0,]);
+}
 
 /** @var ContainerInterface $container */
 $container = require __DIR__ . '/../config/container.php';
