@@ -14,8 +14,10 @@
         "doctrine/orm": "^2.17",
         "finesse/swiftmailer-defaults-plugin": "^2.0",
         "laminas/laminas-config-aggregator": "^1.14",
+        "monolog/monolog": "^3.6",
         "php-di/php-di": "^6.0",
         "ramsey/uuid": "^4.7",
+        "sentry/sentry": "^4.7",
         "slim/psr7": "^1.6",
         "slim/slim": "^4.11",
         "swiftmailer/swiftmailer": "^6.0",
@@ -50,6 +52,6 @@
         "cs-fix": "phpcbf",
         "psalm": "psalm",
         "test": "phpunit --colors=always",
-        "test-coverage": "XDEBUG_MODE=coverage phpunit --colors=always --coverage-html var/coverage"
+        "test-coverage": "XDEBUG_MODE=coverage phpunit --colors=always --coverage-html var/test/coverage"
     }
 }

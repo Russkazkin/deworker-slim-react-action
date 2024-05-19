@@ -1,4 +1,3 @@
-version: "3.7"
 services:
     gateway:
         build:
@@ -48,6 +47,7 @@ services:
             MAILER_ENCRYPTION: tcp
             MAILER_FROM_EMAIL: mail@app.test
             FRONTEND_URL: http://localhost:8080
+            SENTRY_DSN: null
         volumes:
             -   ./api:/app
 
@@ -69,6 +69,7 @@ services:
             MAILER_ENCRYPTION: tcp
             MAILER_FROM_EMAIL: mail@app.test
             FRONTEND_URL: http://localhost:8080
+            SENTRY_DSN: null
         volumes:
             -   ./api:/app
 
