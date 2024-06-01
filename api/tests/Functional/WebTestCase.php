@@ -15,7 +15,7 @@ class WebTestCase extends TestCase
     /**
      * @throws \JsonException
      */
-    protected static function json(string $method, string $path, array $body): ServerRequestInterface
+    protected static function json(string $method, string $path, array $body = []): ServerRequestInterface
     {
         $request = self::request($method, $path)
             ->withHeader('Accept', 'application/json')
