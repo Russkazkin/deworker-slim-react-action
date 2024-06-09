@@ -44,7 +44,6 @@ api-analyze:
 	docker-compose run --rm api-php-cli composer psalm
 
 api-test:
-	docker-compose run --rm api-php-cli composer app fixtures:load
 	docker-compose run --rm api-php-cli composer test
 
 api-test-coverage:

@@ -5,11 +5,23 @@ declare(strict_types=1);
 namespace Test\Functional\V1\Auth\Join;
 
 use JsonException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Test\Functional\Json;
 use Test\Functional\WebTestCase;
 
 class RequestTest extends WebTestCase
 {
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->loadFixtures([RequestFixture::class]);
+    }
     public function testMethod(): void
     {
         $response = $this->app()->handle(self::json('GET', '/v1/auth/join'));
@@ -37,7 +49,7 @@ class RequestTest extends WebTestCase
     public function testExisting(): void
     {
         $response = $this->app()->handle(self::json('POST', '/v1/auth/join', [
-            'email' => 'user@app.test',
+            'email' => 'existing@app.test',
             'password' => 'new-password',
         ]));
 
