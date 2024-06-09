@@ -19,6 +19,14 @@ use Slim\Psr7\Factory\ServerRequestFactory;
 
 class WebTestCase extends TestCase
 {
+    private ?App $app = null;
+
+    protected function tearDown(): void
+    {
+        $this->app = null;
+        parent::tearDown();
+    }
+
     /**
      * @throws \JsonException
      */
@@ -58,8 +66,11 @@ class WebTestCase extends TestCase
     }
     protected function app(): App
     {
-        /** @var App */
-        return (require __DIR__ . '/../../config/app.php')($this->container());
+        if ($this->app === null) {
+            /** @var App */
+            $this->app = (require __DIR__ . '/../../config/app.php')($this->container());
+        }
+        return $this->app;
     }
 
     private function container(): ContainerInterface
