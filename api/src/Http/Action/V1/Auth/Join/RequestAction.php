@@ -9,6 +9,7 @@ use App\Auth\Command\JoinByEmail\Request\Handler;
 use App\Http\EmptyResponse;
 use App\Http\JsonResponse;
 use DomainException;
+use JsonException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -22,13 +23,15 @@ class RequestAction implements RequestHandlerInterface
         $this->handler = $handler;
     }
 
+    /**
+     * @throws JsonException
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         /**
          * @psalm-var array{email:?string, password:?string} $data
          */
         $data = json_decode((string)$request->getBody(), true);
-
         $command = new Command();
         $command->email = trim($data['email'] ?? '');
         $command->password = trim($data['password'] ?? '');

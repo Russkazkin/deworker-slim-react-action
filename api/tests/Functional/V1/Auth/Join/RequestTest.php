@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Test\Functional\V1\Auth\Join;
 
+use JsonException;
 use Test\Functional\Json;
 use Test\Functional\WebTestCase;
 
@@ -16,6 +17,9 @@ class RequestTest extends WebTestCase
         self::assertEquals(405, $response->getStatusCode());
     }
 
+    /**
+     * @throws JsonException
+     */
     public function testSuccess(): void
     {
         $response = $this->app()->handle(self::json('POST', '/v1/auth/join', [
@@ -27,6 +31,9 @@ class RequestTest extends WebTestCase
         self::assertEquals('', (string)$response->getBody());
     }
 
+    /**
+     * @throws JsonException
+     */
     public function testExisting(): void
     {
         $response = $this->app()->handle(self::json('POST', '/v1/auth/join', [
