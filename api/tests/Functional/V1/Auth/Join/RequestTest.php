@@ -45,6 +45,7 @@ class RequestTest extends WebTestCase
 
         self::assertEquals(201, $response->getStatusCode());
         self::assertEquals('', (string)$response->getBody());
+        self::assertTrue($this->mailer()->hasEmailSentTo('new-user@app.test'));
     }
 
     /**
