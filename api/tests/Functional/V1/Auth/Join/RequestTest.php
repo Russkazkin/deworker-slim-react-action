@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Test\Functional\V1\Auth\Join;
 
+use GuzzleHttp\Exception\GuzzleException;
 use JsonException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -31,9 +32,12 @@ class RequestTest extends WebTestCase
 
     /**
      * @throws JsonException
+     * @throws GuzzleException
      */
     public function testSuccess(): void
     {
+        $this->mailer()->clear();
+
         $response = $this->app()->handle(self::json('POST', '/v1/auth/join', [
             'email' => 'new-user@app.test',
             'password' => 'new-password',
