@@ -66,20 +66,46 @@ class RequestTest extends WebTestCase
         ], Json::decode($body));
     }
 
+    /**
+     * @throws JsonException
+     */
     public function testEmpty(): void
     {
+        $this->markTestIncomplete('Waiting for validation.');
+
         $response = $this->app()->handle(self::json('POST', '/v1/auth/join', []));
 
-        self::assertEquals(500, $response->getStatusCode());
+        self::assertEquals(422, $response->getStatusCode());
+        self::assertJson($body = (string)$response->getBody());
+
+        self::assertEquals([
+            'errors' => [
+                'email' => 'This value should not be blank.',
+                'password' => 'This value should not be blank.',
+            ],
+        ], Json::decode($body));
     }
 
+    /**
+     * @throws JsonException
+     */
     public function testNotValid(): void
     {
+        $this->markTestIncomplete('Waiting for validation.');
+
         $response = $this->app()->handle(self::json('POST', '/v1/auth/join', [
             'email' => 'not-email',
             'password' => '',
         ]));
 
-        self::assertEquals(500, $response->getStatusCode());
+        self::assertEquals(422, $response->getStatusCode());
+        self::assertJson($body = (string)$response->getBody());
+
+        self::assertEquals([
+            'errors' => [
+                'email' => 'This value is not a valid email address.',
+                'password' => 'This value should not be blank.',
+            ],
+        ], Json::decode($body));
     }
 }
