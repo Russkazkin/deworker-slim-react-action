@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Http\Middleware\{ClearEmptyInput, DomainExceptionHandler, ValidationExceptionHandler};
+use App\Http\Middleware\{ClearEmptyInput, DomainExceptionHandler, TranslatorLocale, ValidationExceptionHandler};
 use Slim\App;
 use Slim\Middleware\ErrorMiddleware;
 
@@ -10,6 +10,7 @@ return static function (App $app): void {
     $app->add(DomainExceptionHandler::class);
     $app->add(ValidationExceptionHandler::class);
     $app->add(ClearEmptyInput::class);
+    $app->add(TranslatorLocale::class);
     $app->addBodyParsingMiddleware();
     $app->add(ErrorMiddleware::class);
 };

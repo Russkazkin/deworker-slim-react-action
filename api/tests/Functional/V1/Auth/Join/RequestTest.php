@@ -56,13 +56,13 @@ class RequestTest extends WebTestCase
         $response = $this->app()->handle(self::json('POST', '/v1/auth/join', [
             'email' => 'existing@app.test',
             'password' => 'new-password',
-        ]));
+        ])->withHeader('Accept-Language', 'ru'));
 
         self::assertEquals(409, $response->getStatusCode());
         self::assertJson($body = (string)$response->getBody());
 
         self::assertEquals([
-            'message' => 'User already exists.',
+            'message' => 'Пользователь уже существует.',
         ], Json::decode($body));
     }
 
@@ -105,10 +105,11 @@ class RequestTest extends WebTestCase
         ], Json::decode($body));
     }
 
+    /**
+     * @throws JsonException
+     */
     public function testNotValidLang(): void
     {
-        $this->markTestIncomplete('Waiting for translation.');
-
         $response = $this->app()->handle(self::json('POST', '/v1/auth/join', [
             'email' => 'not-email',
             'password' => '',
@@ -122,7 +123,7 @@ class RequestTest extends WebTestCase
         self::assertEquals([
             'errors' => [
                 'email' => 'Значение адреса электронной почты недопустимо.',
-                'password' => 'Значение не должно быть пустым.',
+                'password' => 'Значение слишком короткое. Должно быть равно 6 символам или больше.',
             ],
         ], $data);
     }
