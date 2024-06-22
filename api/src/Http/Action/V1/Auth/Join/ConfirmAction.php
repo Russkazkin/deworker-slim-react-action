@@ -7,13 +7,14 @@ namespace App\Http\Action\V1\Auth\Join;
 use App\Auth\Command\JoinByEmail\Confirm\Command;
 use App\Auth\Command\JoinByEmail\Confirm\Handler;
 use App\Http\EmptyResponse;
+use App\Http\Validator\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class ConfirmAction implements RequestHandlerInterface
 {
-    public function __construct(private readonly Handler $handler)
+    public function __construct(private readonly Handler $handler, private readonly Validator $validator)
     {
     }
 
@@ -26,6 +27,8 @@ class ConfirmAction implements RequestHandlerInterface
 
         $command = new Command();
         $command->token = $data['token'] ?? '';
+
+        $this->validator->validate($command);
 
         $this->handler->handle($command);
 
