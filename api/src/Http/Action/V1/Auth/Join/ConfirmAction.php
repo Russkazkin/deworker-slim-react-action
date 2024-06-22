@@ -7,17 +7,22 @@ namespace App\Http\Action\V1\Auth\Join;
 use App\Auth\Command\JoinByEmail\Confirm\Command;
 use App\Auth\Command\JoinByEmail\Confirm\Handler;
 use App\Http\EmptyResponse;
+use App\Http\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ConfirmAction implements RequestHandlerInterface
 {
-    public function __construct(private readonly Handler $handler)
+    public function __construct(private readonly Handler $handler, private readonly ValidatorInterface $validator)
     {
     }
 
-    public function handle(ServerRequestInterface $request): ResponseInterface
+    /**
+     * @throws \JsonException
+     */
+    public function handle(ServerRequestInterface $request): ResponseInterface|JsonResponse
     {
         /**
          * @psalm-var array{token:?string} $data
@@ -26,6 +31,16 @@ class ConfirmAction implements RequestHandlerInterface
 
         $command = new Command();
         $command->token = $data['token'] ?? '';
+
+        $violations = $this->validator->validate($command);
+
+        if ($violations->count() > 0) {
+            $errors = [];
+            foreach ($violations as $violation) {
+                $errors[$violation->getPropertyPath()] = $violation->getMessage();
+            }
+            return new JsonResponse(['errors' => $errors], 422);
+        }
 
         $this->handler->handle($command);
 

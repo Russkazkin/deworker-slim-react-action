@@ -13,7 +13,6 @@ class Command
     #[NotBlank]
     #[Email]
     public string $email = '';
-    #[NotBlank]
     #[Length(min: 6)]
     public string $password = '';
 }
