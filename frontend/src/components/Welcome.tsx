@@ -1,11 +1,11 @@
 import React from 'react';
-import './Welcome.sass';
+import styles from './Welcome.module.sass';
 
 const Welcome: React.FC = () => {
   return (
-    <div className="welcome">
+    <div className={styles.welcome}>
       <h1>Auction</h1>
-      <p>We will be here soon!</p>
+      <p>We will be here soon</p>
     </div>
   );
 }
