@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.sass';
-
-function App() {
+ const App = () => {
   return (
     <div className="App">
       <div className="app">
