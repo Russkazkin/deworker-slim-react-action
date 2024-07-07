@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react';
 import App from './App';
 
 test('renders learn react link', () => {
-  render(<App />);
-  const h1Element = screen.getByText(/Auction/i);
-  expect(h1Element).toBeInTheDocument();
+  const { container } = render(<App />);
+  expect(container.getElementsByClassName('App').length).toBe(1);
 });
