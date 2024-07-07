@@ -10,7 +10,7 @@ lint: api-lint
 analyze: api-analyze
 orm-check: doctrine-schema-validate
 test-coverage: api-test-coverage
-test: api-test api-fixtures
+test: api-test api-fixtures frontend-test
 test-unit: api-test-unit
 test-unit-coverage: api-test-unit-coverage
 test-functional: api-test-functional api-fixtures
@@ -95,6 +95,12 @@ frontend-yarn-install:
 
 frontend-ready:
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine touch .ready
+
+frontend-test:
+	docker-compose run --rm frontend-node-cli yarn test --watchAll=false
+
+frontend-test-watch:
+	docker-compose run --rm frontend-node-cli yarn test
 
 #production
 build: build-gateway build-frontend build-api
