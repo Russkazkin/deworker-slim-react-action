@@ -37,7 +37,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "lint": "eslint src/"
+    "lint": "eslint src/",
+    "lint-fix": "eslint --fix src/"
   },
   "eslintConfig": {
     "extends": [
