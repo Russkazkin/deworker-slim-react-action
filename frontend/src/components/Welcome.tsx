@@ -8,6 +8,6 @@ const Welcome: React.FC = () => {
       <p>We will be here soon</p>
     </div>
   );
-}
+};
 
 export default Welcome;

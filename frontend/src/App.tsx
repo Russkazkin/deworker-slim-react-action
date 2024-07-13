@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.sass';
-import Welcome from "./components/Welcome";
+import Welcome from './components/Welcome';
  const App: React.FC = () => {
   return (
     <div className="App">
@@ -9,6 +9,6 @@ import Welcome from "./components/Welcome";
       </div>
     </div>
   );
-}
+};
 
 export default App;
