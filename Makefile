@@ -1,32 +1,35 @@
-init: docker-down-clear api-clear docker-pull docker-build docker-up api-init
+init: docker-down-clear \
+ 			api-clear frontend-clear \
+ 			docker-pull docker-build docker-up \
+ 			api-init frontend-init
 up: docker-up
 down: docker-down
 restart: down up
 check: lint analyze test orm-check
-lint: api-lint
+lint: api-lint frontend-eslint
 analyze: api-analyze
 orm-check: doctrine-schema-validate
 test-coverage: api-test-coverage
-test: api-test api-fixtures
+test: api-test api-fixtures frontend-test
 test-unit: api-test-unit
 test-unit-coverage: api-test-unit-coverage
 test-functional: api-test-functional api-fixtures
 test-functional-coverage: api-test-functional-coverage api-fixtures
 
 docker-up:
-	docker-compose up -d
+	docker compose up -d
 
 docker-down:
-	docker-compose down --remove-orphans
+	docker compose down --remove-orphans
 
 docker-down-clear:
-	docker-compose down -v --remove-orphans
+	docker compose down -v --remove-orphans
 
 docker-pull:
-	docker-compose pull
+	docker compose pull
 
 docker-build:
-	docker-compose build --pull
+	docker compose build --pull
 
 api-clear:
 	docker run --rm -v ${PWD}/api:/app -w /app alpine sh -c 'rm -rf var/cache/* var/log/* var/test/*'
@@ -37,50 +40,77 @@ api-permissions:
 	docker run --rm -v ${PWD}/api:/app -w /app alpine chmod 777 var/cache var/log var/test
 
 api-lint:
-	docker-compose run --rm api-php-cli composer lint
-	docker-compose run --rm api-php-cli composer cs-check
+	docker compose run --rm api-php-cli composer lint
+	docker compose run --rm api-php-cli composer cs-check
 
 api-analyze:
-	docker-compose run --rm api-php-cli composer psalm
+	docker compose run --rm api-php-cli composer psalm
 
 api-test:
-	docker-compose run --rm api-php-cli composer test
+	docker compose run --rm api-php-cli composer test
 
 api-test-coverage:
-	docker-compose run --rm api-php-cli composer test-coverage
+	docker compose run --rm api-php-cli composer test-coverage
 
 api-test-unit:
-	docker-compose run --rm api-php-cli composer test -- --testsuite=unit
+	docker compose run --rm api-php-cli composer test -- --testsuite=unit
 
 api-test-unit-coverage:
-	docker-compose run --rm api-php-cli composer test-coverage -- --testsuite=unit
+	docker compose run --rm api-php-cli composer test-coverage -- --testsuite=unit
 
 api-test-functional:
-	docker-compose run --rm api-php-cli composer test -- --testsuite=functional
+	docker compose run --rm api-php-cli composer test -- --testsuite=functional
 
 api-test-functional-coverage:
-	docker-compose run --rm api-php-cli composer test-coverage -- --testsuite=functional
+	docker compose run --rm api-php-cli composer test-coverage -- --testsuite=functional
 
 api-composer-install:
-	docker-compose run --rm api-php-cli composer install
+	docker compose run --rm api-php-cli composer install
 
 api-wait-db:
-	docker-compose run --rm api-php-cli wait-for-it api-postgres:5432 -t 30
+	docker compose run --rm api-php-cli wait-for-it api-postgres:5432 -t 30
 
 doctrine-schema-validate:
-	docker-compose run --rm api-php-cli composer doctrine orm:validate-schema
+	docker compose run --rm api-php-cli composer doctrine orm:validate-schema
 
 migrations-diff:
-	docker-compose run --rm api-php-cli composer migrations migrations:diff
+	docker compose run --rm api-php-cli composer migrations migrations:diff
 
 migrations-migrate:
-	docker-compose run --rm api-php-cli composer migrations migrations:migrate --no-interaction
+	docker compose run --rm api-php-cli composer migrations migrations:migrate --no-interaction
 
 api-fixtures:
-	docker-compose run --rm api-php-cli composer app fixtures:load
+	docker compose run --rm api-php-cli composer app fixtures:load
 
 mailer-check:
-	docker-compose run --rm api-php-cli composer app mailer:check
+	docker compose run --rm api-php-cli composer app mailer:check
+
+frontend-clear:
+	docker run --rm -v ${PWD}/frontend:/app -w /app alpine sh -c 'rm -rf .ready build'
+
+frontend-init: frontend-yarn-install frontend-ready
+
+frontend-yarn-install:
+	docker compose run --rm frontend-node-cli yarn install
+
+frontend-ready:
+	docker run --rm -v ${PWD}/frontend:/app -w /app alpine touch .ready
+
+frontend-eslint:
+	docker compose run --rm frontend-node-cli yarn eslint
+	docker compose run --rm frontend-node-cli yarn stylelint
+
+frontend-eslint-fix:
+	docker compose run --rm frontend-node-cli yarn eslint-fix
+
+frontend-test:
+	docker compose run --rm frontend-node-cli yarn test --watchAll=false
+
+frontend-test-watch:
+	docker compose run --rm frontend-node-cli yarn test
+
+frontend-pretty:
+	docker compose run --rm frontend-node-cli yarn prettier
 
 #production
 build: build-gateway build-frontend build-api
@@ -125,16 +155,16 @@ deploy:
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_MAILER_PASSWORD=${API_MAILER_PASSWORD}" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_MAILER_FROM_EMAIL=${API_MAILER_FROM_EMAIL}" >> .env'
 	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "SENTRY_DSN=${SENTRY_DSN}" >> .env'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml pull'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml up --build -d api-postgres api-php-cli'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml run api-php-cli wait-for-it api-postgres:5432 -t 60'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml run api-php-cli php bin/migrations.php --ansi migrations:migrate --no-interaction'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml up --build --remove-orphans -d'
+	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml pull'
+	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml up --build -d api-postgres api-php-cli'
+	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml run api-php-cli wait-for-it api-postgres:5432 -t 60'
+	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml run api-php-cli php bin/migrations.php --ansi migrations:migrate --no-interaction'
+	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml up --build --remove-orphans -d'
 	ssh ${HOST} -p ${PORT} 'rm -f site'
 	ssh ${HOST} -p ${PORT} 'ln -sr site_${BUILD_NUMBER} site'
 
 rollback:
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml pull'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml up --build --remove-orphans -d'
+	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml pull'
+	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml up --build --remove-orphans -d'
 	ssh ${HOST} -p ${PORT} 'rm -f site'
 	ssh ${HOST} -p ${PORT} 'ln -sr site_${BUILD_NUMBER} site'
