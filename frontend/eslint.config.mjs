@@ -10,6 +10,7 @@ import jsdocPlugin from 'eslint-plugin-jsdoc';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
 import unicornPlugin from 'eslint-plugin-unicorn';
+import eslintConfigPrettier from "eslint-config-prettier";
 
 
 export default [
@@ -43,5 +44,6 @@ export default [
       ],
       semi: [2, 'always'],
     }
-  }
+  },
+  eslintConfigPrettier,
 ];

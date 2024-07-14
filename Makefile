@@ -109,6 +109,9 @@ frontend-test:
 frontend-test-watch:
 	docker compose run --rm frontend-node-cli yarn test
 
+frontend-pretty:
+	docker compose run --rm frontend-node-cli yarn prettier
+
 #production
 build: build-gateway build-frontend build-api
 
