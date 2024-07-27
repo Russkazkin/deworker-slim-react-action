@@ -1,4 +1,8 @@
 {
+  "license": "MIT",
+  "scripts": {
+    "e2e": "cucumber-js"
+  },
   "dependencies": {
     "@cucumber/cucumber": "^10.8.0"
   }
