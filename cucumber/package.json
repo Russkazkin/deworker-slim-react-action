@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@cucumber/cucumber": "^10.8.0"
+  }
+}
