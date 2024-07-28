@@ -1,15 +1,15 @@
-const puppeteer = require('puppeteer')
-const { Before, After } = require('@cucumber/cucumber')
+const puppeteer = require('puppeteer');
+const { Before, After } = require('@cucumber/cucumber');
 
 Before(async function () {
-    this.browser = await puppeteer.launch({
-        args: [
-        '--disable-dev-shm-usage',
-        '--no-sandbox'
-        ]
-    })
-})
+  this.browser = await puppeteer.launch({
+    args: [
+      '--disable-dev-shm-usage',
+      '--no-sandbox'
+    ]
+  });
+});
 
 After(async function () {
-    await this.browser.close()
-})
+  await this.browser.close();
+});
