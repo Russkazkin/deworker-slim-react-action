@@ -1,9 +1,15 @@
 {
   "license": "MIT",
   "scripts": {
-    "e2e": "cucumber-js"
+    "e2e": "cucumber-js",
+    "lint": "eslint features",
+    "lint-fix": "eslint --fix features"
   },
   "dependencies": {
     "@cucumber/cucumber": "^10.8.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "eslint": "^9.8.0"
   }
 }

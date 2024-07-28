@@ -6,7 +6,7 @@ up: docker-up
 down: docker-down
 restart: down up
 check: lint analyze test orm-check
-lint: api-lint frontend-eslint
+lint: api-lint frontend-eslint cucumber-lint
 analyze: api-analyze
 orm-check: doctrine-schema-validate
 test-coverage: api-test-coverage
@@ -117,6 +117,12 @@ cucumber-init: cucumber-yarn-install
 
 cucumber-yarn-install:
 	docker compose run --rm cucumber-node-cli yarn install
+
+cucumber-lint:
+	docker compose run --rm cucumber-node-cli yarn lint
+
+cucumber-lint-fix:
+	docker compose run --rm cucumber-node-cli yarn lint-fix
 
 cucumber-e2e:
 	docker compose run --rm cucumber-node-cli yarn e2e
