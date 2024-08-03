@@ -1,6 +1,5 @@
-import { Given, When, Then } from '@cucumber/cucumber';
+import { When, Then } from '@cucumber/cucumber';
 import { expect } from 'chai';
-Given('I am a guest user', function () {});
 
 When('I open home page', async function () {
   return await this.page.goto('http://gateway:8080');
