@@ -1,9 +1,5 @@
-import { When, Then } from '@cucumber/cucumber';
+import { Then } from '@cucumber/cucumber';
 import { expect } from 'chai';
-
-When('I open {string} page', async function (uri) {
-  return await this.page.goto('http://gateway:8080' + uri);
-});
 
 Then('I see welcome block', async function () {
   await this.page.waitForSelector('[data-test=welcome]');
