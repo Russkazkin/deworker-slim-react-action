@@ -15,7 +15,7 @@ Before(async function () {
 After(async function (testCase) {
   if (this.page) {
     if (testCase.result && testCase.result.status === Status.FAILED) {
-      const screenShot = await this.page.screenshot({ encoding: 'base64', fullPage: true });
+      const screenShot = await this.page.screenshot({ fullPage: true });
       this.attach(screenShot, 'image/png');
     }
     await this.page.close();

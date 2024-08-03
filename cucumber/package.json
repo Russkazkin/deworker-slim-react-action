@@ -3,12 +3,14 @@
   "type": "module",
   "scripts": {
     "e2e": "cucumber-js --format json:var/report.json",
+    "report": "node reporter.js",
     "lint": "eslint features",
     "lint-fix": "eslint --fix features"
   },
   "dependencies": {
     "@cucumber/cucumber": "^10.8.0",
     "chai": "^5.1.1",
+    "cucumber-html-reporter": "^7.1.1",
     "puppeteer": "^22.14.0"
   },
   "devDependencies": {

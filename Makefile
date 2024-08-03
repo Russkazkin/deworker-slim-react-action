@@ -15,7 +15,11 @@ test-unit: api-test-unit
 test-unit-coverage: api-test-unit-coverage
 test-functional: api-test-functional api-fixtures
 test-functional-coverage: api-test-functional-coverage api-fixtures
-test-e2e: api-fixtures cucumber-clear cucumber-e2e
+test-e2e:
+	make api-fixtures
+	make cucumber-clear
+	- make cucumber-e2e
+	make cucumber-report
 
 docker-up:
 	docker compose up -d
@@ -129,6 +133,9 @@ cucumber-lint-fix:
 
 cucumber-e2e:
 	docker compose run --rm cucumber-node-cli yarn e2e
+
+cucumber-report:
+	docker compose run --rm cucumber-node-cli yarn report
 
 
 #production
