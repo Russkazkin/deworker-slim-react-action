@@ -1,5 +1,6 @@
 {
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "e2e": "cucumber-js",
     "lint": "eslint features",

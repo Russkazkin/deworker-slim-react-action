@@ -1,5 +1,5 @@
-const puppeteer = require('puppeteer');
-const { Before, After } = require('@cucumber/cucumber');
+import puppeteer from 'puppeteer';
+import { Before, After } from '@cucumber/cucumber';
 
 Before(async function () {
   this.browser = await puppeteer.launch({
