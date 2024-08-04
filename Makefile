@@ -1,12 +1,12 @@
 init: docker-down-clear \
- 			api-clear frontend-clear \
+ 			api-clear frontend-clear cucumber-clear \
  			docker-pull docker-build docker-up \
- 			api-init frontend-init
+ 			api-init frontend-init cucumber-init
 up: docker-up
 down: docker-down
 restart: down up
 check: lint analyze test orm-check
-lint: api-lint frontend-eslint
+lint: api-lint frontend-eslint cucumber-lint
 analyze: api-analyze
 orm-check: doctrine-schema-validate
 test-coverage: api-test-coverage
@@ -15,6 +15,12 @@ test-unit: api-test-unit
 test-unit-coverage: api-test-unit-coverage
 test-functional: api-test-functional api-fixtures
 test-functional-coverage: api-test-functional-coverage api-fixtures
+test-smoke: api-fixtures cucumber-clear cucumber-smoke
+test-e2e:
+	make api-fixtures
+	make cucumber-clear
+	- make cucumber-e2e
+	make cucumber-report
 
 docker-up:
 	docker compose up -d
@@ -111,6 +117,31 @@ frontend-test-watch:
 
 frontend-pretty:
 	docker compose run --rm frontend-node-cli yarn prettier
+
+cucumber-init: cucumber-yarn-install
+
+cucumber-clear:
+	docker run --rm -v ${PWD}/cucumber:/app -w /app alpine sh -c 'rm -rf var/*'
+
+cucumber-yarn-install:
+	docker compose run --rm cucumber-node-cli yarn install
+
+cucumber-lint:
+	docker compose run --rm cucumber-node-cli yarn lint
+
+cucumber-lint-fix:
+	docker compose run --rm cucumber-node-cli yarn lint-fix
+
+cucumber-smoke:
+	docker compose run --rm cucumber-node-cli yarn smoke
+
+
+cucumber-e2e:
+	docker compose run --rm cucumber-node-cli yarn e2e
+
+cucumber-report:
+	docker compose run --rm cucumber-node-cli yarn report
+
 
 #production
 build: build-gateway build-frontend build-api
