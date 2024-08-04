@@ -2,7 +2,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "e2e": "cucumber-js --format json:var/report.json",
+    "e2e": "cucumber-js  --parallel 4 --format json:var/report.json",
     "report": "node reporter.js",
     "lint": "eslint features",
     "lint-fix": "eslint --fix features"
