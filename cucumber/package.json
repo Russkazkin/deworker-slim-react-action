@@ -3,6 +3,7 @@
   "type": "module",
   "scripts": {
     "e2e": "cucumber-js  --parallel 4 --format json:var/report.json",
+    "smoke": "cucumber-js --tags @smoke --fail-fast --parallel 2",
     "report": "node reporter.js",
     "lint": "eslint features",
     "lint-fix": "eslint --fix features"

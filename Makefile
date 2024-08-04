@@ -15,6 +15,7 @@ test-unit: api-test-unit
 test-unit-coverage: api-test-unit-coverage
 test-functional: api-test-functional api-fixtures
 test-functional-coverage: api-test-functional-coverage api-fixtures
+test-smoke: api-fixtures cucumber-clear cucumber-smoke
 test-e2e:
 	make api-fixtures
 	make cucumber-clear
@@ -130,6 +131,10 @@ cucumber-lint:
 
 cucumber-lint-fix:
 	docker compose run --rm cucumber-node-cli yarn lint-fix
+
+cucumber-smoke:
+	docker compose run --rm cucumber-node-cli yarn smoke
+
 
 cucumber-e2e:
 	docker compose run --rm cucumber-node-cli yarn e2e
