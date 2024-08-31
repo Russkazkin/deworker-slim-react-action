@@ -6,7 +6,7 @@ RUN apk add --no-cache postgresql-dev \
 
 RUN apk add --no-cache unzip
 
-ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer --quiet \
     && rm -rf /root/.composer/cache
