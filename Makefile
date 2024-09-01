@@ -174,10 +174,13 @@ push-api:
 push-cli:
 	docker push ${REGISTRY}/auction-api-php-cli:${IMAGE_TAG}
 
-testing-build: testing-build-gateway testing-build-cucumber
+testing-build: testing-build-gateway testing-build-testing-api-php-cli testing-build-cucumber
 
 testing-build-gateway:
 	docker --log-level=debug build --pull --file=gateway/docker/testing/nginx/Dockerfile --tag=${REGISTRY}/auction-testing-gateway:${IMAGE_TAG} gateway/docker
+
+testing-build-testing-api-php-cli:
+	docker --log-level=debug build --pull --file=api/docker/testing/php-cli/Dockerfile --tag=${REGISTRY}/auction-testing-api-php-cli:${IMAGE_TAG} api
 
 testing-build-cucumber:
 	docker --log-level=debug build --pull --file=cucumber/docker/testing/node/Dockerfile --tag=${REGISTRY}/auction-cucumber-node-cli:${IMAGE_TAG} cucumber
