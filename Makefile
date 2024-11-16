@@ -1,4 +1,4 @@
-include .env
+#include .env
 
 init: docker-down-clear \
  			api-clear frontend-clear cucumber-clear \
