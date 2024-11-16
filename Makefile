@@ -1,5 +1,3 @@
-#include .env
-
 init: docker-down-clear \
  			api-clear frontend-clear cucumber-clear \
  			docker-pull docker-build docker-up \
@@ -220,7 +218,7 @@ try-testing-down-clear:
 	REGISTRY=localhost IMAGE_TAG=0 make testing-down-clear
 
 validate-jenkins:
-	curl --user ${MAKE_JENKINS_USER}:${MAKE_JENKINS_PASSWORD} -X POST -F "jenkinsfile=<Jenkinsfile" ${MAKE_JENKINS_HOST}/pipeline-model-converter/validate
+	curl --user ${USER} -X POST -F "jenkinsfile=<Jenkinsfile" ${HOST}/pipeline-model-converter/validate
 
 deploy:
 	ssh ${HOST} -p ${PORT} 'rm -rf site_${BUILD_NUMBER}'
