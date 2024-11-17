@@ -14,7 +14,7 @@ pipeline {
         }
         stage("Validate") {
             steps {
-                sh "make api-validate-schema"
+                sh "make doctrine-schema-validate"
             }
         }
         stage("Down") {
