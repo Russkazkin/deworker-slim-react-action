@@ -17,6 +17,25 @@ pipeline {
                 sh "make doctrine-schema-validate"
             }
         }
+        stage("Lint") {
+            parallel {
+                stage("API") {
+                    steps {
+                        sh "make api-lint"
+                    }
+                }
+                stage("Frontend") {
+                    steps {
+                        sh "make frontend-eslint"
+                    }
+                }
+                stage("Cucumber") {
+                    steps {
+                        sh "make cucumber-lint"
+                    }
+                }
+            }
+        }
         stage("Down") {
             steps {
                 sh "make docker-down-clear"
