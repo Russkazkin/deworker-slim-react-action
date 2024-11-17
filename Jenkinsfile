@@ -96,23 +96,22 @@ pipeline {
                 }
             }
         }
-    }
-    stage("Push") {
-        when {
-            branch "ci"
-//             branch "master"
-        }
-        steps {
-            withCredentials([
-                usernamePassword(
-                    credentialsId: 'REGISTRY_AUTH',
-                    usernameVariable: 'USER',
-                    passwordVariable: 'PASSWORD'
-                )
-            ]) {
-                sh "docker login -u=$USER -p='$PASSWORD' $REGISTRY"
+        stage("Push") {
+            when {
+                branch "ci"
             }
-            sh "make push"
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'REGISTRY_AUTH',
+                        usernameVariable: 'USER',
+                        passwordVariable: 'PASSWORD'
+                    )
+                ]) {
+                    sh "docker login -u=$USER -p='$PASSWORD' $REGISTRY"
+                }
+                sh "make push"
+            }
         }
     }
     post {
