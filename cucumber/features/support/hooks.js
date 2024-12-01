@@ -9,7 +9,8 @@ Before({ timeout: 30000 }, async function () {
     dumpio: true,
     args: [
       '--disable-dev-shm-usage',
-      '--no-sandbox'
+      '--no-sandbox',
+      '--disable-gpu',
     ]
   });
   this.page = await this.browser.newPage();
