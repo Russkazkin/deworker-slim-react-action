@@ -6,6 +6,7 @@ setDefaultTimeout(10000);
 Before({ timeout: 30000 }, async function () {
   this.browser = await puppeteer.launch({
     protocolTimeout: 30000,
+    dumpio: true,
     args: [
       '--disable-dev-shm-usage',
       '--no-sandbox'
