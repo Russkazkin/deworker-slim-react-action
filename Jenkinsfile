@@ -98,7 +98,7 @@ pipeline {
         }
         stage("Push") {
             when {
-                branch "ci"
+                branch "develop"
             }
             steps {
                 withCredentials([
@@ -115,7 +115,7 @@ pipeline {
         }
         stage ('deploy') {
             when {
-                branch "ci"
+                branch "develop"
             }
             steps {
                 withCredentials([
