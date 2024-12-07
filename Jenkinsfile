@@ -96,6 +96,11 @@ pipeline {
                 }
             }
         }
+        stage('Sanity check') {
+            steps {
+                input "Proceed to deploy on Staging?"
+            }
+        }
         stage("Push") {
             when {
                 branch "develop"
@@ -113,7 +118,7 @@ pipeline {
                 sh "make push"
             }
         }
-        stage ('deploy') {
+        stage ('deploy - staging') {
             when {
                 branch "develop"
             }
