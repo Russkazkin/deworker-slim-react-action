@@ -111,11 +111,7 @@ pipeline {
                 }
             }
         }
-        stage('Sanity check') {
-            steps {
-                input "Proceed to deploy on Staging?"
-            }
-        }
+        
         stage("Push") {
             when {
                 branch "develop"
