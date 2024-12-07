@@ -120,6 +120,10 @@ pipeline {
             when {
                 branch "develop"
             }
+            input {
+                message "Push images to registry?"
+                ok "Yes, we should."
+            }
             steps {
                 withCredentials([
                     usernamePassword(
@@ -136,6 +140,10 @@ pipeline {
         stage ('deploy - staging') {
             when {
                 branch "develop"
+            }
+            input {
+                message "Deploy to staging server?"
+                ok "Yes, please."
             }
             steps {
                 withCredentials([
