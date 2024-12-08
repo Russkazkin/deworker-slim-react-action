@@ -135,7 +135,6 @@ cucumber-lint-fix:
 cucumber-smoke:
 	docker compose run --rm cucumber-node-cli yarn smoke
 
-
 cucumber-e2e:
 	docker compose run --rm cucumber-node-cli yarn e2e
 
@@ -148,12 +147,15 @@ build: build-gateway build-frontend build-api
 
 build-gateway:
 	docker --log-level=debug build --pull --file=gateway/docker/production/nginx/Dockerfile --tag=${REGISTRY}/auction-gateway:${IMAGE_TAG} gateway/docker
+
 build-frontend:
 	docker --log-level=debug build --pull --file=frontend/docker/production/nginx/Dockerfile --tag=${REGISTRY}/auction-frontend:${IMAGE_TAG} frontend
+
 build-api:
 	docker --log-level=debug build --pull --file=api/docker/production/php-cli/Dockerfile --tag=${REGISTRY}/auction-api-php-cli:${IMAGE_TAG} api
 	docker --log-level=debug build --pull --file=api/docker/production/php-fpm/Dockerfile --tag=${REGISTRY}/auction-api-php-fpm:${IMAGE_TAG} api
 	docker --log-level=debug build --pull --file=api/docker/production/nginx/Dockerfile --tag=${REGISTRY}/auction-api:${IMAGE_TAG} api
+
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build
 
@@ -172,30 +174,76 @@ push-api:
 push-cli:
 	docker push ${REGISTRY}/auction-api-php-cli:${IMAGE_TAG}
 
+testing-build: testing-build-gateway testing-build-testing-api-php-cli testing-build-cucumber
+
+testing-build-gateway:
+	docker --log-level=debug build --pull --file=gateway/docker/testing/nginx/Dockerfile --tag=${REGISTRY}/auction-testing-gateway:${IMAGE_TAG} gateway/docker
+
+testing-build-testing-api-php-cli:
+	docker --log-level=debug build --pull --file=api/docker/testing/php-cli/Dockerfile --tag=${REGISTRY}/auction-testing-api-php-cli:${IMAGE_TAG} api
+
+testing-build-cucumber:
+	docker --log-level=debug build --pull --file=cucumber/docker/testing/node/Dockerfile --tag=${REGISTRY}/auction-cucumber-node-cli:${IMAGE_TAG} cucumber
+
+testing-init:
+	COMPOSE_PROJECT_NAME=testing docker compose -f docker-compose-testing.yml up -d
+	COMPOSE_PROJECT_NAME=testing docker compose -f docker-compose-testing.yml run --rm api-php-cli wait-for-it api-postgres:5432 -t 60
+	COMPOSE_PROJECT_NAME=testing docker compose -f docker-compose-testing.yml run --rm api-php-cli php bin/migrations.php --ansi migrations:migrate --no-interaction
+	COMPOSE_PROJECT_NAME=testing docker compose -f docker-compose-testing.yml run --rm testing-api-php-cli php bin/app.php --ansi fixtures:load --no-interaction
+
+testing-smoke:
+	COMPOSE_PROJECT_NAME=testing docker compose -f docker-compose-testing.yml run --rm cucumber-node-cli yarn smoke-ci
+
+testing-e2e:
+	COMPOSE_PROJECT_NAME=testing docker compose -f docker-compose-testing.yml run --rm cucumber-node-cli yarn e2e-ci
+
+testing-down-clear:
+	COMPOSE_PROJECT_NAME=testing docker compose -f docker-compose-testing.yml down -v --remove-orphans
+
+try-testing: try-build try-testing-build try-testing-init try-testing-smoke try-testing-e2e try-testing-down-clear
+
+try-testing-build:
+	REGISTRY=localhost IMAGE_TAG=0 make testing-build
+
+try-testing-init:
+	REGISTRY=localhost IMAGE_TAG=0 make testing-init
+
+try-testing-smoke:
+	REGISTRY=localhost IMAGE_TAG=0 make testing-smoke
+
+try-testing-e2e:
+	REGISTRY=localhost IMAGE_TAG=0 make testing-e2e
+
+try-testing-down-clear:
+	REGISTRY=localhost IMAGE_TAG=0 make testing-down-clear
+
+validate-jenkins:
+	curl --user ${USER} -X POST -F "jenkinsfile=<Jenkinsfile" ${HOST}/pipeline-model-converter/validate
+
 deploy:
-	ssh ${HOST} -p ${PORT} 'rm -rf site_${BUILD_NUMBER}'
-	ssh ${HOST} -p ${PORT} 'mkdir site_${BUILD_NUMBER}'
-	scp -P ${PORT} docker-compose-production.yml ${HOST}:site_${BUILD_NUMBER}/docker-compose-production.yml
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=auction" >> .env'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "REGISTRY=${REGISTRY}" >> .env'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_DB_PASSWORD=${API_DB_PASSWORD}" >> .env'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_MAILER_HOST=${API_MAILER_HOST}" >> .env'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_MAILER_PORT=${API_MAILER_PORT}" >> .env'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_MAILER_USER=${API_MAILER_USER}" >> .env'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_MAILER_PASSWORD=${API_MAILER_PASSWORD}" >> .env'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_MAILER_FROM_EMAIL=${API_MAILER_FROM_EMAIL}" >> .env'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "SENTRY_DSN=${SENTRY_DSN}" >> .env'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml pull'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml up --build -d api-postgres api-php-cli'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml run api-php-cli wait-for-it api-postgres:5432 -t 60'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml run api-php-cli php bin/migrations.php --ansi migrations:migrate --no-interaction'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml up --build --remove-orphans -d'
-	ssh ${HOST} -p ${PORT} 'rm -f site'
-	ssh ${HOST} -p ${PORT} 'ln -sr site_${BUILD_NUMBER} site'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'rm -rf site_${BUILD_NUMBER}'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'mkdir site_${BUILD_NUMBER}'
+	scp -o StrictHostKeyChecking=no -P ${PORT} docker-compose-production.yml deploy@${HOST}:site_${BUILD_NUMBER}/docker-compose-production.yml
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "COMPOSE_PROJECT_NAME=auction" >> .env'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "REGISTRY=${REGISTRY}" >> .env'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_DB_PASSWORD=${API_DB_PASSWORD}" >> .env'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_MAILER_HOST=${API_MAILER_HOST}" >> .env'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_MAILER_PORT=${API_MAILER_PORT}" >> .env'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_MAILER_USER=${API_MAILER_USER}" >> .env'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_MAILER_PASSWORD=${API_MAILER_PASSWORD}" >> .env'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "API_MAILER_FROM_EMAIL=${API_MAILER_FROM_EMAIL}" >> .env'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && echo "SENTRY_DSN=${SENTRY_DSN}" >> .env'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml pull'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml up --build -d api-postgres api-php-cli'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml run api-php-cli wait-for-it api-postgres:5432 -t 60'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml run api-php-cli php bin/migrations.php --ansi migrations:migrate --no-interaction'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml up --build --remove-orphans -d'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'rm -f site'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'ln -sr site_${BUILD_NUMBER} site'
 
 rollback:
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml pull'
-	ssh ${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker compose -f docker-compose-production.yml up --build --remove-orphans -d'
-	ssh ${HOST} -p ${PORT} 'rm -f site'
-	ssh ${HOST} -p ${PORT} 'ln -sr site_${BUILD_NUMBER} site'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml pull'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker-compose -f docker-compose-production.yml up --build --remove-orphans -d'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'rm -f site'
+	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'ln -sr site_${BUILD_NUMBER} site'
