@@ -6,6 +6,7 @@
         - ca-certificates
         - curl
         - software-properties-common
+        - sudo
       state: present
       update_cache: yes
 
