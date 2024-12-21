@@ -2,6 +2,7 @@ pipeline {
     agent any
     options {
       timestamps()
+      buildDiscarder(logRotator(artifactNumToKeepStr: '1'))
     }
     environment {
       CI = 'true'
