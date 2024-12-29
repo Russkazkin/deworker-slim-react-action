@@ -115,7 +115,7 @@ pipeline {
 
         stage("Push") {
             when {
-                branch "swarm"
+                branch "develop"
             }
             input {
                 message "Push images to registry?"
@@ -136,7 +136,7 @@ pipeline {
         }
         stage ('deploy - staging') {
             when {
-                branch "swarm"
+                branch "develop"
             }
             input {
                 message "Deploy to staging server?"
