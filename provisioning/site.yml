@@ -1,9 +1,27 @@
 ---
--   name: Provision Site
-    hosts: site
+-   name: Provision Manager
+    hosts: manager
     remote_user: root
     roles:
         - swap
         - docker
         - certbot
-        - site
+        - swarm-manager
+
+-   name: Provision Worker
+    hosts: worker
+    remote_user: root
+    roles:
+      - swap
+      - docker
+      - swarm-worker
+
+-   name: Set labels
+    hosts: manager
+    remote_user: root
+    roles:
+    - role: swarm-labels
+      vars:
+        hostname: "{{ db_hostname }}"
+        labels:
+          db: db

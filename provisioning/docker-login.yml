@@ -1,19 +1,19 @@
 ---
 -   name: Log into private registry
-    hosts: site
-    remote_user: deploy
-#    remote_user: root
-#    become: yes
-#    become_user: deploy
-    vars_prompt:
-        -   name: registry
-            prompt: "Registry"
-            private: no
-        -   name: username
-            prompt: "Username"
-            private: no
-        -   name: password
-            prompt: "Password"
+    hosts: manager
+    remote_user: root
+    become: yes
+    become_user: deploy
     tasks:
         -   name: Log into private registry
-            shell: "docker login -u {{ username }} -p '{{ password }}' {{ registry }}"
+            docker_login:
+              registry: registry.mywebdev.ru
+              username: deploy
+              password: !vault |
+                $ANSIBLE_VAULT;1.1;AES256
+                35353536633163363565643736623631333166643266323634636431643436633864313933633463
+                3566643262353837623530623434643766666130623861330a643465343733646333333362623565
+                32336437613731373834646235366461306531656163616235366363613165363765383461623161
+                6338613431326639610a643961356433326636616339616230383232616537323465376135656330
+                3462
+              reauthorize: yes
