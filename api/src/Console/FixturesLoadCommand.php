@@ -39,6 +39,9 @@ class FixturesLoadCommand extends Command
         ;
     }
 
+    /**
+     * @psalm-suppress InternalMethod
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('<comment>Loading fixtures</comment>');

@@ -56,6 +56,9 @@ class Token
         return $this->expires <= $date;
     }
 
+    /**
+     * @psalm-suppress RiskyTruthyFalsyComparison
+     */
     public function isEmpty(): bool
     {
         return empty($this->value);
