@@ -11,7 +11,7 @@ http_response_code(500);
 
 require __DIR__ . '/../vendor/autoload.php';
 
-if (getenv('SENTRY_DSN') !== false) {
+if (getenv('SENTRY_DSN')) {
     init(['dsn' => getenv('SENTRY_DSN'), 'traces_sample_rate' => 1.0,]);
 }
 

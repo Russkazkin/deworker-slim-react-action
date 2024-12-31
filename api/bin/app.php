@@ -11,7 +11,7 @@ use function Sentry\init;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-if (getenv('SENTRY_DSN') !== false) {
+if (getenv('SENTRY_DSN')) {
     init(['dsn' => getenv('SENTRY_DSN'), 'traces_sample_rate' => 1.0,]);
 }
 
@@ -20,7 +20,7 @@ $container = require  __DIR__ . '/../config/container.php';
 
 $cli = new Application('Console');
 
-if (getenv('SENTRY_DSN') !== false) {
+if (getenv('SENTRY_DSN')) {
     $cli->setCatchExceptions(false);
 }
 
