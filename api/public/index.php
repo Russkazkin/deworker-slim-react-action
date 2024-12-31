@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Psr\Container\ContainerInterface;
+use DI\Container;
 use Slim\App;
 
 use function Sentry\init;
@@ -15,7 +15,7 @@ if (getenv('SENTRY_DSN')) {
     init(['dsn' => getenv('SENTRY_DSN'), 'traces_sample_rate' => 1.0,]);
 }
 
-/** @var ContainerInterface $container */
+/** @var Container $container */
 $container = require __DIR__ . '/../config/container.php';
 
 /** @var App $app */
