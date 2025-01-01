@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Test\Unit\Middleware;
 
+use App\Http\JsonResponse;
 use App\Http\Middleware\ValidationExceptionHandler;
 use App\Http\Validator\ValidationException;
 use JsonException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -17,9 +20,10 @@ use Slim\Psr7\Factory\ServerRequestFactory;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 
-/**
- * @covers ValidationExceptionHandler
- */
+#[CoversClass(ValidationExceptionHandler::class)]
+#[UsesClass(ValidationException::class)]
+#[UsesClass(ValidationExceptionHandlerTest::class)]
+#[UsesClass(JsonResponse::class)]
 class ValidationExceptionHandlerTest extends TestCase
 {
     /**

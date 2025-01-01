@@ -6,11 +6,12 @@ namespace App\Auth\Test\Unit\Entity\User;
 
 use App\Auth\Entity\User\Status;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers Status
- */
+#[CoversClass(Status::class)]
+#[UsesClass(StatusTest::class)]
 class StatusTest extends TestCase
 {
     public function testSuccess(): void

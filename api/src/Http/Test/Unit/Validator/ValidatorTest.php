@@ -7,15 +7,18 @@ namespace App\Http\Test\Unit\Validator;
 use App\Http\Validator\ValidationException;
 use App\Http\Validator\Validator;
 use Exception;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * @covers Validator
- */
+#[CoversClass(Validator::class)]
+#[UsesClass(ValidatorTest::class)]
+#[UsesClass(ValidationException::class)]
 class ValidatorTest extends TestCase
 {
     /**

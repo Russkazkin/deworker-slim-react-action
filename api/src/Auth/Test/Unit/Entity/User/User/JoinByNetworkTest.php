@@ -8,12 +8,23 @@ use App\Auth\Entity\User\Network;
 use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\Id;
 use App\Auth\Entity\User\Role;
+use App\Auth\Entity\User\Status;
+use App\Auth\Entity\User\Token;
 use App\Auth\Entity\User\User;
+use App\Auth\Entity\User\UserNetwork;
+use App\Auth\Test\Builder\UserBuilder;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers User
- */
+#[CoversClass(User::class)]
+#[UsesClass(Email::class)]
+#[UsesClass(Id::class)]
+#[UsesClass(Network::class)]
+#[UsesClass(Role::class)]
+#[UsesClass(Status::class)]
+#[UsesClass(UserNetwork::class)]
+#[UsesClass(JoinByNetworkTest::class)]
 class JoinByNetworkTest extends TestCase
 {
     public function testSuccess(): void

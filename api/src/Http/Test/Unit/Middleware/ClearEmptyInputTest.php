@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Test\Unit\Middleware;
 
 use App\Http\Middleware\ClearEmptyInput;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -15,10 +17,11 @@ use Slim\Psr7\Factory\ServerRequestFactory;
 use Slim\Psr7\Factory\StreamFactory;
 use Slim\Psr7\Factory\UploadedFileFactory;
 
+#[CoversClass(ClearEmptyInput::class)]
+#[UsesClass(ClearEmptyInputTest::class)]
 class ClearEmptyInputTest extends TestCase
 {
     /**
-     * @covers ClearEmptyInput
      * @throws Exception
      */
     public function testParsedBody(): void

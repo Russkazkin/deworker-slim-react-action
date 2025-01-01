@@ -4,15 +4,27 @@ declare(strict_types=1);
 
 namespace App\Auth\Test\Unit\Entity\User\User\ResetPassword;
 
+use App\Auth\Entity\User\Email;
+use App\Auth\Entity\User\Id;
+use App\Auth\Entity\User\Role;
+use App\Auth\Entity\User\Status;
 use App\Auth\Entity\User\Token;
+use App\Auth\Entity\User\User;
 use App\Auth\Test\Builder\UserBuilder;
 use DateTimeImmutable;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- * @covers User
- */
+#[CoversClass(User::class)]
+#[UsesClass(Email::class)]
+#[UsesClass(Id::class)]
+#[UsesClass(Role::class)]
+#[UsesClass(Status::class)]
+#[UsesClass(Token::class)]
+#[UsesClass(UserBuilder::class)]
+#[UsesClass(RequestTest::class)]
 class RequestTest extends TestCase
 {
     public function testSuccess(): void
