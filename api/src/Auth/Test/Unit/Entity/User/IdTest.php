@@ -6,12 +6,13 @@ namespace App\Auth\Test\Unit\Entity\User;
 
 use App\Auth\Entity\User\Id;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- * @covers Id
- */
+#[CoversClass(Id::class)]
+#[UsesClass(IdTest::class)]
 class IdTest extends TestCase
 {
     public function testSuccess(): void

@@ -6,11 +6,12 @@ namespace App\Auth\Test\Unit\Entity\User;
 
 use App\Auth\Entity\User\Email;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers Email
- */
+#[CoversClass(Email::class)]
+#[UsesClass(EmailTest::class)]
 class EmailTest extends TestCase
 {
     public function testSuccess(): void

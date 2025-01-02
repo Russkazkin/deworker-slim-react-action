@@ -39,6 +39,7 @@ class User
     #[ORM\Column(type: RoleType::NAME, length: 16)]
     private Role $role;
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserNetwork::class, cascade: ['all'], orphanRemoval: true)]
+    /** @psalm-var Collection<array-key, UserNetwork */
     private Collection $networks;
 
     public function __construct(
@@ -231,7 +232,6 @@ class User
      */
     public function getNetworks(): array
     {
-        /** @var Network[] */
         return $this->networks->map(static function (UserNetwork $network) {
             return $network->getNetwork();
         })->toArray();

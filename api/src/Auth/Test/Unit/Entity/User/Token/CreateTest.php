@@ -7,12 +7,13 @@ namespace App\Auth\Test\Unit\Entity\User\Token;
 use App\Auth\Entity\User\Token;
 use DateTimeImmutable;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-/**
- * @covers Token
- */
+#[CoversClass(Token::class)]
+#[UsesClass(CreateTest::class)]
 class CreateTest extends TestCase
 {
     public function testSuccess(): void

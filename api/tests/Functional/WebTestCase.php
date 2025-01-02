@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Test\Functional;
 
+use DI\Container;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
@@ -11,7 +12,6 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\App;
@@ -52,7 +52,7 @@ class WebTestCase extends TestCase
      */
     protected function loadFixtures(array $fixtures): void
     {
-        /** @var ContainerInterface $container */
+        /** @var Container $container */
         $container = $this->app()->getContainer();
         $loader = new Loader();
         foreach ($fixtures as $name => $class) {
@@ -82,9 +82,9 @@ class WebTestCase extends TestCase
         return $this->mailer;
     }
 
-    private function container(): ContainerInterface
+    private function container(): Container
     {
-        /** @var ContainerInterface */
+        /** @var Container */
         return require __DIR__ . '/../../config/container.php';
     }
 }

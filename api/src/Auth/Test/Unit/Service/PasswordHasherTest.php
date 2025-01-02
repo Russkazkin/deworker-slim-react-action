@@ -6,11 +6,12 @@ namespace App\Auth\Test\Unit\Service;
 
 use App\Auth\Service\PasswordHasher;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers PasswordHasher
- */
+#[CoversClass(PasswordHasher::class)]
+#[UsesClass(PasswordHasherTest::class)]
 class PasswordHasherTest extends TestCase
 {
     public function testHash(): void

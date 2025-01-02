@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace App\Auth\Test\Unit\Service;
 
+use App\Auth\Entity\User\Token;
 use App\Auth\Service\Tokenizer;
 use DateInterval;
 use DateTimeImmutable;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers Tokenizer
- */
+#[CoversClass(Tokenizer::class)]
+#[UsesClass(Token::class)]
+#[UsesClass(TokenizerTest::class)]
 class TokenizerTest extends TestCase
 {
     public function testSuccess(): void

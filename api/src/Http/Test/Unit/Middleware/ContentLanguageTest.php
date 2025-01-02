@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Test\Unit\Middleware;
 
 use Middlewares\ContentLanguage;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -13,9 +15,8 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Psr7\Factory\ResponseFactory;
 use Slim\Psr7\Factory\ServerRequestFactory;
 
-/**
- * @covers ContentLanguage
- */
+#[CoversClass(ContentLanguage::class)]
+#[UsesClass(ContentLanguageTest::class)]
 class ContentLanguageTest extends TestCase
 {
     /**

@@ -85,6 +85,8 @@ migrations-diff:
 migrations-migrate:
 	docker compose run --rm api-php-cli composer migrations migrations:migrate --no-interaction
 
+api-check: doctrine-schema-validate api-lint api-analyze api-test
+
 api-fixtures:
 	docker compose run --rm api-php-cli composer app fixtures:load
 
@@ -101,6 +103,8 @@ frontend-yarn-install:
 
 frontend-ready:
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine touch .ready
+
+frontend-check: frontend-eslint frontend-test
 
 frontend-eslint:
 	docker compose run --rm frontend-node-cli yarn eslint
@@ -229,13 +233,9 @@ deploy:
 	rm -f docker-compose-production-env.yml
 
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker stack deploy --compose-file docker-compose.yml auction --with-registry-auth --prune'
-	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'rm -f site'
-	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'ln -sr site_${BUILD_NUMBER} site'
 
 deploy-clean:
 	rm -f docker-compose-production-env.yml
 
 rollback:
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker stack deploy --compose-file docker-compose.yml auction --with-registry-auth --prune'
-	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'rm -f site'
-	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'ln -sr site_${BUILD_NUMBER} site'

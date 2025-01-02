@@ -9,6 +9,8 @@ use App\Auth\Entity\User\Token;
 use App\Auth\Service\JoinConfirmationSender;
 use App\Frontend\FrontendUrlGenerator;
 use DateTimeImmutable;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -20,9 +22,10 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-/**
- * @covers JoinConfirmationSender
- */
+#[CoversClass(JoinConfirmationSender::class)]
+#[UsesClass(Email::class)]
+#[UsesClass(Token::class)]
+#[UsesClass(JoinConfirmationSenderTest::class)]
 class JoinConfirmationSenderTest extends TestCase
 {
     /**
