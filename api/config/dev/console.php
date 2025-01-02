@@ -6,6 +6,8 @@ use App\Console\FixturesLoadCommand;
 use App\Console\MailerCheckCommand;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Logger\ConsoleLogger;
 
 return [
     FixturesLoadCommand::class => static function (ContainerInterface $container) {
@@ -17,10 +19,12 @@ return [
 
         /** @var EntityManagerInterface $em */
         $em = $container->get(EntityManagerInterface::class);
+        $logger = new ConsoleLogger($container->get(LoggerInterface::class));
 
         return new FixturesLoadCommand(
             $em,
             $config['fixture_paths'],
+            $logger,
         );
     },
 
