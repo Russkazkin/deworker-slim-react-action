@@ -15,7 +15,7 @@ return [
          * @psalm-var array{
          *     debug:bool,
          *     stderr:bool,
-         *     file:string
+         *     file:string|null
          * } $config
          */
         $config = $container->get('config')['logger'];
@@ -28,7 +28,7 @@ return [
             $log->pushHandler(new StreamHandler('php://stderr', $level));
         }
 
-        if (!empty($config['file'])) {
+        if ($config['file'] !== '' && $config['file'] !== null) {
             $log->pushHandler(new StreamHandler($config['file'], $level));
         }
 
