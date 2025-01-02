@@ -19,12 +19,10 @@ return [
 
         /** @var EntityManagerInterface $em */
         $em = $container->get(EntityManagerInterface::class);
-        $logger = new ConsoleLogger($container->get(LoggerInterface::class));
 
         return new FixturesLoadCommand(
             $em,
             $config['fixture_paths'],
-            $logger,
         );
     },
 

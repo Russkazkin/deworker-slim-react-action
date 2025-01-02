@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class FixturesLoadCommand extends Command
@@ -25,7 +26,7 @@ class FixturesLoadCommand extends Command
      * @param EntityManagerInterface $em
      * @param string[] $paths
      */
-    public function __construct(EntityManagerInterface $em, array $paths, private LoggerInterface $logger)
+    public function __construct(EntityManagerInterface $em, array $paths)
     {
         parent::__construct();
         $this->em = $em;
@@ -55,7 +56,9 @@ class FixturesLoadCommand extends Command
 
         $executor = new ORMExecutor($this->em, new ORMPurger());
 
-        $executor->setLogger($this->logger);
+        $logger = new ConsoleLogger($output);
+
+        $executor->setLogger($logger);
 
         $executor->execute($loader->getFixtures());
 
