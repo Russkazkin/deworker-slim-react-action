@@ -83,7 +83,7 @@ migrations-diff:
 	docker compose run --rm api-php-cli composer migrations migrations:diff
 
 migrations-migrate:
-	docker compose run --rm api-php-cli composer migrations migrations:migrate --no-interaction
+	docker compose run --rm api-php-cli composer migrations migrations:migrate -- --no-interaction
 
 api-check: doctrine-schema-validate api-lint api-analyze api-test
 
