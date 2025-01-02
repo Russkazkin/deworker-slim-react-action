@@ -104,6 +104,8 @@ frontend-yarn-install:
 frontend-ready:
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine touch .ready
 
+frontend-check: frontend-eslint frontend-test
+
 frontend-eslint:
 	docker compose run --rm frontend-node-cli yarn eslint
 	docker compose run --rm frontend-node-cli yarn stylelint
