@@ -41,5 +41,11 @@
                 <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::willReturnCallback" />
             </errorLevel>
         </InternalMethod>
+
+        <RiskyTruthyFalsyComparison>
+          <errorLevel type="suppress">
+            <directory name="config/common" />
+          </errorLevel>
+        </RiskyTruthyFalsyComparison>
     </issueHandlers>
 </psalm>

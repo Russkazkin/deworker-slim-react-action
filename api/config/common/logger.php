@@ -28,7 +28,7 @@ return [
             $log->pushHandler(new StreamHandler('php://stderr', $level));
         }
 
-        if ($config['file'] !== '') {
+        if (!empty($config['file'])) {
             $log->pushHandler(new StreamHandler($config['file'], $level));
         }
 
