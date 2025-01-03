@@ -23,7 +23,10 @@ $cli = new Application('Console');
 if (getenv('SENTRY_DSN') !== false) {
     $cli->setCatchExceptions(false);
 }
-
+/**
+ * @var string[] $commands
+ * @psalm-suppress MixedArrayAccess
+ */
 $commands = $container->get('config')['console']['commands'];
 
 foreach ($commands as $name) {

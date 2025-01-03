@@ -15,7 +15,6 @@ require __DIR__ . '/../vendor/autoload.php';
 /** @var ContainerInterface $container */
 $container = require __DIR__ . '/../config/container.php';
 
-/** @var EntityManagerInterface $entityManager */
 $entityManager = $container->get(EntityManagerInterface::class);
 $config = new PhpFile('migrations.php');
 

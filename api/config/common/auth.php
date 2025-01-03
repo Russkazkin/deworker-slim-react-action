@@ -12,11 +12,7 @@ use Psr\Container\ContainerInterface;
 
 return [
     UserRepository::class => static function (ContainerInterface $container): UserRepository {
-        /** @var EntityManagerInterface $em */
         $em = $container->get(EntityManagerInterface::class);
-        /**
-         * @psalm-var EntityRepository<User> $repo
-         */
         $repo = $em->getRepository(User::class);
         return new UserRepository($em, $repo);
     },
