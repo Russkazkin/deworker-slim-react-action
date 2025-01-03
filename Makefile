@@ -50,7 +50,10 @@ api-lint:
 	docker compose run --rm api-php-cli composer cs-check
 
 api-analyze:
-	docker compose run --rm api-php-cli composer psalm
+	docker compose run --rm api-php-cli composer psalm -- --no-diff
+
+api-analyze-diff:
+	docker-compose run --rm api-php-cli composer psalm
 
 api-test:
 	docker compose run --rm api-php-cli composer test
@@ -83,7 +86,7 @@ migrations-diff:
 	docker compose run --rm api-php-cli composer migrations migrations:diff
 
 migrations-migrate:
-	docker compose run --rm api-php-cli composer migrations migrations:migrate --no-interaction
+	docker compose run --rm api-php-cli composer migrations migrations:migrate -- --no-interaction
 
 api-check: doctrine-schema-validate api-lint api-analyze api-test
 
