@@ -84,7 +84,7 @@ services:
             delay: 5s
 
     api-postgres:
-        image: postgres:15.5-alpine
+        image: postgres:17.2-alpine
         environment:
             POSTGRES_USER: app
             POSTGRES_PASSWORD: ${API_DB_PASSWORD}

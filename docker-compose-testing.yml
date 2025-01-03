@@ -63,7 +63,7 @@ services:
       SENTRY_DSN: ""
 
   api-postgres:
-    image: postgres:12.2-alpine
+    image: postgres:17.2-alpine
     environment:
       POSTGRES_USER: app
       POSTGRES_PASSWORD: secret
