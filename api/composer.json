@@ -34,6 +34,7 @@
     "require-dev": {
         "dms/phpunit-arraysubset-asserts": "^0.5.0",
         "doctrine/data-fixtures": "^2.0",
+        "lctrs/psalm-psr-container-plugin": "^1.10",
         "overtrue/phplint": "^9.0",
         "phpunit/phpunit": "^10.5",
         "roave/security-advisories": "dev-latest",
@@ -55,9 +56,9 @@
         "doctrine": "@php bin/doctrine.php --ansi",
         "migrations": "@php bin/migrations.php --ansi",
         "lint": "phplint",
-        "cs-check": "phpcs",
-        "cs-fix": "phpcbf",
-        "psalm": "psalm",
+        "phpcs": "phpcs --standard=phpcs.xml",
+        "phpcbf": "phpcbf --standard=phpcs.xml",
+        "psalm": "psalm --config=psalm.xml",
         "test": "phpunit --colors=always",
         "test-coverage": "XDEBUG_MODE=coverage phpunit --colors=always --coverage-html var/test/coverage"
     }
