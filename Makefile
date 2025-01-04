@@ -47,7 +47,7 @@ api-permissions:
 
 api-lint:
 	docker compose run --rm api-php-cli composer lint
-	docker-compose run --rm api-php-cli composer phpcs
+	docker compose run --rm api-php-cli composer phpcs
 
 api-analyze:
 	docker compose run --rm api-php-cli composer psalm -- --no-diff
