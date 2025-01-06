@@ -24,6 +24,11 @@ test-e2e:
 
 update-deps: api-composer-update frontend-yarn-upgrade cucumber-yarn-upgrade restart
 
+check-major-updates:
+	docker compose run --rm api-php-cli composer outdated --direct
+	docker compose run --rm frontend-node-cli yarn outdated
+	docker compose run --rm cucumber-node-cli yarn outdated
+
 docker-up:
 	docker compose up -d
 
