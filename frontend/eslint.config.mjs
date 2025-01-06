@@ -37,7 +37,6 @@ export default [
   {rules:
     {
       'no-unused-vars': 'warn',
-      'no-undef': 'warn',
       semi: [2, 'always'],
       quotes: [2, 'single'],
       indent: [2, 2],
