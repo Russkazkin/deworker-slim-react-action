@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.sass';
-import Welcome from './Welcome';
+import Welcome from '../Welcome';
 const App: React.FC = () => {
   return (
     <div className="App">
