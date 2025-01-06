@@ -1,11 +1,16 @@
 import React from 'react';
 import './App.sass';
 import Welcome from '../Welcome';
-const App: React.FC = () => {
+
+type Props = {
+  features: string[];
+};
+
+const App: React.FC<Props> = ({ features }) => {
   return (
     <div className="App">
       <div className="app">
-        <Welcome />
+        <Welcome features={features} />
       </div>
     </div>
   );

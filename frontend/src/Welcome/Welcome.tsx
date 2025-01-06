@@ -1,11 +1,18 @@
 import React from 'react';
 import styles from './Welcome.module.sass';
 
-const Welcome: React.FC = () => {
+type Props = {
+  features: string[];
+};
+const Welcome: React.FC<Props> = ({ features }) => {
   return (
     <div data-test="welcome" className={styles.welcome}>
       <h1>Auction</h1>
-      <p>We will be here soon</p>
+      {features.includes('WE_ARE_HERE') ? (
+        <p>We are here</p>
+      ) : (
+        <p>We will be here soon</p>
+      )}
     </div>
   );
 };
