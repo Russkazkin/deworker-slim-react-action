@@ -7,11 +7,7 @@ type Props = {
 };
 
 const FeaturesProvider: React.FC<Props> = ({ features, children }) => {
-  return (
-    <FeaturesContext.Provider value={{features}}>
-      {children}
-    </FeaturesContext.Provider>
-  )
+  return <FeaturesContext.Provider value={{ features }}>{children}</FeaturesContext.Provider>;
 };
 
 export default FeaturesProvider;

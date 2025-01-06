@@ -1,4 +1,3 @@
-
 import { createContext } from 'react';
 
 export interface FeaturesContextState {
@@ -6,4 +5,4 @@ export interface FeaturesContextState {
 }
 
 const FeaturesContext = createContext<FeaturesContextState>({ features: [] });
-export default FeaturesContext
+export default FeaturesContext;

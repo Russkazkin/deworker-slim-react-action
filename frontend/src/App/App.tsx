@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.sass';
 import Welcome from '../Welcome';
-import { FeaturesProvider } from "../FeatureToggle";
+import { FeaturesProvider } from '../FeatureToggle';
 
 type Props = {
   features: string[];

@@ -37,7 +37,7 @@ export default [
   {rules:
     {
       'no-unused-vars': 'warn',
-      semi: [2, 'always'],
+      semi: ['error', 'always'],
       quotes: [2, 'single'],
       indent: [2, 2],
       'comma-dangle': [2, {
