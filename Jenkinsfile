@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { node { label 'proxmox-3' } }
     options {
       timestamps()
       buildDiscarder(logRotator(artifactNumToKeepStr: '1'))
