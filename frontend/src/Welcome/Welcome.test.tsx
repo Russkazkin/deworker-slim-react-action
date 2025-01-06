@@ -1,21 +1,21 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Welcome from './Welcome';
-import { FeaturesContext, FeaturesEnum } from "../FeatureToggle";
-test('renders old welcome', () => {
+import { FeaturesEnum, FeaturesProvider } from "../FeatureToggle";
+test('renders welcome', () => {
   const { getByText, queryByText } = render(
-    <FeaturesContext value={{ features: [] }}>
+    <FeaturesProvider features={[]}>
       <Welcome />
-    </FeaturesContext>
+    </FeaturesProvider>
   )
   expect(getByText(/We will be here/i)).toBeInTheDocument()
   expect(queryByText(/We are here/i)).toBeNull()
 })
 test('renders new welcome', () => {
   const { getByText, queryByText } = render(
-    <FeaturesContext value={{ features: [FeaturesEnum.WeAreHere] }}>
+    <FeaturesProvider features={[FeaturesEnum.WeAreHere]}>
       <Welcome />
-    </FeaturesContext>
+    </FeaturesProvider>
   )
   expect(queryByText(/We will be here/i)).toBeNull()
   expect(getByText(/We are here/i)).toBeInTheDocument()

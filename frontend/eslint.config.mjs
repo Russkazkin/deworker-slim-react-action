@@ -36,13 +36,16 @@ export default [
   {settings: {react: {version: 'detect'}}},
   {rules:
     {
+      'no-unused-vars': 'warn',
+      'no-undef': 'warn',
+      semi: [2, 'always'],
       quotes: [2, 'single'],
+      indent: [2, 2],
       'comma-dangle': [2, {
           arrays: 'always-multiline',
           objects: 'always-multiline',
         }
       ],
-      semi: [2, 'always'],
     }
   },
   eslintConfigPrettier,
