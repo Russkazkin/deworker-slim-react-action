@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useContext } from "react";
 import styles from './Welcome.module.sass';
+import { FeaturesContext } from "../FeatureToggle";
 
-type Props = {
-  features: string[];
-};
-const Welcome: React.FC<Props> = ({ features }) => {
+const Welcome: React.FC = () => {
+  const { features } = useContext(FeaturesContext);
   return (
     <div data-test="welcome" className={styles.welcome}>
       <h1>Auction</h1>

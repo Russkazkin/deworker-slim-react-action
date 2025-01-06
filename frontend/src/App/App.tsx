@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.sass';
 import Welcome from '../Welcome';
+import { FeaturesContext } from '../FeatureToggle';
 
 type Props = {
   features: string[];
@@ -8,11 +9,13 @@ type Props = {
 
 const App: React.FC<Props> = ({ features }) => {
   return (
-    <div className="App">
-      <div className="app">
-        <Welcome features={features} />
+    <FeaturesContext.Provider value={{ features }}>
+      <div className="App">
+        <div className="app">
+          <Welcome />
+        </div>
       </div>
-    </div>
+    </FeaturesContext.Provider>
   );
 };
 
