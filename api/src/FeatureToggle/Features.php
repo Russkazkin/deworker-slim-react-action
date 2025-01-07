@@ -6,8 +6,18 @@ namespace App\FeatureToggle;
 
 class Features implements FeatureFlag
 {
+    /**
+     * @param bool[] $features
+     * @psalm-param array<string, bool> $features
+     */
+    public function __construct(private readonly array $features)
+    {
+    }
     public function isEnabled(string $name): bool
     {
-        return false;
+        if (!array_key_exists($name, $this->features)) {
+            return false;
+        }
+        return $this->features[$name];
     }
 }
