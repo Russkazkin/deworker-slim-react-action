@@ -20,6 +20,6 @@ Given('I do not have {string} feature', async function (feature) {
     httpOnly: false,
     secure: false,
     path: '/',
-    sameSite: 'lax'
-  })
-})
+    sameSite: 'lax',
+  });
+});
