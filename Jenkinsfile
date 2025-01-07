@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { node { label 'proxmox-3' } }
     options {
       timestamps()
       buildDiscarder(logRotator(artifactNumToKeepStr: '1'))
@@ -117,10 +117,10 @@ pipeline {
             when {
                 branch "develop"
             }
-            input {
-                message "Push images to registry?"
-                ok "Yes, we should."
-            }
+//             input {
+//                 message "Push images to registry?"
+//                 ok "Yes, we should."
+//             }
             steps {
                 withCredentials([
                     usernamePassword(
@@ -138,10 +138,10 @@ pipeline {
             when {
                 branch "develop"
             }
-            input {
-                message "Deploy to staging server?"
-                ok "Yes, please."
-            }
+//             input {
+//                 message "Deploy to staging server?"
+//                 ok "Yes, please."
+//             }
             steps {
                 withCredentials([
                     string(credentialsId: 'STAGING_HOST', variable: 'HOST'),

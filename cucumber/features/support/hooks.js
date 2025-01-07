@@ -11,7 +11,7 @@ Before({ timeout: 30000 }, async function () {
       '--disable-dev-shm-usage',
       '--no-sandbox',
       '--disable-gpu',
-    ]
+    ],
   });
   this.page = await this.browser.newPage();
   await this.page.setViewport({ width: 1280, height: 720 });
