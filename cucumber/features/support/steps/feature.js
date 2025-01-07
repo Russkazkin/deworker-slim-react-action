@@ -1,0 +1,13 @@
+import { Given } from '@cucumber/cucumber';
+
+Given('I have {string} feature', async function (feature) {
+  await this.page.setCookie({
+    name: 'features',
+    value: feature,
+    domain: 'gateway',
+    httpOnly: false,
+    secure: false,
+    path: '/',
+    sameSite: 'lax'
+  });
+});

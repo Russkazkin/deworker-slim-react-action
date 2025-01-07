@@ -14,7 +14,7 @@ import eslintConfigPrettier from "eslint-config-prettier";
 
 
 export default [
-  {files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"]},
+  {files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}']},
   {plugins:
     {
       ['@typescript-eslint']: tseslint.plugin,
@@ -42,10 +42,10 @@ export default [
       quotes: [2, 'single'],
       indent: [2, 2],
       'comma-dangle': [2, {
-          arrays: 'always-multiline',
-          objects: 'always-multiline',
-        }
+        arrays: 'always-multiline',
+        objects: 'always-multiline',
+      },
       ],
-    }
+    },
   },
 ];

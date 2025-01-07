@@ -11,6 +11,11 @@ export default [
       semi: [2, 'always'],
       quotes: [2, 'single'],
       indent: [2, 2],
+      'comma-dangle': [2, {
+        arrays: 'always-multiline',
+        objects: 'always-multiline',
+      },
+      ],
     }
   }
 ];
