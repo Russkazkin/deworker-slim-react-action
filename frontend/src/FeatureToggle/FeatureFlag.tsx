@@ -1,5 +1,5 @@
-import React, { ReactNode, useContext } from 'react';
-import FeaturesContext from './FeaturesContext';
+import React, { ReactNode } from 'react';
+import { useFeatures } from './index';
 
 type Props = {
   children: ReactNode;
@@ -8,7 +8,7 @@ type Props = {
 };
 
 const FeatureFlag: React.FC<Props> = ({ name, not = false, children }) => {
-  const { features } = useContext(FeaturesContext);
+  const features = useFeatures();
   const isActive = features.includes(name);
   return (not ? !isActive : isActive) ? children : null;
 };
