@@ -9,7 +9,7 @@ test('passes features', () => {
       <FeaturesContext.Consumer>
         {({ features }) => <div data-testid="features">{features.toString()}</div>}
       </FeaturesContext.Consumer>
-    </FeaturesProvider>,
+    </FeaturesProvider>
   );
   expect(getByTestId('features').textContent).toEqual('ONE,TWO');
 });
