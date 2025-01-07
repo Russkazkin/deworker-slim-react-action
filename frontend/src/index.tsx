@@ -6,11 +6,11 @@ import * as cookie from 'cookie';
 import { FeaturesEnum, mergeFeatures } from './FeatureToggle';
 
 const defaultFeatures: { [featureName: string]: boolean } = {
-  [FeaturesEnum.WeAreHere]: false,
+  [FeaturesEnum.WeAreHere]: true,
 };
 
 const cookies = cookie.parse(document.cookie);
-const cookieFeatures = (cookies.features || '').split(/\s*,\s*/g);
+const cookieFeatures = (cookies.features || '').split(/\s*,\s*/g).filter(Boolean);
 
 const features = mergeFeatures(defaultFeatures, cookieFeatures);
 
