@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Test\Functional;
 
+use JsonException;
+
 class HomeTest extends WebTestCase
 {
     public function testMethod(): void
@@ -13,9 +15,14 @@ class HomeTest extends WebTestCase
         self::assertEquals(405, $response->getStatusCode());
     }
 
+    /**
+     * @throws JsonException
+     */
     public function testSuccess(): void
     {
-        $response = $this->app()->handle(self::json('GET', '/'));
+        $response = $this->app()->handle(
+            self::json('GET', '/')->withHeader('X-Features', '!NEW_HOME')
+        );
 
         self::assertEquals(200, $response->getStatusCode());
         self::assertEquals('application/json', $response->getHeaderLine('Content-Type'));

@@ -25,4 +25,9 @@ class Features implements FeatureFlag, FeatureSwitch
     {
         $this->features[$name] = true;
     }
+
+    public function disable(string $name): void
+    {
+        $this->features[$name] = false;
+    }
 }
