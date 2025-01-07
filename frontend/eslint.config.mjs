@@ -34,6 +34,7 @@ export default [
   ...tseslint.configs.recommended,
   pluginReactConfig,
   {settings: {react: {version: 'detect'}}},
+  eslintConfigPrettier,
   {rules:
     {
       'no-unused-vars': 'warn',
@@ -47,5 +48,4 @@ export default [
       ],
     }
   },
-  eslintConfigPrettier,
 ];
