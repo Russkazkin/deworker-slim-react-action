@@ -10,6 +10,7 @@ const cookies = cookie.parse(document.cookie);
 const cookieFeatures = (cookies.features || '').split(/\s*,\s*/g).filter(Boolean);
 
 const features = mergeFeatures(defaultFeatures, cookieFeatures);
+console.log('features', features);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

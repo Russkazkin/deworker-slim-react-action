@@ -7,7 +7,7 @@ const Welcome: React.FC = () => {
     <div data-test="welcome" className={styles.welcome}>
       <h1>Auction</h1>
       <FeatureFlag not name={FeaturesEnum.WeAreHere}>
-        <p>We will be here soon</p>
+        <p>We will be here soon!</p>
       </FeatureFlag>
       <FeatureFlag name={FeaturesEnum.WeAreHere}>
         <p>We are here</p>
