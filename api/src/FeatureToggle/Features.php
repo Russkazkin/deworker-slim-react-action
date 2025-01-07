@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\FeatureToggle;
 
-class Features implements FeatureFlag
+class Features implements FeatureFlag, FeatureSwitch
 {
     /**
      * @param bool[] $features
      * @psalm-param array<string, bool> $features
      */
-    public function __construct(private readonly array $features)
+    public function __construct(private array $features)
     {
     }
     public function isEnabled(string $name): bool
@@ -19,5 +19,10 @@ class Features implements FeatureFlag
             return false;
         }
         return $this->features[$name];
+    }
+
+    public function enable(string $name): void
+    {
+        $this->features[$name] = true;
     }
 }
