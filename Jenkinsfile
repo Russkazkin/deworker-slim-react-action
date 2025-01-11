@@ -31,6 +31,9 @@ pipeline {
             }
         }
         stage("Validate") {
+            when {
+                expression { return env.GIT_DIFF_API }
+            }
             steps {
                 sh "make doctrine-schema-validate"
             }
@@ -38,16 +41,25 @@ pipeline {
         stage("Lint") {
             parallel {
                 stage("API") {
+                    when {
+                        expression { return env.GIT_DIFF_API }
+                    }
                     steps {
                         sh "make api-lint"
                     }
                 }
                 stage("Frontend") {
+                    when {
+                        expression { return env.GIT_DIFF_FRONTEND }
+                    }
                     steps {
                         sh "make frontend-eslint"
                     }
                 }
                 stage("Cucumber") {
+                    when {
+                        expression { return env.GIT_DIFF_CUCUMBER }
+                    }
                     steps {
                         sh "make cucumber-lint"
                     }
@@ -55,6 +67,9 @@ pipeline {
             }
         }
         stage("Analyze") {
+            when {
+                expression { return env.GIT_DIFF_API }
+            }
             steps {
                 sh "make api-analyze"
             }
@@ -62,6 +77,9 @@ pipeline {
         stage("Test") {
             parallel {
                 stage("API") {
+                    when {
+                        expression { return env.GIT_DIFF_API }
+                    }
                     steps {
                         sh "make api-test"
                     }
@@ -72,6 +90,9 @@ pipeline {
                     }
                 }
                 stage("Front") {
+                    when {
+                        expression { return env.GIT_DIFF_FRONTEND }
+                    }
                     steps {
                         sh "make frontend-test"
                     }
