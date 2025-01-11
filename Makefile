@@ -1,7 +1,8 @@
-init: docker-down-clear \
- 			api-clear frontend-clear cucumber-clear \
- 			docker-pull docker-build docker-up \
- 			api-init frontend-init cucumber-init
+init: init-ci frontend-ready
+init-ci: docker-down-clear \
+	api-clear frontend-clear cucumber-clear \
+	docker-pull docker-build docker-up \
+	api-init frontend-init cucumber-init
 up: docker-up
 down: docker-down
 restart: down up
@@ -109,7 +110,7 @@ mailer-check:
 frontend-clear:
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine sh -c 'rm -rf .ready build'
 
-frontend-init: frontend-yarn-install frontend-ready
+frontend-init: frontend-yarn-install
 
 frontend-yarn-install:
 	docker compose run --rm frontend-node-cli yarn install
