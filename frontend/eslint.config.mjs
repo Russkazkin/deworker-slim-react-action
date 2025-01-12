@@ -12,6 +12,7 @@ import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
 import unicornPlugin from 'eslint-plugin-unicorn';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginJestDom from 'eslint-plugin-jest-dom';
+import eslintPluginTestingLibrary from 'eslint-plugin-testing-library';
 
 
 export default [
@@ -28,6 +29,7 @@ export default [
       ['simple-import-sort']: simpleImportSortPlugin,
       ['unicorn']: unicornPlugin,
       ['eslint-plugin-jest-dom']: eslintPluginJestDom,
+      ['eslint-plugin-testing-library']: eslintPluginTestingLibrary,
     },
   },
   { languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } } },
@@ -38,6 +40,7 @@ export default [
   {settings: {react: {version: 'detect'}}},
   eslintConfigPrettier,
   eslintPluginJestDom.configs['flat/recommended'],
+  eslintPluginTestingLibrary.configs['flat/react'],
   {rules:
     {
       'no-unused-vars': 'warn',

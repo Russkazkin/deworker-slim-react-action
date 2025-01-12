@@ -10,7 +10,7 @@ type Props = {
 const App: React.FC<Props> = ({ features }) => {
   return (
     <FeaturesProvider features={features}>
-      <div className="App">
+      <div className="App" data-testid="App">
         <div className="app">
           <Welcome />
         </div>

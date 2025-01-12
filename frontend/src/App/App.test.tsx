@@ -1,8 +1,8 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from './App';
 
 test('renders learn react link', () => {
-  const { container } = render(<App features={[]} />);
-  expect(container.getElementsByClassName('App').length).toBe(1);
+  render(<App features={[]} />);
+  expect(screen.getAllByTestId('App')).toHaveLength(1);
 });
