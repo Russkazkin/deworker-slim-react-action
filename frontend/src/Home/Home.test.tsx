@@ -1,20 +1,20 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Welcome from './Welcome';
+import Home from './Home';
 import { FeaturesEnum, FeaturesProvider } from '../FeatureToggle';
-test('renders welcome', () => {
+test('renders home', () => {
   render(
     <FeaturesProvider features={[]}>
-      <Welcome />
+      <Home />
     </FeaturesProvider>
   );
   expect(screen.getByText(/We will be here/i)).toBeInTheDocument();
   expect(screen.queryByText(/We are here/i)).not.toBeInTheDocument();
 });
-test('renders new welcome', () => {
+test('renders new home', () => {
   render(
     <FeaturesProvider features={[FeaturesEnum.WeAreHere]}>
-      <Welcome />
+      <Home />
     </FeaturesProvider>
   );
   expect(screen.queryByText(/We will be here/i)).not.toBeInTheDocument();

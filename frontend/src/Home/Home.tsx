@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './Welcome.module.sass';
+import styles from './Home.module.sass';
 import FeatureFlag, { FeaturesEnum } from '../FeatureToggle';
 
-const Welcome: React.FC = () => {
+const Home: React.FC = () => {
   return (
-    <div data-testid="welcome" className={styles.welcome}>
+    <div data-testid="home" className={styles.home}>
       <h1>Auction</h1>
       <FeatureFlag not name={FeaturesEnum.WeAreHere}>
         <p>We will be here soon!</p>
@@ -16,4 +16,4 @@ const Welcome: React.FC = () => {
   );
 };
 
-export default Welcome;
+export default Home;

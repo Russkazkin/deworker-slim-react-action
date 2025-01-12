@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.sass';
-import Welcome from '../Welcome';
+import Home from '../Home';
 import { FeaturesProvider } from '../FeatureToggle';
 
 type Props = {
@@ -12,7 +12,7 @@ const App: React.FC<Props> = ({ features }) => {
     <FeaturesProvider features={features}>
       <div className="App" data-testid="App">
         <div className="app">
-          <Welcome />
+          <Home />
         </div>
       </div>
     </FeaturesProvider>
