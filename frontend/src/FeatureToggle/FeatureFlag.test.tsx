@@ -8,7 +8,7 @@ test('renders content if feature is active', () => {
       <FeatureFlag name="FEATURE">Content</FeatureFlag>
     </FeaturesProvider>
   );
-  expect(container.textContent).toContain('Content');
+  expect(container).toHaveTextContent(/Content/);
 });
 test('does not render content if feature is not active', () => {
   const { container } = render(
@@ -16,7 +16,7 @@ test('does not render content if feature is not active', () => {
       <FeatureFlag name="FEATURE">Content</FeatureFlag>
     </FeaturesProvider>
   );
-  expect(container.textContent).not.toContain('Content');
+  expect(container).not.toHaveTextContent(/Content/);
 });
 test('does not render content in not mode', () => {
   const { container } = render(
@@ -26,7 +26,7 @@ test('does not render content in not mode', () => {
       </FeatureFlag>
     </FeaturesProvider>
   );
-  expect(container.textContent).not.toContain('Content');
+  expect(container).not.toHaveTextContent(/Content/);
 });
 test('renders content in not mode', () => {
   const { container } = render(
@@ -36,5 +36,5 @@ test('renders content in not mode', () => {
       </FeatureFlag>
     </FeaturesProvider>
   );
-  expect(container.textContent).toContain('Content');
+  expect(container).toHaveTextContent(/Content/);
 });

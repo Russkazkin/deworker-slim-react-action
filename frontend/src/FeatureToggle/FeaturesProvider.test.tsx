@@ -11,5 +11,5 @@ test('passes features', () => {
       </FeaturesContext.Consumer>
     </FeaturesProvider>
   );
-  expect(getByTestId('features').textContent).toEqual('ONE,TWO');
+  expect(getByTestId('features')).toHaveTextContent('ONE,TWO');
 });

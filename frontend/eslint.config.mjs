@@ -1,7 +1,7 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
+import globals from 'globals';
+import pluginJs from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import pluginReactConfig from 'eslint-plugin-react/configs/recommended.js';
 import deprecationPlugin from 'eslint-plugin-deprecation';
 import eslintCommentsPlugin from 'eslint-plugin-eslint-comments';
 import eslintPluginPlugin from 'eslint-plugin-eslint-plugin';
@@ -10,7 +10,8 @@ import jsdocPlugin from 'eslint-plugin-jsdoc';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
 import unicornPlugin from 'eslint-plugin-unicorn';
-import eslintConfigPrettier from "eslint-config-prettier";
+import eslintConfigPrettier from 'eslint-config-prettier';
+import eslintPluginJestDom from 'eslint-plugin-jest-dom';
 
 
 export default [
@@ -26,6 +27,7 @@ export default [
       ['react-hooks']: reactHooksPlugin,
       ['simple-import-sort']: simpleImportSortPlugin,
       ['unicorn']: unicornPlugin,
+      ['eslint-plugin-jest-dom']: eslintPluginJestDom,
     },
   },
   { languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } } },
@@ -35,6 +37,7 @@ export default [
   pluginReactConfig,
   {settings: {react: {version: 'detect'}}},
   eslintConfigPrettier,
+  eslintPluginJestDom.configs['flat/recommended'],
   {rules:
     {
       'no-unused-vars': 'warn',

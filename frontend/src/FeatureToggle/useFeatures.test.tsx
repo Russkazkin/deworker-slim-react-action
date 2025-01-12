@@ -12,5 +12,5 @@ test('read features', () => {
       <Component />
     </FeaturesProvider>
   );
-  expect(container.textContent).toEqual('ONE,TWO');
+  expect(container).toHaveTextContent('ONE,TWO');
 });
