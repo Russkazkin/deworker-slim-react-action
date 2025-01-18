@@ -13,7 +13,7 @@ test('renders home', () => {
 });
 test('renders new home', () => {
   render(
-    <FeaturesProvider features={[FeaturesEnum.WeAreHere]}>
+    <FeaturesProvider features={[FeaturesEnum.JoinToUs]}>
       <Home />
     </FeaturesProvider>
   );
