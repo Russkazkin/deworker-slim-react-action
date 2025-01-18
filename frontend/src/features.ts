@@ -1,6 +1,6 @@
 import { FeaturesEnum } from './FeatureToggle';
 
 const features = {
-  [FeaturesEnum.JoinToUs]: true,
+  [FeaturesEnum.JoinToUs]: false,
 };
 export default features;
