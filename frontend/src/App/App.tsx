@@ -1,8 +1,9 @@
 import React from 'react';
-import './App.sass';
+import { BrowserRouter, Route, Routes } from 'react-router';
 import Home from '../Home';
 import { FeaturesProvider } from '../FeatureToggle';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { NotFound } from '../Error';
+import './App.sass';
 
 type Props = {
   features: string[];
@@ -16,6 +17,7 @@ const App: React.FC<Props> = ({ features }) => {
           <div className="app">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
             <Home />
           </div>
