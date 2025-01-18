@@ -1,6 +1,7 @@
 import React from 'react';
 import FeatureFlag, { FeaturesEnum } from '../FeatureToggle';
 import System from '../Layout/System';
+import { Link } from 'react-router';
 
 const Home: React.FC = () => {
   return (
@@ -11,6 +12,11 @@ const Home: React.FC = () => {
       </FeatureFlag>
       <FeatureFlag name={FeaturesEnum.JoinToUs}>
         <p>We are here</p>
+        <p>
+          <Link to="/join" data-testid="join-link">
+            Join to Us
+          </Link>
+        </p>
       </FeatureFlag>
     </System>
   );
