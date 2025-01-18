@@ -1,6 +1,8 @@
-FROM node:23-alpine
+FROM node:22-alpine
 
 RUN apk add --no-cache curl
+
+ENV NODE_OPTIONS --no-deprecation
 
 WORKDIR /app
 

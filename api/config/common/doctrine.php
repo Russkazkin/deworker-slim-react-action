@@ -17,14 +17,26 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 return [
     EntityManagerInterface::class => static function (ContainerInterface $container): EntityManagerInterface {
-
+        /**
+         * @psalm-suppress MixedArrayAccess
+         * @psalm-var array{
+         *     metadata_dirs:array<array-key, string>,
+         *     dev_mode:bool,
+         *     proxy_dir:string,
+         *     base_cache_dir:string,
+         *     types:array<string,class-string<Doctrine\DBAL\Types\Type>>,
+         *     subscribers:string[],
+         *     cache_dir:string|null,
+         *     connection:array
+         * } $settings
+         */
         $settings = $container->get('config')['doctrine'];
 
         $config = ORMSetup::createAttributeMetadataConfiguration(
             $settings['metadata_dirs'],
             $settings['dev_mode'],
             $settings['proxy_dir'],
-            $settings['cache_dir']
+            $settings['cache_dir'] !== null
                 ? new FilesystemAdapter($settings['cache_dir'], directory: $settings['base_cache_dir'])
                 : new ArrayAdapter()
         );

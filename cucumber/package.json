@@ -2,10 +2,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "e2e": "cucumber-js  --parallel 4 --retry 2 --format json:var/report.json",
-    "e2e-ci": "cucumber-js --retry 2 --format json:var/report.json",
-    "smoke": "cucumber-js --tags @smoke --fail-fast --parallel 4",
-    "smoke-ci": "cucumber-js --tags @smoke --fail-fast",
+    "e2e": "cucumber-js --tags 'not @wip'  --parallel 4 --retry 2 --format json:var/report.json",
+    "e2e-ci": "cucumber-js --tags 'not @wip' --retry 2 --format json:var/report.json",
+    "smoke": "cucumber-js --tags '@smoke and not @wip' --fail-fast --parallel 4",
+    "smoke-ci": "cucumber-js --tags '@smoke and not @wip' --fail-fast",
     "report": "node reporter.js",
     "lint": "eslint features",
     "lint-fix": "eslint --fix features"
@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
+    "@types/chai": "^5.0.1",
     "eslint": "^9.8.0"
   }
 }

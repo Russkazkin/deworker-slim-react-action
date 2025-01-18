@@ -1,15 +1,45 @@
-import { Then, When } from '@cucumber/cucumber';
+import { Then, When, Given } from '@cucumber/cucumber';
 import { expect } from 'chai';
 
-When('I open {string} page', { wrapperOptions: { retry: 2 }, timeout: 30000 }, async function (uri) {
+const onPage = async function (uri) {
   return await this.page.goto('http://gateway:8080' + uri);
-});
+};
+
+Given('I am on {string} page', { wrapperOptions: { retry: 2 }, timeout: 30000 }, onPage);
+
+When('I open {string} page', { wrapperOptions: { retry: 2 }, timeout: 30000 }, onPage);
 
 Then('I see {string}', async function (value) {
+  await this.page.waitForFunction(
+    (text) => document.querySelector('body').innerText.includes(text),
+    {},
+    value
+  );
   const content = await this.page.content();
   expect(content).to.include(value);
 });
 Then('I do not see {string}', async function (value) {
   const content = await this.page.content();
   expect(content).to.not.include(value);
+});
+Then('I see {string} element', async function (id) {
+  await this.page.waitForSelector('[data-testid=' + id + ']');
+});
+
+Then('I click {string} element', async function (id) {
+  await this.page.click('[data-testid=' + id + ']');
+});
+
+Then('I see {string} header', async function (value) {
+  await this.page.waitForFunction(
+    (text) => {
+      console.log('text', text);
+      const el = document.querySelector('h1');
+      return el ? el.innerText.includes(text) : false;
+    },
+    {},
+    value
+  );
+  const text = await this.page.$eval('h1', el => el.innerText);
+  expect(text).to.equals(value);
 });

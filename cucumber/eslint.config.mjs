@@ -3,7 +3,7 @@ import globals from 'globals';
 
 export default [
   js.configs.recommended,
-  {languageOptions: { globals: { ...globals.node} }},
+  {languageOptions: { globals: { ...globals.node, ...globals.browser } }},
   {
     rules: {
       'no-unused-vars': 'warn',

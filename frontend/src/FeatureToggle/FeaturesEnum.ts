@@ -1,6 +1,6 @@
 enum FeaturesEnum {
   // eslint-disable-next-line no-unused-vars
-  WeAreHere = 'WE_ARE_HERE',
+  JoinToUs = 'JOIN_TO_US',
 }
 
 export default FeaturesEnum;
