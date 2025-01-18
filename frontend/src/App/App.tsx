@@ -4,6 +4,8 @@ import Home from '../Home';
 import { FeaturesProvider } from '../FeatureToggle';
 import { NotFound } from '../Error';
 import './App.sass';
+import FeaturesEnum from '../FeatureToggle/FeaturesEnum';
+import Join from '../Join';
 
 type Props = {
   features: string[];
@@ -18,6 +20,9 @@ const App: React.FC<Props> = ({ features }) => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="*" element={<NotFound />} />
+              {features.includes(FeaturesEnum.JoinToUs) ? (
+                <Route path="/join" element={<Join />} />
+              ) : null}
             </Routes>
             <Home />
           </div>
