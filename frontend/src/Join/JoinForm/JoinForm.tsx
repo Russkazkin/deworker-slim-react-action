@@ -14,6 +14,7 @@ const JoinForm: React.FC = () => {
             name="email"
             type="email"
             value="mail@app.test"
+            onChange={() => {}}
             required
           />
         </div>
@@ -26,6 +27,7 @@ const JoinForm: React.FC = () => {
             name="password"
             type="password"
             value="pas"
+            onChange={() => {}}
             required
           />
           <div className="input-error">The value is too short.</div>

@@ -1,5 +1,5 @@
-const { When, Then } = require('@cucumber/cucumber');
-const { expect } = require('chai');
+import { When, Then } from '@cucumber/cucumber';
+import { expect } from 'chai';
 When('I fill {string} field with {string}', async function (name, value) {
   await this.page.waitForSelector('[name=' + name + ']');
   await this.page.type('[name=' + name + ']', value);
