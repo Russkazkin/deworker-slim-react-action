@@ -8,5 +8,5 @@ test('renders join page', () => {
       <Join />
     </MemoryRouter>
   );
-  expect(screen.getByText(/Join to Us/i)).toBeInTheDocument();
+  expect(screen.getByTestId('join-form')).toBeInTheDocument();
 });

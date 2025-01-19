@@ -27,3 +27,4 @@ Feature: View home page
     And I am on "/" page
     When I click "join-link" element
     Then I see "Join to Us" header
+    And I see "join-form" element
