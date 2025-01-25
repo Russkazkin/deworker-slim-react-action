@@ -12,7 +12,7 @@ Then('I click submit button', async function () {
   await this.page.click('button[type=submit]');
 });
 Then('I see validation error {string}', async function (message) {
-  await this.page.waitForSelector('.input-error');
-  const errors = await this.page.$$eval('.input-error', els => els.map(el => el.innerText));
+  await this.page.waitForSelector('[data-testid=violation]');
+  const errors = await this.page.$$eval('[data-testid=violation]', els => els.map(el => el.innerText));
   expect(errors.toString()).to.include(message);
 });

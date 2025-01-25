@@ -12,7 +12,6 @@ Feature: View join page
     When I open "/join" page
     Then I see "Join to Us" header
 
-  @wip
   Scenario: Success join
     Given I am a guest user
     And I have "JOIN_TO_US" feature
@@ -23,7 +22,6 @@ Feature: View join page
     And I click submit button
     Then I see success "Confirm join by link in email."
 
-  @wip
   Scenario: Existing join
     Given I am a guest user
     And I have "JOIN_TO_US" feature
@@ -33,8 +31,7 @@ Feature: View join page
     And I check "agree" checkbox
     And I click submit button
     Then I see error "User already exists."
-    
-  @wip
+
   Scenario: Not valid join
     Given I am a guest user
     And I have "JOIN_TO_US" feature

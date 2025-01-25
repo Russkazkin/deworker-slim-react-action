@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './JoinForm.module.sass';
+import api, { parseError, parseErrors } from '../../Api';
 
 const JoinForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -7,46 +8,99 @@ const JoinForm: React.FC = () => {
     password: '',
     agree: false,
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
-    setFormData(
-      prevState => ({
-        ...prevState,
-        [input.name]: input.type === 'checkbox' ? input.checked : input.value,
-      })
-    );
+    setFormData((prevState) => ({
+      ...prevState,
+      [input.name]: input.type === 'checkbox' ? input.checked : input.value,
+    }));
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('submit', formData);
+    if (!formData.agree) {
+      setErrors({ agree: 'Please agree with terms.' });
+      return;
+    }
+    setErrors({});
+    setError(null);
+    setSuccess(null);
+    api
+      .post('/v1/auth/join', {
+        email: formData.email,
+        password: formData.password,
+      })
+      .then(() => {
+        setSuccess('Confirm join by link in email.');
+      })
+      .catch(async (error) => {
+        setErrors(await parseErrors(error));
+        setError(await parseError(error));
+      });
   };
 
   return (
     <div data-testid="join-form" className={styles.joinForm}>
-      <form className="form" method="post" onSubmit={handleSubmit}>
-        <div className="input-row">
-          <label htmlFor="email" className="input-label">
-            Email
-          </label>
-          <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required />
+      {error ? (
+        <div className="alert error" data-testid="alert-error">
+          {error}
         </div>
-        <div className="input-row">
-          <label htmlFor="password" className="input-label">
-            Password
-          </label>
-          <input id="password" name="password" type="password" value={formData.password} onChange={handleChange} required />
+      ) : null}
+      {success ? (
+        <div className="alert success" data-testid="alert-success">
+          {success}
         </div>
-        <div className="input-row">
-          <label>
-            <input name="agree" type="checkbox" required checked={formData.agree} onChange={handleChange} />
-            <small>I agree with privacy policy</small>
-          </label>
-        </div>
-        <div className="button-row">
-          <button type="submit">Join to Us</button>
-        </div>
-      </form>
+      ) : null}
+      {!success ? (
+        <form className="form" method="post" onSubmit={handleSubmit}>
+          <div className={'input-row' + (errors.email ? ' has-error' : '')}>
+            <label htmlFor="email" className="input-label">
+              Email
+            </label>
+            <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required />
+            {errors.email ? (
+              <div className="input-error" data-testid="violation">
+                {errors.email}
+              </div>
+            ) : null}
+          </div>
+          <div className={'input-row' + (errors.password ? ' has-error' : '')}>
+            <label htmlFor="password" className="input-label">
+              Password
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            {errors.password ? (
+              <div className="input-error" data-testid="violation">
+                {errors.password}
+              </div>
+            ) : null}
+          </div>
+          <div className={'input-row' + (errors.agree ? ' has-error' : '')}>
+            <label>
+              <input name="agree" type="checkbox" required checked={formData.agree} onChange={handleChange} />
+              <small>I agree with privacy policy</small>
+            </label>
+            {errors.agree ? (
+              <div className="input-error" data-testid="violation">
+                {errors.agree}
+              </div>
+            ) : null}
+          </div>
+          <div className="button-row">
+            <button type="submit" data-testid="join-button">Join to Us</button>
+          </div>
+        </form>
+      ) : null}
     </div>
   );
 };
