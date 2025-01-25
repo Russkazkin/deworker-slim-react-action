@@ -8,6 +8,8 @@ const JoinForm: React.FC = () => {
     password: '',
     agree: false,
   });
+
+  const [buttonActive, setButtonActive] = useState(true);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -25,6 +27,7 @@ const JoinForm: React.FC = () => {
       setErrors({ agree: 'Please agree with terms.' });
       return;
     }
+    setButtonActive(false);
     setErrors({});
     setError(null);
     setSuccess(null);
@@ -35,10 +38,12 @@ const JoinForm: React.FC = () => {
       })
       .then(() => {
         setSuccess('Confirm join by link in email.');
+        setButtonActive(true);
       })
       .catch(async (error) => {
         setErrors(await parseErrors(error));
         setError(await parseError(error));
+        setButtonActive(true);
       });
   };
 
@@ -97,7 +102,7 @@ const JoinForm: React.FC = () => {
             ) : null}
           </div>
           <div className="button-row">
-            <button type="submit" data-testid="join-button">Join to Us</button>
+            <button type="submit" data-testid="join-button" disabled={!buttonActive}>Join to Us</button>
           </div>
         </form>
       ) : null}
