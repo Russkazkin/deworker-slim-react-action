@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './JoinForm.module.sass';
 import api, { parseError, parseErrors } from '../../Api';
 import { AlertError, AlertSuccess } from '../../Alert';
+import { InputError } from '../../Form';
 
 const JoinForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -59,11 +60,7 @@ const JoinForm: React.FC = () => {
               Email
             </label>
             <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required />
-            {errors.email ? (
-              <div className="input-error" data-testid="violation">
-                {errors.email}
-              </div>
-            ) : null}
+            <InputError error={errors.email} />
           </div>
           <div className={'input-row' + (errors.password ? ' has-error' : '')}>
             <label htmlFor="password" className="input-label">
@@ -77,22 +74,14 @@ const JoinForm: React.FC = () => {
               onChange={handleChange}
               required
             />
-            {errors.password ? (
-              <div className="input-error" data-testid="violation">
-                {errors.password}
-              </div>
-            ) : null}
+            <InputError error={errors.password} />
           </div>
           <div className={'input-row' + (errors.agree ? ' has-error' : '')}>
             <label>
               <input name="agree" type="checkbox" required checked={formData.agree} onChange={handleChange} />
               <small>I agree with privacy policy</small>
             </label>
-            {errors.agree ? (
-              <div className="input-error" data-testid="violation">
-                {errors.agree}
-              </div>
-            ) : null}
+            <InputError error={errors.agree} />
           </div>
           <div className="button-row">
             <button type="submit" data-testid="join-button" disabled={!buttonActive}>Join to Us</button>
