@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './JoinForm.module.sass';
 import api, { parseError, parseErrors } from '../../Api';
+import { AlertError, AlertSuccess } from '../../Alert';
 
 const JoinForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -49,16 +50,8 @@ const JoinForm: React.FC = () => {
 
   return (
     <div data-testid="join-form" className={styles.joinForm}>
-      {error ? (
-        <div className="alert error" data-testid="alert-error">
-          {error}
-        </div>
-      ) : null}
-      {success ? (
-        <div className="alert success" data-testid="alert-success">
-          {success}
-        </div>
-      ) : null}
+      <AlertError message={error} />
+      <AlertSuccess message={success} />
       {!success ? (
         <form className="form" method="post" onSubmit={handleSubmit}>
           <div className={'input-row' + (errors.email ? ' has-error' : '')}>
