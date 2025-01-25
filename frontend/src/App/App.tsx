@@ -24,7 +24,6 @@ const App: React.FC<Props> = ({ features }) => {
                 <Route path="/join" element={<Join />} />
               ) : null}
             </Routes>
-            <Home />
           </div>
         </div>
       </BrowserRouter>

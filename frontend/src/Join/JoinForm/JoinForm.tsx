@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './JoinForm.module.sass';
 
 const JoinForm: React.FC = () => {
@@ -7,7 +7,6 @@ const JoinForm: React.FC = () => {
     password: '',
     agree: false,
   });
-  console.log('formData', formData);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
     setFormData(
@@ -18,9 +17,14 @@ const JoinForm: React.FC = () => {
     );
   };
 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log('submit', formData);
+  };
+
   return (
     <div data-testid="join-form" className={styles.joinForm}>
-      <form className="form" method="post">
+      <form className="form" method="post" onSubmit={handleSubmit}>
         <div className="input-row">
           <label htmlFor="email" className="input-label">
             Email
