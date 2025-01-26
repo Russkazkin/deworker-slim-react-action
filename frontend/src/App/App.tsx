@@ -6,6 +6,7 @@ import { NotFound } from '../Error';
 import './App.sass';
 import FeaturesEnum from '../FeatureToggle/FeaturesEnum';
 import Join from '../Join';
+import Confirm from '../Join/Confirm';
 
 type Props = {
   features: string[];
@@ -22,6 +23,9 @@ const App: React.FC<Props> = ({ features }) => {
               <Route path="*" element={<NotFound />} />
               {features.includes(FeaturesEnum.JoinToUs) ? (
                 <Route path="/join" element={<Join />} />
+              ) : null}
+              {features.includes(FeaturesEnum.JoinToUs) ? (
+                <Route path="/join/confirm" element={<Confirm />} />
               ) : null}
             </Routes>
           </div>
