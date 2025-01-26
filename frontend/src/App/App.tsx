@@ -7,6 +7,7 @@ import './App.sass';
 import FeaturesEnum from '../FeatureToggle/FeaturesEnum';
 import Join from '../Join';
 import Confirm from '../Join/Confirm';
+import Success from '../Join/Success';
 
 type Props = {
   features: string[];
@@ -26,6 +27,9 @@ const App: React.FC<Props> = ({ features }) => {
               ) : null}
               {features.includes(FeaturesEnum.JoinToUs) ? (
                 <Route path="/join/confirm" element={<Confirm />} />
+              ) : null}
+              {features.includes(FeaturesEnum.JoinToUs) ? (
+                <Route path="/join/success" element={<Success />} />
               ) : null}
             </Routes>
           </div>
