@@ -91,6 +91,8 @@ services:
             POSTGRES_DB: app
         volumes:
             - api-postgres:/var/lib/postgresql@17/data
+        ports:
+          - "5432:5432"
         deploy:
           placement:
             constraints: [ node.labels.db == db ]
