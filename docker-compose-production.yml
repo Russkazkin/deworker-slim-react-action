@@ -92,7 +92,10 @@ services:
         volumes:
             - api-postgres:/var/lib/postgresql@17/data
         ports:
-          - "5432:5432"
+          - target: 5432
+            published: 5432
+            protocol: tcp
+            mode: host
         deploy:
           placement:
             constraints: [ node.labels.db == db ]
