@@ -6,6 +6,7 @@ init-ci: docker-down-clear \
 up: docker-up
 down: docker-down
 restart: down up
+rebuild: docker-build down up
 check: lint analyze test orm-check test-e2e
 lint: api-lint frontend-eslint cucumber-lint
 analyze: api-analyze

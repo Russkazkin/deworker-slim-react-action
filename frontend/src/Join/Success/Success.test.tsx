@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Join from './Join';
+import Success from './Success';
 import { MemoryRouter } from 'react-router';
 test('renders join page', () => {
   render(
     <MemoryRouter>
-      <Join />
+      <Success />
     </MemoryRouter>
   );
-  expect(screen.getByTestId('join-form')).toBeInTheDocument();
+  expect(screen.getByTestId('join-success')).toBeInTheDocument();
 });

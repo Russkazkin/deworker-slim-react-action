@@ -2,6 +2,8 @@
   "extends": ["stylelint-config-standard", "stylelint-config-sass-guidelines", "stylelint-prettier/recommended"],
   "plugins": ["stylelint-prettier"],
   "rules": {
-    "prettier/prettier": true
+    "prettier/prettier": true,
+    "selector-no-qualifying-type": [true, { "ignore": ["attribute"] }],
+    "selector-max-compound-selectors": [3, {"ignoreSelectors": ["small"]}]
   }
 }
