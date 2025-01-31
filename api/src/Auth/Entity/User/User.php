@@ -39,7 +39,7 @@ class User
     #[ORM\Column(type: RoleType::NAME, length: 16)]
     private Role $role;
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserNetwork::class, cascade: ['all'], orphanRemoval: true)]
-    /** @psalm-var Collection<array-key, UserNetwork */
+    /** @psalm-var Collection<array-key, UserNetwork> $networks */
     private Collection $networks;
 
     public function __construct(
@@ -92,7 +92,6 @@ class User
 
     public function attachNetwork(Network $network): void
     {
-        /** @var UserNetwork $existing */
         foreach ($this->networks as $existing) {
             if ($existing->getNetwork()->isEqualTo($network)) {
                 throw new DomainException('Network is already attached.');
