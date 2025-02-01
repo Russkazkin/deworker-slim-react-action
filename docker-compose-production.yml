@@ -102,4 +102,4 @@ services:
           endpoint_mode: dnsrr
 
 volumes:
-    api-postgres:
+    api-database:
