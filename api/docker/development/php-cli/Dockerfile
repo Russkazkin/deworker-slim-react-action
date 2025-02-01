@@ -1,15 +1,14 @@
 FROM php:8.1-cli-alpine
 
+ENV XDEBUG_VERSION 3.4.1
+
 RUN apk add --update linux-headers
 
-RUN apk add --no-cache autoconf g++ make \
-    && pecl install xdebug \
-    && rm -rf /tmp/pear \
-    && docker-php-ext-enable xdebug
-
-RUN apk add --no-cache postgresql-dev bash coreutils \
-    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo_pgsql
+RUN apk add --no-cache postgresql-dev bash coreutils git \
+    && git clone --branch $XDEBUG_VERSION --depth 1 https://github.com/xdebug/xdebug.git /usr/src/php/ext/xdebug \
+    && docker-php-ext-configure xdebug --enable-xdebug-dev \
+    && docker-php-ext-install pdo_pgsql xdebug \
+    && apk del git
 
 RUN apk add --no-cache unzip
 
