@@ -14,7 +14,7 @@ return [
     LoggerInterface::class => static function (ContainerInterface $container) {
         /**
          * @psalm-suppress MixedArrayAccess
-         * @psalm-var array{
+         * @var array{
          *     debug:bool,
          *     stderr:bool,
          *     file:string|null,
@@ -35,7 +35,7 @@ return [
             $log->pushHandler(new StreamHandler($config['file'], $level));
         }
 
-        foreach ($config['processors'] as $key => $class) {
+        foreach ($config['processors'] as $class) {
             /** @var ProcessorInterface $processor */
             $processor = $container->get($class);
             $log->pushProcessor($processor);
