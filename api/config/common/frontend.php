@@ -9,7 +9,7 @@ return [
     FrontendUrlGenerator::class => static function (ContainerInterface $container): FrontendUrlGenerator {
         /**
          * @psalm-suppress MixedArrayAccess
-         * @psalm-var array{url:string} $config
+         * @var array{url:string} $config
          */
         $config = $container->get('config')['frontend'];
 

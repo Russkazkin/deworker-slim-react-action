@@ -7,8 +7,7 @@ namespace App\FeatureToggle;
 class Features implements FeatureFlag, FeatureSwitch, FeaturesContext
 {
     /**
-     * @param bool[] $features
-     * @psalm-param array<string, bool> $features
+     * @param array<string, bool> $features
      */
     public function __construct(private array $features)
     {

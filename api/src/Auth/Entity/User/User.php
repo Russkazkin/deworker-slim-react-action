@@ -39,7 +39,7 @@ class User
     #[ORM\Column(type: RoleType::NAME, length: 16)]
     private Role $role;
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserNetwork::class, cascade: ['all'], orphanRemoval: true)]
-    /** @psalm-var Collection<array-key, UserNetwork> $networks */
+    /** @var Collection<array-key, UserNetwork> $networks */
     private Collection $networks;
 
     public function __construct(

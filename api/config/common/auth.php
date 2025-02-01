@@ -20,7 +20,7 @@ return [
     Tokenizer::class => static function (ContainerInterface $container): Tokenizer {
         /**
          * @psalm-suppress MixedArrayAccess
-         * @psalm-var array{token_ttl:string} $config
+         * @var array{token_ttl:string} $config
          */
         $config = $container->get('config')['auth'];
 
