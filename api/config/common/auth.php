@@ -30,6 +30,6 @@ return [
     'config' => [
         'auth' => [
             'token_ttl' => 'PT1H',
-        ]
+        ],
     ],
 ];

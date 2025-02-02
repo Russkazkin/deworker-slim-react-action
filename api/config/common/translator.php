@@ -47,13 +47,13 @@ return [
                     'xlf',
                     __DIR__ . '/../../vendor/symfony/validator/Resources/translations/validators.ru.xlf',
                     'ru',
-                    'validators'
+                    'validators',
                 ],
                 [
                     'php',
                     __DIR__ . '/../../translations/exceptions.ru.php',
                     'ru',
-                    'exceptions'
+                    'exceptions',
                 ],
             ],
         ],

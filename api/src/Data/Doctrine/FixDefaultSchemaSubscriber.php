@@ -16,7 +16,7 @@ class FixDefaultSchemaSubscriber implements EventSubscriber
     public function getSubscribedEvents(): array
     {
         return [
-            ToolEvents::postGenerateSchema => 'postGenerateSchema'
+            ToolEvents::postGenerateSchema => 'postGenerateSchema',
         ];
     }
 

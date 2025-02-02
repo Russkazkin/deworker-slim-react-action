@@ -50,7 +50,7 @@ return [
             'file' => null,
             'stderr' => true,
             'processors' => [
-                FeaturesMonologProcessor::class
+                FeaturesMonologProcessor::class,
             ],
         ],
     ],

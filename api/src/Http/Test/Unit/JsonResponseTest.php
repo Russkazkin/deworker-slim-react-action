@@ -48,7 +48,7 @@ class JsonResponseTest extends TestCase
         $array = [
             'str' => 'value',
             'int' => 1,
-            'none' => null
+            'none' => null,
         ];
 
         return [
