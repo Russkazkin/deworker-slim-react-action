@@ -46,7 +46,7 @@ class WebTestCase extends TestCase
     }
 
     /**
-     * @param array<string|int,string> $fixtures
+     * @param array<int|string,string> $fixtures
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
