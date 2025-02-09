@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace App\Auth\Test\Unit\Entity\User\User;
 
-use App\Auth\Entity\User\Network;
 use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\Id;
+use App\Auth\Entity\User\Network;
 use App\Auth\Entity\User\Role;
 use App\Auth\Entity\User\Status;
-use App\Auth\Entity\User\Token;
 use App\Auth\Entity\User\User;
 use App\Auth\Entity\User\UserNetwork;
-use App\Auth\Test\Builder\UserBuilder;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;

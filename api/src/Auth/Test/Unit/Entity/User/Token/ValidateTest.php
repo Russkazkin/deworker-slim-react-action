@@ -7,7 +7,6 @@ namespace App\Auth\Test\Unit\Entity\User\Token;
 use App\Auth\Entity\User\Token;
 use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversFunction;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;

@@ -24,4 +24,7 @@ return
             '@DoctrineAnnotation' => true,
             '@PHP81Migration' => true,
             '@PHPUnit100Migration:risky' => true,
+
+            'no_unused_imports' => true,
+            'ordered_imports' => ['imports_order' => ['class', 'function', 'const']],
         ]);

@@ -8,7 +8,6 @@ use App\Http\Validator\ValidationException;
 use App\Http\Validator\Validator;
 use Exception;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;

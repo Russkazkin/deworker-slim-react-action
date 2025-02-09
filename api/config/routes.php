@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use App\Http\Action\HomeAction;
-use App\Http\Action\V1\Auth\Join\RequestAction;
 use App\Http\Action\V1\Auth\Join\ConfirmAction;
+use App\Http\Action\V1\Auth\Join\RequestAction;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 
