@@ -29,7 +29,7 @@ return [
         return $translator;
     },
 
-    ContentLanguage::class => function (ContainerInterface $container): ContentLanguage {
+    ContentLanguage::class => static function (ContainerInterface $container): ContentLanguage {
         /**
          * @psalm-suppress MixedArrayAccess
          * @var array{allowed:string[]} $config

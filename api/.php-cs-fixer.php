@@ -38,6 +38,7 @@ return
             'final_class' => true,
             'final_public_method_for_abstract_class' => true,
             'self_static_accessor' => true,
+            'static_lambda' => true,
 
             'php_unit_internal_class' => true,
             'php_unit_construct' => true,
