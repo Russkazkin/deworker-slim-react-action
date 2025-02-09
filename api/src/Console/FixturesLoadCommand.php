@@ -35,8 +35,7 @@ class FixturesLoadCommand extends Command
     {
         $this
             ->setName('fixtures:load')
-            ->setDescription('Load fixtures')
-        ;
+            ->setDescription('Load fixtures');
     }
 
     /**

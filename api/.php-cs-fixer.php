@@ -31,4 +31,5 @@ return
             'phpdoc_types_order' => ['null_adjustment' => 'always_last'],
             'strict_comparison' => true,
             'strict_param' => true,
+            'multiline_whitespace_before_semicolons' => ['strategy' => 'no_multi_line'],
         ]);
