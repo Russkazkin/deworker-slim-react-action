@@ -9,6 +9,7 @@
     },
     "require": {
         "php": "^8.1",
+        "ext-mbstring": "*",
         "doctrine/migrations": "^3.7",
         "doctrine/orm": "^2.20",
         "finesse/swiftmailer-defaults-plugin": "^2.0",
