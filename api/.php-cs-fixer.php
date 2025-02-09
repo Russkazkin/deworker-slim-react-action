@@ -32,4 +32,7 @@ return
             'strict_comparison' => true,
             'strict_param' => true,
             'multiline_whitespace_before_semicolons' => ['strategy' => 'no_multi_line'],
+            'no_superfluous_elseif' => true,
+            'no_useless_else' => true,
+            'no_useless_return' => true,
         ]);
