@@ -39,6 +39,7 @@ return
             'final_public_method_for_abstract_class' => true,
             'self_static_accessor' => true,
             'static_lambda' => true,
+            'global_namespace_import' => true,
 
             'php_unit_internal_class' => true,
             'php_unit_construct' => true,
