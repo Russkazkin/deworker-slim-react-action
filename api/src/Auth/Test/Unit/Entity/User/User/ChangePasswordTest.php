@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  */
-class ChangePasswordTest extends TestCase
+final class ChangePasswordTest extends TestCase
 {
     /**
      * @throws Exception

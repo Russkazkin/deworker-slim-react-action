@@ -10,7 +10,7 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use DomainException;
 
-class UserRepository
+final class UserRepository
 {
     /**
      * @param EntityRepository<User> $repo

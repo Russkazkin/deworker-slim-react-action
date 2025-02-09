@@ -19,7 +19,7 @@ use Slim\Psr7\Factory\ServerRequestFactory;
  * @internal
  */
 #[CoversClass(FeaturesMiddleware::class)]
-class FeaturesMiddlewareTest extends TestCase
+final class FeaturesMiddlewareTest extends TestCase
 {
     /**
      * @throws Exception

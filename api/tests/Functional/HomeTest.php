@@ -9,7 +9,7 @@ use JsonException;
 /**
  * @internal
  */
-class HomeTest extends WebTestCase
+final class HomeTest extends WebTestCase
 {
     public function testMethod(): void
     {

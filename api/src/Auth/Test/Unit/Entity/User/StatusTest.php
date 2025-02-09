@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 #[CoversClass(Status::class)]
 #[UsesClass(StatusTest::class)]
-class StatusTest extends TestCase
+final class StatusTest extends TestCase
 {
     public function testSuccess(): void
     {

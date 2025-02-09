@@ -14,7 +14,7 @@ use Test\Functional\WebTestCase;
 /**
  * @internal
  */
-class RequestTest extends WebTestCase
+final class RequestTest extends WebTestCase
 {
     /**
      * @throws ContainerExceptionInterface

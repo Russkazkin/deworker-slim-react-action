@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 #[CoversClass(Validator::class)]
 #[UsesClass(ValidatorTest::class)]
 #[UsesClass(ValidationException::class)]
-class ValidatorTest extends TestCase
+final class ValidatorTest extends TestCase
 {
     /**
      * @throws \PHPUnit\Framework\MockObject\Exception

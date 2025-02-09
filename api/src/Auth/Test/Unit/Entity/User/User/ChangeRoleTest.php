@@ -10,7 +10,7 @@ use App\Auth\Test\Builder\UserBuilder;
 /**
  * @internal
  */
-class ChangeRoleTest extends \PHPUnit\Framework\TestCase
+final class ChangeRoleTest extends \PHPUnit\Framework\TestCase
 {
     public function testSuccess(): void
     {

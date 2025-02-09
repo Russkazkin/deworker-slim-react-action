@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(Tokenizer::class)]
 #[UsesClass(Token::class)]
 #[UsesClass(TokenizerTest::class)]
-class TokenizerTest extends TestCase
+final class TokenizerTest extends TestCase
 {
     public function testSuccess(): void
     {

@@ -31,6 +31,7 @@
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
+        "dg/bypass-finals": "^1.9",
         "dms/phpunit-arraysubset-asserts": "^0.5.0",
         "doctrine/data-fixtures": "^2.0",
         "friendsofphp/php-cs-fixer": "^3.68",

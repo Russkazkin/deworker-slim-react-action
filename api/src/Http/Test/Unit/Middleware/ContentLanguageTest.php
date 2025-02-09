@@ -20,7 +20,7 @@ use Slim\Psr7\Factory\ServerRequestFactory;
  */
 #[CoversClass(ContentLanguage::class)]
 #[UsesClass(ContentLanguageTest::class)]
-class ContentLanguageTest extends TestCase
+final class ContentLanguageTest extends TestCase
 {
     /**
      * @throws Exception

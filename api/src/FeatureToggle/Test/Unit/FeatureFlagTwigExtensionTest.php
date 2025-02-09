@@ -19,7 +19,7 @@ use Twig\Loader\ArrayLoader;
  * @internal
  */
 #[CoversClass(FeatureFlagTwigExtension::class)]
-class FeatureFlagTwigExtensionTest extends TestCase
+final class FeatureFlagTwigExtensionTest extends TestCase
 {
     /**
      * @throws Exception

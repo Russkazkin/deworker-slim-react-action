@@ -21,7 +21,7 @@ use Symfony\Component\Translation\Translator;
  */
 #[CoversClass(TranslatorLocale::class)]
 #[UsesClass(TranslatorLocaleTest::class)]
-class TranslatorLocaleTest extends TestCase
+final class TranslatorLocaleTest extends TestCase
 {
     /**
      * @throws Exception

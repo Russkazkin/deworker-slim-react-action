@@ -6,7 +6,7 @@ namespace Test\Functional;
 
 use JsonException;
 
-class Json
+final class Json
 {
     /**
      * @throws JsonException

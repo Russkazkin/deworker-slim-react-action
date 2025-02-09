@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
 #[UsesClass(Status::class)]
 #[UsesClass(UserNetwork::class)]
 #[UsesClass(JoinByNetworkTest::class)]
-class JoinByNetworkTest extends TestCase
+final class JoinByNetworkTest extends TestCase
 {
     public function testSuccess(): void
     {

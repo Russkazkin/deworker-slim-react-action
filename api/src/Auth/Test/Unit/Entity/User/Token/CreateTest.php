@@ -17,7 +17,7 @@ use Ramsey\Uuid\Uuid;
  */
 #[CoversClass(Token::class)]
 #[UsesClass(CreateTest::class)]
-class CreateTest extends TestCase
+final class CreateTest extends TestCase
 {
     public function testSuccess(): void
     {

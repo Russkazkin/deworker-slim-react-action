@@ -35,6 +35,9 @@ return
             'no_superfluous_elseif' => true,
             'no_useless_else' => true,
             'no_useless_return' => true,
+            'final_class' => true,
+            'final_public_method_for_abstract_class' => true,
+            'self_static_accessor' => true,
 
             'php_unit_internal_class' => true,
             'php_unit_construct' => true,

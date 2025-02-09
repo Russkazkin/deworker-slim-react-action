@@ -16,7 +16,7 @@ use Ramsey\Uuid\Uuid;
  */
 #[CoversClass(Token::class)]
 #[UsesClass(ExpiresTest::class)]
-class ExpiresTest extends TestCase
+final class ExpiresTest extends TestCase
 {
     public function testNot(): void
     {

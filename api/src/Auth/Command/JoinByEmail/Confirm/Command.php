@@ -6,7 +6,7 @@ namespace App\Auth\Command\JoinByEmail\Confirm;
 
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class Command
+final class Command
 {
     #[NotBlank]
     public string $token = '';

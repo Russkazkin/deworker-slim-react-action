@@ -11,7 +11,7 @@ use DomainException;
 use Webmozart\Assert\Assert;
 
 #[ORM\Embeddable]
-class Token
+final class Token
 {
     #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $value;

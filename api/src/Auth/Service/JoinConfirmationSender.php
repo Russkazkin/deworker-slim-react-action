@@ -15,7 +15,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-class JoinConfirmationSender
+final class JoinConfirmationSender
 {
     public function __construct(
         private readonly Swift_Mailer $mailer,

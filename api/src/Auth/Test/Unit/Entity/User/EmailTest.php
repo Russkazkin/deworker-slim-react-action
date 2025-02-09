@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 #[CoversClass(Email::class)]
 #[UsesClass(EmailTest::class)]
-class EmailTest extends TestCase
+final class EmailTest extends TestCase
 {
     public function testSuccess(): void
     {

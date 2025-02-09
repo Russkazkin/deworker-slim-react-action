@@ -16,7 +16,7 @@ use Ramsey\Uuid\Uuid;
  */
 #[CoversClass(Token::class)]
 #[UsesClass(ValidateTest::class)]
-class ValidateTest extends TestCase
+final class ValidateTest extends TestCase
 {
     /**
      * @doesNotPerformAssertions

@@ -26,7 +26,7 @@ use Ramsey\Uuid\Uuid;
 #[UsesClass(Status::class)]
 #[UsesClass(Token::class)]
 #[UsesClass(RequestTest::class)]
-class RequestTest extends TestCase
+final class RequestTest extends TestCase
 {
     public function testSuccess(): void
     {

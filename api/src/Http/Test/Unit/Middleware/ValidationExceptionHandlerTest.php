@@ -27,7 +27,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 #[UsesClass(ValidationException::class)]
 #[UsesClass(ValidationExceptionHandlerTest::class)]
 #[UsesClass(JsonResponse::class)]
-class ValidationExceptionHandlerTest extends TestCase
+final class ValidationExceptionHandlerTest extends TestCase
 {
     /**
      * @throws Exception

@@ -15,7 +15,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
  */
 #[CoversClass(ValidationException::class)]
 #[UsesClass(ValidationExceptionTest::class)]
-class ValidationExceptionTest extends TestCase
+final class ValidationExceptionTest extends TestCase
 {
     public function testValid(): void
     {

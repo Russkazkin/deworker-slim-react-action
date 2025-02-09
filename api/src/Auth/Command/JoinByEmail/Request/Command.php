@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class Command
+final class Command
 {
     #[NotBlank]
     #[Email]

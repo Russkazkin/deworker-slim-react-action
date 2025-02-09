@@ -29,7 +29,7 @@ use Twig\Error\SyntaxError;
 #[UsesClass(Email::class)]
 #[UsesClass(Token::class)]
 #[UsesClass(JoinConfirmationSenderTest::class)]
-class JoinConfirmationSenderTest extends TestCase
+final class JoinConfirmationSenderTest extends TestCase
 {
     /**
      * @throws Exception

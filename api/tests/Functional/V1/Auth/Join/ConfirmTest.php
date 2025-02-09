@@ -14,7 +14,7 @@ use Test\Functional\WebTestCase;
 /**
  * @internal
  */
-class ConfirmTest extends WebTestCase
+final class ConfirmTest extends WebTestCase
 {
     /**
      * @throws ContainerExceptionInterface

@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  */
-class FeatureMonologProcessorTest extends TestCase
+final class FeatureMonologProcessorTest extends TestCase
 {
     /**
      * @throws Exception

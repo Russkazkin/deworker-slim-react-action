@@ -22,7 +22,7 @@ use Slim\Psr7\Factory\UploadedFileFactory;
  */
 #[CoversClass(ClearEmptyInput::class)]
 #[UsesClass(ClearEmptyInputTest::class)]
-class ClearEmptyInputTest extends TestCase
+final class ClearEmptyInputTest extends TestCase
 {
     /**
      * @throws Exception

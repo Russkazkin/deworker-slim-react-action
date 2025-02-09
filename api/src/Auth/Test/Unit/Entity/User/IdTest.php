@@ -16,7 +16,7 @@ use Ramsey\Uuid\Uuid;
  */
 #[CoversClass(Id::class)]
 #[UsesClass(IdTest::class)]
-class IdTest extends TestCase
+final class IdTest extends TestCase
 {
     public function testSuccess(): void
     {
