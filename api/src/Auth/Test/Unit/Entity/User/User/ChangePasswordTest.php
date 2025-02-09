@@ -9,6 +9,9 @@ use App\Auth\Test\Builder\UserBuilder;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class ChangePasswordTest extends TestCase
 {
     /**
@@ -74,7 +77,7 @@ class ChangePasswordTest extends TestCase
      */
     private function createHasher(bool $valid, string $hash): PasswordHasher
     {
-        $hasher = $this->createStub(PasswordHasher::class);
+        $hasher = self::createStub(PasswordHasher::class);
         $hasher->method('validate')->willReturn($valid);
         $hasher->method('hash')->willReturn($hash);
         return $hasher;

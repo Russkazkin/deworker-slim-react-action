@@ -20,6 +20,9 @@ use Slim\Psr7\Factory\ServerRequestFactory;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 
+/**
+ * @internal
+ */
 #[CoversClass(ValidationExceptionHandler::class)]
 #[UsesClass(ValidationException::class)]
 #[UsesClass(ValidationExceptionHandlerTest::class)]
@@ -33,7 +36,7 @@ class ValidationExceptionHandlerTest extends TestCase
     {
         $middleware = new ValidationExceptionHandler();
 
-        $handler = $this->createStub(RequestHandlerInterface::class);
+        $handler = self::createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willReturn($source = self::createResponse());
 
         $response = $middleware->process(self::createRequest(), $handler);
@@ -54,7 +57,7 @@ class ValidationExceptionHandlerTest extends TestCase
             new ConstraintViolation('Empty Password', null, [], null, 'password', ''),
         ]);
 
-        $handler = $this->createStub(RequestHandlerInterface::class);
+        $handler = self::createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willThrowException(new ValidationException($violations));
 
         $response = $middleware->process(self::createRequest(), $handler);

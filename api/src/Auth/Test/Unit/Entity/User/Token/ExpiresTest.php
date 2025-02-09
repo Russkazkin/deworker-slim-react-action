@@ -11,6 +11,9 @@ use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @internal
+ */
 #[CoversClass(Token::class)]
 #[UsesClass(ExpiresTest::class)]
 class ExpiresTest extends TestCase

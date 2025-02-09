@@ -7,6 +7,9 @@ namespace App\Auth\Test\Unit\Entity\User\User;
 use App\Auth\Entity\User\Role;
 use App\Auth\Test\Builder\UserBuilder;
 
+/**
+ * @internal
+ */
 class ChangeRoleTest extends \PHPUnit\Framework\TestCase
 {
     public function testSuccess(): void

@@ -15,6 +15,9 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Psr7\Factory\ResponseFactory;
 use Slim\Psr7\Factory\ServerRequestFactory;
 
+/**
+ * @internal
+ */
 #[CoversClass(FeaturesMiddleware::class)]
 class FeaturesMiddlewareTest extends TestCase
 {
@@ -28,7 +31,7 @@ class FeaturesMiddlewareTest extends TestCase
         $switch->expects(self::never())->method('disable');
         $middleware = new FeaturesMiddleware($switch, 'X-Features');
         $request = self::createRequest();
-        $handler = $this->createStub(RequestHandlerInterface::class);
+        $handler = self::createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willReturn($source = self::createResponse());
         $response = $middleware->process($request, $handler);
         self::assertSame($source, $response);
@@ -55,7 +58,7 @@ class FeaturesMiddlewareTest extends TestCase
         $switch->expects(self::once())->method('disable')->with('THREE');
         $middleware = new FeaturesMiddleware($switch, 'X-Features');
         $request = self::createRequest()->withHeader('X-Features', 'ONE, TWO, !THREE');
-        $handler = $this->createStub(RequestHandlerInterface::class);
+        $handler = self::createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willReturn($source = self::createResponse());
         $response = $middleware->process($request, $handler);
         self::assertSame($source, $response);

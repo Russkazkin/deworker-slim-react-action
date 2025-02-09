@@ -11,6 +11,9 @@ use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @internal
+ */
 class ConfirmTest extends TestCase
 {
     public function testSuccess(): void

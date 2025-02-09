@@ -11,6 +11,9 @@ use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @internal
+ */
 #[CoversClass(Id::class)]
 #[UsesClass(IdTest::class)]
 class IdTest extends TestCase

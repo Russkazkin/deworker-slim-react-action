@@ -15,6 +15,9 @@ use Slim\Psr7\Factory\ResponseFactory;
 use Slim\Psr7\Factory\ServerRequestFactory;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @internal
+ */
 class DomainExceptionHandlerTest extends TestCase
 {
     /**
@@ -24,13 +27,13 @@ class DomainExceptionHandlerTest extends TestCase
     public function testNormal(): void
     {
         $logger = $this->createMock(LoggerInterface::class);
-        $logger->expects($this->never())->method('warning');
+        $logger->expects(self::never())->method('warning');
 
-        $translator = $this->createStub(TranslatorInterface::class);
+        $translator = self::createStub(TranslatorInterface::class);
 
         $middleware = new DomainExceptionHandler($logger, $translator);
 
-        $handler = $this->createStub(RequestHandlerInterface::class);
+        $handler = self::createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willReturn($source = (new ResponseFactory())->createResponse());
 
         $request = (new ServerRequestFactory())->createServerRequest('POST', 'http://test');
@@ -46,18 +49,18 @@ class DomainExceptionHandlerTest extends TestCase
     public function testException(): void
     {
         $logger = $this->createMock(LoggerInterface::class);
-        $logger->expects($this->once())->method('warning');
+        $logger->expects(self::once())->method('warning');
 
         $translator = $this->createMock(TranslatorInterface::class);
-        $translator->expects($this->once())->method('trans')->with(
-            $this->equalTo('Some error.'),
-            $this->equalTo([]),
-            $this->equalTo('exceptions')
+        $translator->expects(self::once())->method('trans')->with(
+            self::equalTo('Some error.'),
+            self::equalTo([]),
+            self::equalTo('exceptions')
         )->willReturn('Ошибка.');
 
         $middleware = new DomainExceptionHandler($logger, $translator);
 
-        $handler = $this->createStub(RequestHandlerInterface::class);
+        $handler = self::createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willThrowException(new DomainException('Some error.'));
 
         $request = (new ServerRequestFactory())->createServerRequest('POST', 'http://test');

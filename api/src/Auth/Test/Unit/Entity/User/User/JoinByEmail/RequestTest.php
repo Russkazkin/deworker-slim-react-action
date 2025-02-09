@@ -16,6 +16,9 @@ use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @internal
+ */
 #[CoversClass(User::class)]
 #[UsesClass(Email::class)]
 #[UsesClass(Id::class)]

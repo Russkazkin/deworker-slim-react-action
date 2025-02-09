@@ -6,6 +6,9 @@ namespace Test\Functional;
 
 use JsonException;
 
+/**
+ * @internal
+ */
 class HomeTest extends WebTestCase
 {
     public function testMethod(): void

@@ -8,6 +8,9 @@ use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use Exception;
 use JsonException;
 
+/**
+ * @internal
+ */
 class NotFoundTest extends WebTestCase
 {
     use ArraySubsetAsserts;

@@ -10,6 +10,9 @@ use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationList;
 
+/**
+ * @internal
+ */
 #[CoversClass(ValidationException::class)]
 #[UsesClass(ValidationExceptionTest::class)]
 class ValidationExceptionTest extends TestCase

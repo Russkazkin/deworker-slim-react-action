@@ -8,6 +8,9 @@ use App\Auth\Entity\User\Network;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class NetworkTest extends TestCase
 {
     public function testSuccess(): void

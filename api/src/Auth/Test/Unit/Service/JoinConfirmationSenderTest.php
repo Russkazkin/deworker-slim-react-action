@@ -22,6 +22,9 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
+/**
+ * @internal
+ */
 #[CoversClass(JoinConfirmationSender::class)]
 #[UsesClass(Email::class)]
 #[UsesClass(Token::class)]
@@ -41,19 +44,19 @@ class JoinConfirmationSenderTest extends TestCase
         $confirmUrl = 'http://test/join/confirm?token=' . $token->getValue();
 
         $frontend = $this->createMock(FrontendUrlGenerator::class);
-        $frontend->expects($this->once())->method('generate')->with(
-            $this->equalTo('join/confirm'),
-            $this->equalTo(['token' => $token->getValue()]),
+        $frontend->expects(self::once())->method('generate')->with(
+            self::equalTo('join/confirm'),
+            self::equalTo(['token' => $token->getValue()]),
         )->willReturn($confirmUrl);
 
         $twig = $this->createMock(Environment::class);
-        $twig->expects($this->once())->method('render')->with(
-            $this->equalTo('auth/join/confirm.html.twig'),
-            $this->equalTo(['url' => $confirmUrl]),
+        $twig->expects(self::once())->method('render')->with(
+            self::equalTo('auth/join/confirm.html.twig'),
+            self::equalTo(['url' => $confirmUrl]),
         )->willReturn($body = '<a href="' . $confirmUrl . '">' . $confirmUrl . '</a>');
 
         $mailer = $this->createMock(Swift_Mailer::class);
-        $mailer->expects($this->once())->method('send')
+        $mailer->expects(self::once())->method('send')
             ->willReturnCallback(static function (Swift_Message $message) use ($to, $body): int {
                 self::assertEquals([$to->getValue() => null], $message->getTo());
                 self::assertEquals('Join Confirmation', $message->getSubject());
@@ -79,13 +82,13 @@ class JoinConfirmationSenderTest extends TestCase
         $token = new Token(Uuid::uuid4()->toString(), new DateTimeImmutable());
         $confirmUrl = 'http://test/join/confirm?token=' . $token->getValue();
 
-        $frontend = $this->createStub(FrontendUrlGenerator::class);
+        $frontend = self::createStub(FrontendUrlGenerator::class);
         $frontend->method('generate')->willReturn('http://test/join/confirm?token=' . $token->getValue());
 
-        $twig = $this->createStub(Environment::class);
+        $twig = self::createStub(Environment::class);
         $twig->method('render')->willReturn('<a href="' . $confirmUrl . '">' . $confirmUrl . '</a>');
 
-        $mailer = $this->createStub(Swift_Mailer::class);
+        $mailer = self::createStub(Swift_Mailer::class);
         $mailer->method('send')->willReturn(0);
 
         $sender = new JoinConfirmationSender($mailer, $frontend, $twig);

@@ -8,6 +8,9 @@ use App\Auth\Entity\User\Role;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class RoleTest extends TestCase
 {
     public function testSuccess(): void

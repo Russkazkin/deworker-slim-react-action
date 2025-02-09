@@ -17,6 +17,9 @@ use Slim\Psr7\Factory\ServerRequestFactory;
 use Slim\Psr7\Factory\StreamFactory;
 use Slim\Psr7\Factory\UploadedFileFactory;
 
+/**
+ * @internal
+ */
 #[CoversClass(ClearEmptyInput::class)]
 #[UsesClass(ClearEmptyInputTest::class)]
 class ClearEmptyInputTest extends TestCase
@@ -41,7 +44,7 @@ class ClearEmptyInputTest extends TestCase
             ]);
 
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->once())->method('handle')
+        $handler->expects(self::once())->method('handle')
             ->willReturnCallback(static function (ServerRequestInterface $request): ResponseInterface {
                 self::assertEquals([
                     'null' => null,
@@ -83,7 +86,7 @@ class ClearEmptyInputTest extends TestCase
             ]);
 
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->once())->method('handle')
+        $handler->expects(self::once())->method('handle')
             ->willReturnCallback(static function (ServerRequestInterface $request) use ($realFile): ResponseInterface {
                 self::assertEquals([
                     'real_file' => $realFile,

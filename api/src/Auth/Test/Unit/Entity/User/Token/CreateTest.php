@@ -12,6 +12,9 @@ use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @internal
+ */
 #[CoversClass(Token::class)]
 #[UsesClass(CreateTest::class)]
 class CreateTest extends TestCase

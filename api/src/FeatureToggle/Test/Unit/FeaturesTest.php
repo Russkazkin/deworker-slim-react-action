@@ -8,6 +8,9 @@ use App\FeatureToggle\Features;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 #[CoversClass(Features::class)]
 class FeaturesTest extends TestCase
 {

@@ -8,6 +8,9 @@ use App\Auth\Entity\User\Network;
 use App\Auth\Test\Builder\UserBuilder;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class AttachNetworkTest extends TestCase
 {
     public function testSuccess(): void

@@ -15,6 +15,9 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Psr7\Factory\ResponseFactory;
 use Slim\Psr7\Factory\ServerRequestFactory;
 
+/**
+ * @internal
+ */
 #[CoversClass(ContentLanguage::class)]
 #[UsesClass(ContentLanguageTest::class)]
 class ContentLanguageTest extends TestCase
@@ -26,7 +29,7 @@ class ContentLanguageTest extends TestCase
     {
         $middleware = new ContentLanguage(['en', 'ru']);
 
-        $handler = $this->createStub(RequestHandlerInterface::class);
+        $handler = self::createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willReturnCallback(
             static function (ServerRequestInterface $request): ResponseInterface {
                 self::assertEquals('en', $request->getHeaderLine('Accept-Language'));
@@ -44,7 +47,7 @@ class ContentLanguageTest extends TestCase
     {
         $middleware = new ContentLanguage(['en', 'ru']);
 
-        $handler = $this->createStub(RequestHandlerInterface::class);
+        $handler = self::createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willReturnCallback(
             static function (ServerRequestInterface $request): ResponseInterface {
                 self::assertEquals('ru', $request->getHeaderLine('Accept-Language'));
@@ -64,7 +67,7 @@ class ContentLanguageTest extends TestCase
     {
         $middleware = new ContentLanguage(['en', 'ru']);
 
-        $handler = $this->createStub(RequestHandlerInterface::class);
+        $handler = self::createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willReturnCallback(
             static function (ServerRequestInterface $request): ResponseInterface {
                 self::assertEquals('ru', $request->getHeaderLine('Accept-Language'));
@@ -84,7 +87,7 @@ class ContentLanguageTest extends TestCase
     {
         $middleware = new ContentLanguage(['en', 'ru']);
 
-        $handler = $this->createStub(RequestHandlerInterface::class);
+        $handler = self::createStub(RequestHandlerInterface::class);
         $handler->method('handle')->willReturnCallback(
             static function (ServerRequestInterface $request): ResponseInterface {
                 self::assertEquals('en', $request->getHeaderLine('Accept-Language'));

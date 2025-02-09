@@ -15,6 +15,9 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\ArrayLoader;
 
+/**
+ * @internal
+ */
 #[CoversClass(FeatureFlagTwigExtension::class)]
 class FeatureFlagTwigExtensionTest extends TestCase
 {

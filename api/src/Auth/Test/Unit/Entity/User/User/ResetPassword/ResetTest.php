@@ -10,6 +10,9 @@ use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @internal
+ */
 class ResetTest extends TestCase
 {
     public function testSuccess(): void
