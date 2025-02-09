@@ -16,7 +16,7 @@ use Ramsey\Uuid\Uuid;
 class RequestFixture extends AbstractFixture
 {
     /**
-     * @inheritDoc
+     *
      */
     public function load(ObjectManager $manager): void
     {
