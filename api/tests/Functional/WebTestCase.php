@@ -68,6 +68,7 @@ abstract class WebTestCase extends TestCase
         $executor = new ORMExecutor($em, new ORMPurger($em));
         $executor->execute($loader->getFixtures());
     }
+
     protected function app(): App
     {
         if ($this->app === null) {

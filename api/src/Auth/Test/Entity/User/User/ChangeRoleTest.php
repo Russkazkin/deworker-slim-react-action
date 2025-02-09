@@ -6,11 +6,12 @@ namespace App\Auth\Test\Entity\User\User;
 
 use App\Auth\Entity\User\Role;
 use App\Auth\Test\Builder\UserBuilder;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  */
-final class ChangeRoleTest extends \PHPUnit\Framework\TestCase
+final class ChangeRoleTest extends TestCase
 {
     public function testSuccess(): void
     {

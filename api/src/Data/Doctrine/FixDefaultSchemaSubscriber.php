@@ -33,7 +33,7 @@ final class FixDefaultSchemaSubscriber implements EventSubscriber
             ->getConnection()
             ->createSchemaManager();
 
-        if (!$schemaManager instanceof PostgreSqlSchemaManager) {
+        if (!$schemaManager instanceof PostgreSQLSchemaManager) {
             return;
         }
         foreach ($schemaManager->getExistingSchemaSearchPaths() as $namespace) {

@@ -13,9 +13,7 @@ use function Sentry\captureException;
 
 final class SentryDecorator implements ErrorHandlerInterface
 {
-    public function __construct(private readonly ErrorHandlerInterface $next)
-    {
-    }
+    public function __construct(private readonly ErrorHandlerInterface $next) {}
 
     public function __invoke(
         ServerRequestInterface $request,

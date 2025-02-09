@@ -9,9 +9,7 @@ use Twig\TwigFunction;
 
 final class FeatureFlagTwigExtension extends AbstractExtension
 {
-    public function __construct(private readonly FeatureFlag $flag)
-    {
-    }
+    public function __construct(private readonly FeatureFlag $flag) {}
 
     public function getFunctions(): array
     {
@@ -19,6 +17,7 @@ final class FeatureFlagTwigExtension extends AbstractExtension
             new TwigFunction('is_feature_enabled', [$this, 'isFeatureEnabled']),
         ];
     }
+
     public function isFeatureEnabled(string $name): bool
     {
         return $this->flag->isEnabled($name);

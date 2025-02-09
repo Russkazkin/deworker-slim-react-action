@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use App\FeatureToggle\FeaturesMiddleware;
-use App\Http\Middleware\{ClearEmptyInput,
-    DomainExceptionHandler,
-    TranslatorLocale,
-    ValidationExceptionHandler};
+use App\Http\Middleware\ClearEmptyInput;
+use App\Http\Middleware\DomainExceptionHandler;
+use App\Http\Middleware\TranslatorLocale;
+use App\Http\Middleware\ValidationExceptionHandler;
 use Middlewares\ContentLanguage;
 use Slim\App;
 use Slim\Middleware\ErrorMiddleware;

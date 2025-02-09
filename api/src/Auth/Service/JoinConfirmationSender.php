@@ -21,8 +21,7 @@ final class JoinConfirmationSender
         private readonly Swift_Mailer $mailer,
         private readonly FrontendUrlGenerator $frontend,
         private Environment $twig,
-    ) {
-    }
+    ) {}
 
     /**
      * @throws SyntaxError

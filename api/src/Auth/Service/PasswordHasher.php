@@ -14,6 +14,7 @@ final class PasswordHasher
     {
         $this->memoryCost = $memoryCost;
     }
+
     public function hash(string $password): string
     {
         Assert::notEmpty($password);

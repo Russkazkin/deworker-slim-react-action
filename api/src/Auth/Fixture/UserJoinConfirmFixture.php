@@ -15,6 +15,7 @@ use Doctrine\Persistence\ObjectManager;
 final class UserJoinConfirmFixture extends AbstractFixture
 {
     private const PASSWORD_HASH = '$2y$12$qwnND33o8DGWvFoepotSju7eTAQ6gzLD/zy6W8NCVtiHPbkybz.w6';
+
     public function load(ObjectManager $manager): void
     {
         $user = User::requestJoinByEmail(

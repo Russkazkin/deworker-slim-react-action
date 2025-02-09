@@ -44,7 +44,7 @@ final class FeaturesMiddlewareTest extends TestCase
     {
         $switch = $this->createMock(FeatureSwitch::class);
         $variants = [['ONE'], ['TWO']];
-        $switch->expects(self::exactly(count($variants)))->method('enable')->willReturnCallback(
+        $switch->expects(self::exactly(\count($variants)))->method('enable')->willReturnCallback(
             static function (mixed ...$params) use (&$variants): void {
                 foreach ($variants as $key => $variant) {
                     if ($params === $variant) {
@@ -63,10 +63,12 @@ final class FeaturesMiddlewareTest extends TestCase
         $response = $middleware->process($request, $handler);
         self::assertSame($source, $response);
     }
+
     private static function createResponse(): ResponseInterface
     {
         return (new ResponseFactory())->createResponse();
     }
+
     private static function createRequest(): ServerRequestInterface
     {
         return (new ServerRequestFactory())->createServerRequest('GET', 'http://test');

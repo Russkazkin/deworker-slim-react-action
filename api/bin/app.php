@@ -12,11 +12,11 @@ use function Sentry\init;
 require __DIR__ . '/../vendor/autoload.php';
 
 if (getenv('SENTRY_DSN') !== false) {
-    init(['dsn' => getenv('SENTRY_DSN'), 'traces_sample_rate' => 1.0,]);
+    init(['dsn' => getenv('SENTRY_DSN'), 'traces_sample_rate' => 1.0]);
 }
 
 /** @var ContainerInterface $container */
-$container = require  __DIR__ . '/../config/container.php';
+$container = require __DIR__ . '/../config/container.php';
 
 $cli = new Application('Console');
 

@@ -21,9 +21,9 @@ final class ClearEmptyInput implements MiddlewareInterface
         return $handler->handle($request);
     }
 
-    private static function filterStrings(object|array|null $items): object|array|null
+    private static function filterStrings(null|array|object $items): null|array|object
     {
-        if (!is_array($items)) {
+        if (!\is_array($items)) {
             return $items;
         }
 
@@ -34,7 +34,7 @@ final class ClearEmptyInput implements MiddlewareInterface
          * @var object|string|null $item
          */
         foreach ($items as $key => $item) {
-            if (is_string($item)) {
+            if (\is_string($item)) {
                 $result[$key] = trim($item);
             } else {
                 $result[$key] = self::filterStrings($item);

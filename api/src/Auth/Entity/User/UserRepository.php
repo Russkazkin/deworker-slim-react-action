@@ -15,9 +15,7 @@ final class UserRepository
     /**
      * @param EntityRepository<User> $repo
      */
-    public function __construct(private readonly EntityManagerInterface $em, private readonly EntityRepository $repo)
-    {
-    }
+    public function __construct(private readonly EntityManagerInterface $em, private readonly EntityRepository $repo) {}
 
     /**
      * @throws NonUniqueResultException
@@ -26,10 +24,10 @@ final class UserRepository
     public function hasByEmail(Email $email): bool
     {
         return $this->repo->createQueryBuilder('t')
-                ->select('COUNT(t.id)')
-                ->andWhere('t.email = :email')
-                ->setParameter(':email', $email->getValue())
-                ->getQuery()->getSingleScalarResult() > 0;
+            ->select('COUNT(t.id)')
+            ->andWhere('t.email = :email')
+            ->setParameter(':email', $email->getValue())
+            ->getQuery()->getSingleScalarResult() > 0;
     }
 
     /**
@@ -39,15 +37,15 @@ final class UserRepository
     public function hasByNetwork(Network $network): bool
     {
         return $this->repo->createQueryBuilder('t')
-                ->select('COUNT(t.id)')
-                ->innerJoin('t.networks', 'n')
-                ->andWhere('n.network.name = :name and n.network.identity = :identity')
-                ->setParameter(':name', $network->getName())
-                ->setParameter(':identity', $network->getIdentity())
-                ->getQuery()->getSingleScalarResult() > 0;
+            ->select('COUNT(t.id)')
+            ->innerJoin('t.networks', 'n')
+            ->andWhere('n.network.name = :name and n.network.identity = :identity')
+            ->setParameter(':name', $network->getName())
+            ->setParameter(':identity', $network->getIdentity())
+            ->getQuery()->getSingleScalarResult() > 0;
     }
 
-    public function findByJoinConfirmToken(string $token): User|null
+    public function findByJoinConfirmToken(string $token): ?User
     {
         return $this->repo->findOneBy(['joinConfirmToken.value' => $token]);
     }
@@ -71,6 +69,7 @@ final class UserRepository
 
         return $user;
     }
+
     public function getByEmail(Email $email): User
     {
         $user = $this->repo->findOneBy(['email' => $email->getValue()]);
