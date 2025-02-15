@@ -9,12 +9,12 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use DomainException;
 use Doctrine\ORM\Mapping as ORM;
+use DomainException;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
-#[ORM\Table(name: "auth_users")]
+#[ORM\Table(name: 'auth_users')]
 class User
 {
     #[ORM\Column(type: IdType::NAME)]
@@ -39,7 +39,7 @@ class User
     #[ORM\Column(type: RoleType::NAME, length: 16)]
     private Role $role;
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserNetwork::class, cascade: ['all'], orphanRemoval: true)]
-    /** @var Collection<array-key, UserNetwork> $networks */
+    /** @var Collection<array-key, UserNetwork> */
     private Collection $networks;
 
     public function __construct(
@@ -179,7 +179,6 @@ class User
     {
         return $this->status->isActive();
     }
-
 
     public function getId(): Id
     {

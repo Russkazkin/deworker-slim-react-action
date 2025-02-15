@@ -11,11 +11,9 @@ use Throwable;
 
 use function Sentry\captureException;
 
-class SentryDecorator implements ErrorHandlerInterface
+final class SentryDecorator implements ErrorHandlerInterface
 {
-    public function __construct(private readonly ErrorHandlerInterface $next)
-    {
-    }
+    public function __construct(private readonly ErrorHandlerInterface $next) {}
 
     public function __invoke(
         ServerRequestInterface $request,

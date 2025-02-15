@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Auth\Service;
 
-use RuntimeException;
 use Webmozart\Assert\Assert;
 
-class PasswordHasher
+final class PasswordHasher
 {
     private int $memoryCost;
 
@@ -15,6 +14,7 @@ class PasswordHasher
     {
         $this->memoryCost = $memoryCost;
     }
+
     public function hash(string $password): string
     {
         Assert::notEmpty($password);

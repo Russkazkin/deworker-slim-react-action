@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use JsonException;
 
-class MailerClient
+final class MailerClient
 {
     private Client $client;
 

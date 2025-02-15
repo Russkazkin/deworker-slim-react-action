@@ -8,7 +8,7 @@ use LogicException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Throwable;
 
-class ValidationException extends LogicException
+final class ValidationException extends LogicException
 {
     private ConstraintViolationListInterface $violations;
 
@@ -16,7 +16,7 @@ class ValidationException extends LogicException
         ConstraintViolationListInterface $violations,
         string $message = 'Invalid input.',
         int $code = 0,
-        Throwable $previous = null
+        ?Throwable $previous = null
     ) {
         parent::__construct($message, $code, $previous);
         $this->violations = $violations;

@@ -11,12 +11,12 @@ use Doctrine\DBAL\Schema\SchemaException;
 use Doctrine\ORM\Tools\Event\GenerateSchemaEventArgs;
 use Doctrine\ORM\Tools\ToolEvents;
 
-class FixDefaultSchemaSubscriber implements EventSubscriber
+final class FixDefaultSchemaSubscriber implements EventSubscriber
 {
     public function getSubscribedEvents(): array
     {
         return [
-            ToolEvents::postGenerateSchema => 'postGenerateSchema'
+            ToolEvents::postGenerateSchema => 'postGenerateSchema',
         ];
     }
 
@@ -33,7 +33,7 @@ class FixDefaultSchemaSubscriber implements EventSubscriber
             ->getConnection()
             ->createSchemaManager();
 
-        if (!$schemaManager instanceof PostgreSqlSchemaManager) {
+        if (!$schemaManager instanceof PostgreSQLSchemaManager) {
             return;
         }
         foreach ($schemaManager->getExistingSchemaSearchPaths() as $namespace) {

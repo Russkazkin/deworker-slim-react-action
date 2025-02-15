@@ -29,7 +29,7 @@ return [
         return $translator;
     },
 
-    ContentLanguage::class => function (ContainerInterface $container): ContentLanguage {
+    ContentLanguage::class => static function (ContainerInterface $container): ContentLanguage {
         /**
          * @psalm-suppress MixedArrayAccess
          * @var array{allowed:string[]} $config
@@ -47,13 +47,13 @@ return [
                     'xlf',
                     __DIR__ . '/../../vendor/symfony/validator/Resources/translations/validators.ru.xlf',
                     'ru',
-                    'validators'
+                    'validators',
                 ],
                 [
                     'php',
                     __DIR__ . '/../../translations/exceptions.ru.php',
                     'ru',
-                    'exceptions'
+                    'exceptions',
                 ],
             ],
         ],

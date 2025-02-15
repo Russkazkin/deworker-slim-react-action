@@ -11,7 +11,7 @@ use DomainException;
 use Webmozart\Assert\Assert;
 
 #[ORM\Embeddable]
-class Token
+final class Token
 {
     #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $value;
@@ -36,11 +36,6 @@ class Token
         }
     }
 
-    private function isEqualTo(string $value): bool
-    {
-        return $this->value === $value;
-    }
-
     public function getValue(): string
     {
         return $this->value ?? '';
@@ -62,5 +57,10 @@ class Token
     public function isEmpty(): bool
     {
         return empty($this->value);
+    }
+
+    private function isEqualTo(string $value): bool
+    {
+        return $this->value === $value;
     }
 }

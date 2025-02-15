@@ -8,11 +8,9 @@ use Override;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class FrontendUrlTwigExtension extends AbstractExtension
+final class FrontendUrlTwigExtension extends AbstractExtension
 {
-    public function __construct(private readonly FrontendUrlGenerator $url)
-    {
-    }
+    public function __construct(private readonly FrontendUrlGenerator $url) {}
 
     #[Override]
     public function getFunctions(): array

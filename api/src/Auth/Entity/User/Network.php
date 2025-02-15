@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Webmozart\Assert\Assert;
 
 #[ORM\Embeddable]
-class Network
+final class Network
 {
     #[ORM\Column(type: Types::STRING, length: 16)]
     private string $name;

@@ -5,10 +5,10 @@ declare(strict_types=1);
 use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
 use Doctrine\Migrations\Configuration\Migration\PhpFile;
 use Doctrine\Migrations\DependencyFactory;
+use Doctrine\Migrations\Tools\Console\Command;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Application;
-use Doctrine\Migrations\Tools\Console\Command;
 
 require __DIR__ . '/../vendor/autoload.php';
 

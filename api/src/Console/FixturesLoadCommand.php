@@ -8,13 +8,12 @@ use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class FixturesLoadCommand extends Command
+final class FixturesLoadCommand extends Command
 {
     private EntityManagerInterface $em;
     /**
@@ -36,8 +35,7 @@ class FixturesLoadCommand extends Command
     {
         $this
             ->setName('fixtures:load')
-            ->setDescription('Load fixtures')
-        ;
+            ->setDescription('Load fixtures');
     }
 
     /**

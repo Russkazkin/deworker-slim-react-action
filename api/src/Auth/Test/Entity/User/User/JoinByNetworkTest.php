@@ -1,0 +1,53 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Auth\Test\Entity\User\User;
+
+use App\Auth\Entity\User\Email;
+use App\Auth\Entity\User\Id;
+use App\Auth\Entity\User\Network;
+use App\Auth\Entity\User\Role;
+use App\Auth\Entity\User\Status;
+use App\Auth\Entity\User\User;
+use App\Auth\Entity\User\UserNetwork;
+use DateTimeImmutable;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @internal
+ */
+#[CoversClass(User::class)]
+#[UsesClass(Email::class)]
+#[UsesClass(Id::class)]
+#[UsesClass(Network::class)]
+#[UsesClass(Role::class)]
+#[UsesClass(Status::class)]
+#[UsesClass(UserNetwork::class)]
+#[UsesClass(JoinByNetworkTest::class)]
+final class JoinByNetworkTest extends TestCase
+{
+    public function testSuccess(): void
+    {
+        $user = User::joinByNetwork(
+            $id = Id::generate(),
+            $date = new DateTimeImmutable(),
+            $email = new Email('email@app.test'),
+            $network = new Network('vk', '0000001')
+        );
+
+        self::assertEquals($id, $user->getId());
+        self::assertEquals($date, $user->getDate());
+        self::assertEquals($email, $user->getEmail());
+
+        self::assertFalse($user->isWait());
+        self::assertTrue($user->isActive());
+
+        self::assertEquals(Role::USER, $user->getRole()->getName());
+
+        self::assertCount(1, $networks = $user->getNetworks());
+        self::assertEquals($network, $networks[0] ?? null);
+    }
+}

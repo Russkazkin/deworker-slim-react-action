@@ -12,7 +12,7 @@ use App\Auth\Entity\User\User;
 use DateTimeImmutable;
 use Ramsey\Uuid\Uuid;
 
-class UserBuilder
+final class UserBuilder
 {
     private Id $id;
     private Email $email;
@@ -45,7 +45,7 @@ class UserBuilder
         return $clone;
     }
 
-    public function viaNetwork(Network $network = null): self
+    public function viaNetwork(?Network $network = null): self
     {
         $clone = clone $this;
         $clone->network = $network ?? new Network('vk', '0000001');

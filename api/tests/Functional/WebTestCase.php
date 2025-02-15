@@ -10,6 +10,7 @@ use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
+use JsonException;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -17,7 +18,10 @@ use Psr\Http\Message\ServerRequestInterface;
 use Slim\App;
 use Slim\Psr7\Factory\ServerRequestFactory;
 
-class WebTestCase extends TestCase
+/**
+ * @internal
+ */
+abstract class WebTestCase extends TestCase
 {
     private ?App $app = null;
     private ?MailerClient $mailer = null;
@@ -29,7 +33,7 @@ class WebTestCase extends TestCase
     }
 
     /**
-     * @throws \JsonException
+     * @throws JsonException
      */
     protected static function json(string $method, string $path, array $body = []): ServerRequestInterface
     {
@@ -46,7 +50,7 @@ class WebTestCase extends TestCase
     }
 
     /**
-     * @param array<string|int,string> $fixtures
+     * @param array<int|string,string> $fixtures
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -64,6 +68,7 @@ class WebTestCase extends TestCase
         $executor = new ORMExecutor($em, new ORMPurger($em));
         $executor->execute($loader->getFixtures());
     }
+
     protected function app(): App
     {
         if ($this->app === null) {

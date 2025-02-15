@@ -11,18 +11,22 @@ use Psr\Container\NotFoundExceptionInterface;
 use Test\Functional\Json;
 use Test\Functional\WebTestCase;
 
-class RequestTest extends WebTestCase
+/**
+ * @internal
+ */
+final class RequestTest extends WebTestCase
 {
     /**
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->loadFixtures([RequestFixture::class]);
     }
+
     public function testMethod(): void
     {
         $response = $this->app()->handle(self::json('GET', '/v1/auth/join'));

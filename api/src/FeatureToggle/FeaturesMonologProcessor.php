@@ -8,11 +8,9 @@ use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
 use Override;
 
-class FeaturesMonologProcessor implements ProcessorInterface
+final class FeaturesMonologProcessor implements ProcessorInterface
 {
-    public function __construct(private readonly FeaturesContext $context)
-    {
-    }
+    public function __construct(private readonly FeaturesContext $context) {}
 
     #[Override]
     public function __invoke(LogRecord $record): LogRecord
