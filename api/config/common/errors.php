@@ -10,6 +10,8 @@ use Psr\Log\LoggerInterface;
 use Slim\Interfaces\CallableResolverInterface;
 use Slim\Middleware\ErrorMiddleware;
 
+use function App\env;
+
 return [
     ErrorMiddleware::class => static function (ContainerInterface $container): ErrorMiddleware {
         $callableResolver = $container->get(CallableResolverInterface::class);
@@ -39,7 +41,7 @@ return [
 
     'config' => [
         'errors' => [
-            'display_details' => (bool)getenv('APP_DEBUG'),
+            'display_details' => (bool)env('APP_DEBUG', '0'),
             'log' => true,
         ],
     ],
