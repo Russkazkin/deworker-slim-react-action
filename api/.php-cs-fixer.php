@@ -49,6 +49,8 @@ return
             'fopen_flags' => ['b_mode' => true],
             'yoda_style' => false,
             'blank_line_before_statement' => false,
+            'nullable_type_declaration' => false,
+            'ordered_types' => ['null_adjustment' => 'always_last'],
 
             'php_unit_strict' => false,
             'php_unit_test_class_requires_covers' => false,
