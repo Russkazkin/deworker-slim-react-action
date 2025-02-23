@@ -25,6 +25,7 @@ services:
       MAILER_FROM_EMAIL: mail@app.test
       FRONTEND_URL: http://gateway:8080
       SENTRY_DSN: ""
+      JWT_ENCRYPTION_KEY: secret
 
   api-php-cli:
     image: ${REGISTRY}/auction-api-php-cli:${IMAGE_TAG}
@@ -43,6 +44,7 @@ services:
       MAILER_FROM_EMAIL: mail@app.test
       FRONTEND_URL: http://gateway:8080
       SENTRY_DSN: ""
+      JWT_ENCRYPTION_KEY: secret
 
   testing-api-php-cli:
     image: ${REGISTRY}/auction-testing-api-php-cli:${IMAGE_TAG}
@@ -61,6 +63,7 @@ services:
       MAILER_FROM_EMAIL: mail@app.test
       FRONTEND_URL: http://gateway:8080
       SENTRY_DSN: ""
+      JWT_ENCRYPTION_KEY: secret
 
   api-postgres:
     image: postgres:17.3-alpine
