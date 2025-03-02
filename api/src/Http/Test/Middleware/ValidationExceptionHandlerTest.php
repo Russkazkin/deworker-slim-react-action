@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Test\Middleware;
 
-use App\Http\JsonResponse;
 use App\Http\Middleware\ValidationExceptionHandler;
+use App\Http\Response\JsonResponse;
 use App\Http\Validator\ValidationException;
 use JsonException;
 use PHPUnit\Framework\Attributes\CoversClass;
