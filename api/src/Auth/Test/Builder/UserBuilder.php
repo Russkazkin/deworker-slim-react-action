@@ -9,6 +9,7 @@ use App\Auth\Entity\User\Id;
 use App\Auth\Entity\User\Network;
 use App\Auth\Entity\User\Token;
 use App\Auth\Entity\User\User;
+use DateMalformedStringException;
 use DateTimeImmutable;
 use Ramsey\Uuid\Uuid;
 
@@ -16,7 +17,7 @@ final class UserBuilder
 {
     private Id $id;
     private Email $email;
-    private string $hash;
+    private string $passwordHash;
     private DateTimeImmutable $date;
     private Token $joinConfirmToken;
     private bool $active = false;
@@ -26,15 +27,29 @@ final class UserBuilder
     {
         $this->id = Id::generate();
         $this->email = new Email('mail@example.com');
-        $this->hash = 'hash';
+        $this->passwordHash = 'hash';
         $this->date = new DateTimeImmutable();
         $this->joinConfirmToken = new Token(Uuid::uuid4()->toString(), $this->date->modify('+1 day'));
+    }
+
+    public function withId(Id $id): self
+    {
+        $clone = clone $this;
+        $clone->id = $id;
+        return $clone;
     }
 
     public function withJoinConfirmToken(Token $token): self
     {
         $clone = clone $this;
         $clone->joinConfirmToken = $token;
+        return $clone;
+    }
+
+    public function withPasswordHash(string $passwordHash): self
+    {
+        $clone = clone $this;
+        $clone->passwordHash = $passwordHash;
         return $clone;
     }
 
@@ -59,6 +74,9 @@ final class UserBuilder
         return $clone;
     }
 
+    /**
+     * @throws DateMalformedStringException
+     */
     public function build(): User
     {
         if ($this->network !== null) {
@@ -74,7 +92,7 @@ final class UserBuilder
             $this->id,
             $this->date,
             $this->email,
-            $this->hash,
+            $this->passwordHash,
             $this->joinConfirmToken
         );
 
