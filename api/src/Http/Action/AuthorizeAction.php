@@ -8,8 +8,6 @@ use App\Auth\Query\FindIdByCredentials\Fetcher;
 use App\Auth\Query\FindIdByCredentials\Query;
 use App\Http\Response\HtmlResponse;
 use App\OAuth\Entity\User;
-use App\Sentry;
-use Exception;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use Psr\Http\Message\ResponseFactoryInterface;
@@ -28,7 +26,6 @@ final class AuthorizeAction implements RequestHandlerInterface
         private readonly Fetcher $users,
         private readonly Environment $template,
         private readonly ResponseFactoryInterface $response,
-        private readonly Sentry $sentry,
         private readonly TranslatorInterface $translator,
     ) {}
 
@@ -83,11 +80,6 @@ final class AuthorizeAction implements RequestHandlerInterface
         } catch (OAuthServerException $exception) {
             $this->logger->warning($exception->getMessage(), ['exception' => $exception]);
             return $exception->generateHttpResponse($this->response->createResponse());
-        } catch (Exception $exception) {
-            $this->logger->error($exception->getMessage(), ['exception' => $exception]);
-            $this->sentry->capture($exception);
-            return (new OAuthServerException('Server error.', 0, 'unknown_error', 500))
-                ->generateHttpResponse($this->response->createResponse());
         }
     }
 }
