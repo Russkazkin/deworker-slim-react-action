@@ -8,7 +8,6 @@ use App\Http\Action\TokenAction;
 use App\Http\Action\V1\Auth\Join\ConfirmAction;
 use App\Http\Action\V1\Auth\Join\RequestAction;
 use App\Http\Action\V1\Auth\UserAction;
-use App\Http\Middleware\Auth\Authenticate;
 use App\Router\StaticRouteGroup as Group;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
@@ -23,7 +22,7 @@ return static function (App $app): void {
         $group->group('/auth', new Group(static function (RouteCollectorProxy $group): void {
             $group->post('/join', RequestAction::class);
             $group->post('/join/confirm', ConfirmAction::class);
-            $group->get('/user', UserAction::class)->add(Authenticate::class);
+            $group->get('/user', UserAction::class);
         }));
     }));
 };

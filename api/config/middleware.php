@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\FeatureToggle\FeaturesMiddleware;
+use App\Http\Middleware\Auth\Authenticate;
 use App\Http\Middleware\ClearEmptyInput;
 use App\Http\Middleware\DomainExceptionHandler;
 use App\Http\Middleware\TranslatorLocale;
@@ -12,6 +13,7 @@ use Slim\App;
 use Slim\Middleware\ErrorMiddleware;
 
 return static function (App $app): void {
+    $app->add(Authenticate::class);
     $app->add(DomainExceptionHandler::class);
     $app->add(ValidationExceptionHandler::class);
     $app->add(FeaturesMiddleware::class);
