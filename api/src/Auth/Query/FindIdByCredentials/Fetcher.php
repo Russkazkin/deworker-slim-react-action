@@ -8,7 +8,6 @@ use App\Auth\Entity\User\Status;
 use App\Auth\Service\PasswordHasher;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
-use Doctrine\DBAL\Result;
 
 final class Fetcher
 {
@@ -19,7 +18,6 @@ final class Fetcher
      */
     public function fetch(Query $query): ?User
     {
-        /** @var Result $stmt */
         $stmt = $this->connection->createQueryBuilder()
             ->select([
                 'id',
