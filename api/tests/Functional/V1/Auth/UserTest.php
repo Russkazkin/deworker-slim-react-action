@@ -39,7 +39,26 @@ final class UserTest extends WebTestCase
     /**
      * @throws JsonException
      */
-    public function testSuccess(): void
+    public function testUser(): void
+    {
+        $response = $this->app()->handle(
+            self::json('GET', '/v1/auth/user')
+                ->withHeader('Authorization', AuthHeader::for('00000000-0000-0000-0000-000000000001', 'user'))
+        );
+
+        self::assertEquals(200, $response->getStatusCode());
+        self::assertJson($body = (string)$response->getBody());
+
+        self::assertEquals([
+            'id' => '00000000-0000-0000-0000-000000000001',
+            'role' => 'user',
+        ], Json::decode($body));
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function testAdmin(): void
     {
         $response = $this->app()->handle(
             self::json('GET', '/v1/auth/user')
@@ -51,6 +70,7 @@ final class UserTest extends WebTestCase
 
         self::assertEquals([
             'id' => '00000000-0000-0000-0000-000000000001',
+            'role' => 'admin',
         ], Json::decode($body));
     }
 }
