@@ -51,6 +51,9 @@ final class BearerTokenValidator implements AuthorizationValidatorInterface
         $this->initJwtConfiguration();
     }
 
+    /**
+     * @throws OAuthServerException
+     */
     #[Override]
     public function validateAuthorization(ServerRequestInterface $request): ServerRequestInterface
     {

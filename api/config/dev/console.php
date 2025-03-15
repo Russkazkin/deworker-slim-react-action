@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 use App\Console\FixturesLoadCommand;
 use App\Console\MailerCheckCommand;
+use App\OAuth\Console\E2ETokenCommand;
 use Doctrine\ORM\EntityManagerInterface;
+use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use Psr\Container\ContainerInterface;
 
 return [
@@ -21,6 +23,21 @@ return [
         return new FixturesLoadCommand(
             $em,
             $config['fixture_paths'],
+        );
+    },
+
+    E2ETokenCommand::class => static function (ContainerInterface $container): E2ETokenCommand {
+        /**
+         * @psalm-suppress MixedArrayAccess
+         * @var array{
+         *    private_key_path:string,
+         * } $config
+         */
+        $config = $container->get('config')['oauth'];
+
+        return new E2ETokenCommand(
+            $config['private_key_path'],
+            $container->get(ClientRepositoryInterface::class)
         );
     },
 
