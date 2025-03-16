@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Test\Validator;
+namespace App\Validator\Test;
 
-use App\Http\Validator\ValidationException;
-use App\Http\Validator\Validator;
+use App\Validator\ValidationException;
+use App\Validator\Validator;
 use Exception;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;

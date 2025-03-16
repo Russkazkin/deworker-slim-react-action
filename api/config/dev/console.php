@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Console\FixturesLoadCommand;
 use App\Console\MailerCheckCommand;
+use App\OAuth\Console\E2ETokenCommand;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 
@@ -29,6 +30,7 @@ return [
             'commands' => [
                 FixturesLoadCommand::class,
                 MailerCheckCommand::class,
+                E2ETokenCommand::class,
             ],
             'fixture_paths' => [
                 __DIR__ . '/../../src/Auth/Fixture',

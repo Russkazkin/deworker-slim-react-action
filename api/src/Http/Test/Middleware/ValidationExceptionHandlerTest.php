@@ -6,7 +6,7 @@ namespace App\Http\Test\Middleware;
 
 use App\Http\Middleware\ValidationExceptionHandler;
 use App\Http\Response\JsonResponse;
-use App\Http\Validator\ValidationException;
+use App\Validator\ValidationException;
 use JsonException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
