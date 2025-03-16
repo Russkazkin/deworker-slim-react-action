@@ -57,6 +57,12 @@ return [
                 ],
                 [
                     'php',
+                    __DIR__ . '/../../translations/oauth.en.php',
+                    'en',
+                    'oauth',
+                ],
+                [
+                    'php',
                     __DIR__ . '/../../translations/oauth.ru.php',
                     'ru',
                     'oauth',
