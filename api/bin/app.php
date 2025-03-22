@@ -8,7 +8,6 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 
 use function App\env;
-
 use function Sentry\init;
 
 require __DIR__ . '/../vendor/autoload.php';

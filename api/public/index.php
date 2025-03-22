@@ -6,9 +6,6 @@ use DI\Container;
 
 use function App\env;
 
-
-use function Sentry\init;
-
 http_response_code(500);
 
 require __DIR__ . '/../vendor/autoload.php';
