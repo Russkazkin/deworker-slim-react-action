@@ -52,7 +52,7 @@ api-clear:
 api-init: api-permissions api-composer-install api-wait-db migrations-migrate api-fixtures
 
 api-permissions:
-	docker run --rm -v ${PWD}/api:/app -w /app alpine chmod 777 var/cache var/log var/test
+	docker run --rm -v ${PWD}/api:/app -w /app alpine chmod 777 var/cache var/log var/test vendor
 
 api-lint:
 	docker compose run --rm api-php-cli composer lint
