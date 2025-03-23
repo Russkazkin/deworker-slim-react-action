@@ -1,6 +1,7 @@
 .idea/
 .DS_Store
 .env
+temp/
 
 /.docker-images-before
 /.docker-images-after

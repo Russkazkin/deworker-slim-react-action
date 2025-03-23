@@ -7,6 +7,7 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 
+use function App\env;
 use function Sentry\init;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -20,8 +21,8 @@ $container = require __DIR__ . '/../config/container.php';
 
 $cli = new Application('Console');
 
-if (getenv('SENTRY_DSN') !== false) {
-    $cli->setCatchExceptions(false);
+if ($dsn = env('SENTRY_DSN')) {
+    Sentry\init(['dsn' => $dsn]);
 }
 /**
  * @var string[] $commands
