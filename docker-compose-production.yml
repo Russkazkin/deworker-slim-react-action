@@ -50,20 +50,24 @@ services:
             APP_ENV: prod
             DB_HOST: api-postgres
             DB_USER: app
-            DB_PASSWORD: ${API_DB_PASSWORD}
+            DB_PASSWORD_FILE: /run/secrets/api_db_password
             DB_NAME: app
             MAILER_HOST: ${API_MAILER_HOST}
             MAILER_PORT: ${API_MAILER_PORT}
             MAILER_USER: ${API_MAILER_USER}
-            MAILER_PASSWORD: ${API_MAILER_PASSWORD}
+            MAILER_PASSWORD_FILE: /run/secrets/api_mailer_password
             MAILER_ENCRYPTION: tls
             MAILER_FROM_EMAIL: ${API_MAILER_FROM_EMAIL}
             FRONTEND_URL: https://auction.mywebdev.ru
-            SENTRY_DSN: ${SENTRY_DSN}
-            JWT_ENCRYPTION_KEY: ${JWT_ENCRYPTION_KEY}
+            SENTRY_DSN_FILE: /run/secrets/sentry_dsn
+            JWT_ENCRYPTION_KEY_FILE: /run/secrets/jwt_encryption_key
             JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
             JWT_PRIVATE_KEY_PATH: /run/secrets/jwt_private_key
         secrets:
+            - api_db_password
+            - api_mailer_password
+            - sentry_dsn
+            - jwt_encryption_key
             - jwt_public_key
             - jwt_private_key
         command: sh -c 'wait-for-it api-postgres:5432 -t 60 && php bin/migrations.php --ansi migrations:migrate --no-interaction'
@@ -81,20 +85,24 @@ services:
             APP_ENV: prod
             DB_HOST: api-postgres
             DB_USER: app
-            DB_PASSWORD: ${API_DB_PASSWORD}
+            DB_PASSWORD_FILE: /run/secrets/api_db_password
             DB_NAME: app
             MAILER_HOST: ${API_MAILER_HOST}
             MAILER_PORT: ${API_MAILER_PORT}
             MAILER_USER: ${API_MAILER_USER}
-            MAILER_PASSWORD: ${API_MAILER_PASSWORD}
+            MAILER_PASSWORD_FILE: /run/secrets/api_mailer_password
             MAILER_ENCRYPTION: tls
             MAILER_FROM_EMAIL: ${API_MAILER_FROM_EMAIL}
             FRONTEND_URL: https://auction.mywebdev.ru
-            SENTRY_DSN: ${SENTRY_DSN}
-            JWT_ENCRYPTION_KEY: ${JWT_ENCRYPTION_KEY}
+            SENTRY_DSN_FILE: /run/secrets/sentry_dsn
+            JWT_ENCRYPTION_KEY_FILE: /run/secrets/jwt_encryption_key
             JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
             JWT_PRIVATE_KEY_PATH: /run/secrets/jwt_private_key
         secrets:
+            - api_db_password
+            - api_mailer_password
+            - sentry_dsn
+            - jwt_encryption_key
             - jwt_public_key
             - jwt_private_key
         deploy:
@@ -111,20 +119,24 @@ services:
             APP_DEBUG: 0
             DB_HOST: api-postgres
             DB_USER: app
-            DB_PASSWORD: ${API_DB_PASSWORD}
+            DB_PASSWORD_FILE: /run/secrets/api_db_password
             DB_NAME: app
             MAILER_HOST: ${API_MAILER_HOST}
             MAILER_PORT: ${API_MAILER_PORT}
             MAILER_USER: ${API_MAILER_USER}
-            MAILER_PASSWORD: ${API_MAILER_PASSWORD}
+            MAILER_PASSWORD_FILE: /run/secrets/api_mailer_password
             MAILER_ENCRYPTION: tls
             MAILER_FROM_EMAIL: ${API_MAILER_FROM_EMAIL}
             FRONTEND_URL: https://demo-auction.deworker.pro
-            SENTRY_DSN: ${SENTRY_DSN}
-            JWT_ENCRYPTION_KEY: ${JWT_ENCRYPTION_KEY}
+            ENTRY_DSN_FILE: /run/secrets/sentry_dsn
+            JWT_ENCRYPTION_KEY_FILE: /run/secrets/jwt_encryption_key
             JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
             JWT_PRIVATE_KEY_PATH: /run/secrets/jwt_private_key
         secrets:
+            - api_db_password
+            - api_mailer_password
+            - sentry_dsn
+            - jwt_encryption_key
             - jwt_public_key
             - jwt_private_key
         command: sh -c 'wait-for-it api-postgres:5432 -t 60 && php bin/app.php oauth:clear-expired'
@@ -141,8 +153,10 @@ services:
         image: postgres:17.3-alpine
         environment:
             POSTGRES_USER: app
-            POSTGRES_PASSWORD: ${API_DB_PASSWORD}
+            POSTGRES_PASSWORD_FILE: /run/secrets/api_db_password
             POSTGRES_DB: app
+        secrets:
+            - api_db_password
         volumes:
             - api-database:/var/lib/postgresql/data
         ports:
@@ -155,6 +169,14 @@ services:
             constraints: [ node.labels.db == db ]
           endpoint_mode: dnsrr
 secrets:
+    api_db_password:
+        file: ./secrets/api_db_password
+    api_mailer_password:
+        file: ./secrets/api_mailer_password
+    sentry_dsn:
+        file: ./secrets/sentry_dsn
+    jwt_encryption_key:
+        file: ./secrets/jwt_encryption_key
     jwt_public_key:
         file: ./secrets/jwt_public_key
     jwt_private_key:
