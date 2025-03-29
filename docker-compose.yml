@@ -117,6 +117,17 @@ services:
     mailer:
         image: mailhog/mailhog
 
+    backup-storage:
+        image: minio/minio
+        environment:
+            MINIO_ROOT_USER: storage_app
+            MINIO_ROOT_PASSWORD_FILE: /run/secrets/backup_aws_secret_access_key
+        secrets:
+            - backup_aws_secret_access_key
+        volumes:
+            - backup-storage:/data
+        command: minio server /data
+
     cucumber-node-cli:
         build:
             context: cucumber/docker/development/node
@@ -125,6 +136,7 @@ services:
 
 volumes:
     api-postgres:
+    backup-storage:
 
 secrets:
     api_db_password:
@@ -139,3 +151,5 @@ secrets:
         file: ./docker/development/secrets/jwt_public_key
     jwt_private_key:
         file: ./docker/development/secrets/jwt_private_key
+    backup_aws_secret_access_key:
+        file: ./docker/development/secrets/backup_aws_secret_access_key
