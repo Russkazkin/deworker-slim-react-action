@@ -17,10 +17,9 @@ test-unit: api-test-unit
 test-unit-coverage: api-test-unit-coverage
 test-functional: api-test-functional api-fixtures
 test-functional-coverage: api-test-functional-coverage api-fixtures
-test-smoke: api-fixtures cucumber-clear cucumber-smoke
+test-smoke: api-fixtures cucumber-smoke
 test-e2e:
 	make api-fixtures
-	make cucumber-clear
 	- make cucumber-e2e
 	make cucumber-report
 
@@ -116,6 +115,8 @@ mailer-check:
 
 frontend-clear:
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine sh -c 'rm -rf .ready build'
+	docker run --rm -v ${PWD}/frontend:/app -w /app alpine sh -c 'rm -rf node_modules'
+
 
 frontend-init: frontend-yarn-install
 
@@ -150,6 +151,7 @@ cucumber-init: cucumber-yarn-install
 
 cucumber-clear:
 	docker run --rm -v ${PWD}/cucumber:/app -w /app alpine sh -c 'rm -rf var/*'
+	docker run --rm -v ${PWD}/cucumber:/app -w /app alpine sh -c 'rm -rf node_modules'
 
 cucumber-yarn-install:
 	docker compose run --rm cucumber-node-cli yarn install
