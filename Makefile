@@ -89,7 +89,6 @@ api-test-functional-coverage:
 	docker compose run --rm api-php-cli composer test-coverage -- --testsuite=functional
 
 api-composer-install:
-	docker compose run --rm -u root api-php-cli chown -R app:app /app
 	docker compose run --rm api-php-cli composer install
 
 api-composer-update:
@@ -124,7 +123,6 @@ frontend-clear:
 frontend-init: frontend-yarn-install
 
 frontend-yarn-install:
-	docker compose run --rm -u root frontend-node-cli chown -R node:node /app
 	docker compose run --rm frontend-node-cli yarn install
 
 frontend-yarn-upgrade:
