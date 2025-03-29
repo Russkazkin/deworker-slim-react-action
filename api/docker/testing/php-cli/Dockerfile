@@ -42,4 +42,6 @@ WORKDIR /app
 COPY --from=builder /app ./
 COPY ./ ./
 
+RUN chown -R app:app /app
+
 USER app
