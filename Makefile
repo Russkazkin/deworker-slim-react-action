@@ -111,6 +111,9 @@ api-check: doctrine-schema-validate api-lint api-analyze api-test
 api-fixtures:
 	docker compose run --rm api-php-cli composer app fixtures:load
 
+api-backup:
+	docker compose run --rm api-postgres-backup
+
 mailer-check:
 	docker compose run --rm api-php-cli composer app mailer:check
 
