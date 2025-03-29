@@ -117,7 +117,7 @@ frontend-clear:
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine sh -c 'rm -rf .ready build'
 	docker run --rm -v ${PWD}/frontend:/app -w /app alpine sh -c 'rm -rf node_modules'
 	docker run --rm -v ${PWD}/cucumber:/app -w /app alpine sh -c 'mkdir node_modules'
-	docker run --rm -v ${PWD}/cucumber:/app -w /app alpine chmod -R 777 node_modules
+	docker run --rm -v ${PWD}/cucumber:/app -w /app alpine sh -c 'chmod -R 777 node_modules'
 
 
 frontend-init: frontend-yarn-install
@@ -155,7 +155,7 @@ cucumber-clear:
 	docker run --rm -v ${PWD}/cucumber:/app -w /app alpine sh -c 'rm -rf var/*'
 	docker run --rm -v ${PWD}/cucumber:/app -w /app alpine sh -c 'rm -rf node_modules'
 	docker run --rm -v ${PWD}/cucumber:/app -w /app alpine sh -c 'mkdir node_modules'
-	docker run --rm -v ${PWD}/cucumber:/app -w /app alpine chmod -R 777 node_modules
+	docker run --rm -v ${PWD}/cucumber:/app -w /app alpine sh -c 'chmod -R 777 node_modules'
 
 cucumber-yarn-install:
 	docker compose run --rm cucumber-node-cli yarn install
