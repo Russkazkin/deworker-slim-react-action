@@ -124,6 +124,7 @@ frontend-clear:
 frontend-init: frontend-yarn-install
 
 frontend-yarn-install:
+	docker compose run --rm -u root frontend-node-cli chown -R node:node /app
 	docker compose run --rm frontend-node-cli yarn install
 
 frontend-yarn-upgrade:
