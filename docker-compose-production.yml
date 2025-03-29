@@ -1,5 +1,5 @@
 services:
-    swarm-cronjob:
+    cron:
         image: crazymax/swarm-cronjob:latest
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
