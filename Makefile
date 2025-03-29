@@ -89,6 +89,7 @@ api-test-functional-coverage:
 	docker compose run --rm api-php-cli composer test-coverage -- --testsuite=functional
 
 api-composer-install:
+	docker compose run --rm api-php-cli chown app:app /app
 	docker compose run --rm api-php-cli composer install
 
 api-composer-update:
