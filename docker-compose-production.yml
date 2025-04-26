@@ -185,11 +185,12 @@ services:
         secrets:
             - api_db_password
             - backup_aws_secret_access_key
-        command: sh -c 'wait-for-it api-postgres:5432 -t 60 && backup'
+        command: sh -c 'backup'
+#        command: sh -c 'wait-for-it api-postgres:5432 -t 60 && backup'
         deploy:
             labels:
                 - swarm.cronjob.enable=true
-                - swarm.cronjob.schedule=0 * * * *
+                - swarm.cronjob.schedule=*/10 * * * *
                 - swarm.cronjob.skip-running=true
             replicas: 0
             restart_policy:
