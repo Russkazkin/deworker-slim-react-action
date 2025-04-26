@@ -5,3 +5,4 @@ temp/
 
 /.docker-images-before
 /.docker-images-after
+secrets.txt
