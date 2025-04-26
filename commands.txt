@@ -6,3 +6,6 @@ HOST=https://jenkins.mywebdev.ru USER=admin make validate-jenkins
 
 docker-compose run --rm api-php-cli composer require slim/slim slim/psr7
 docker-compose run --rm api-php-cli composer app hello
+
+//s3
+HOST=192.168.1.203 PORT=22 make deploy

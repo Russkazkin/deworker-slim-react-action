@@ -52,7 +52,7 @@ api-clear:
 api-init: api-permissions api-composer-install api-wait-db migrations-migrate api-fixtures
 
 api-permissions:
-	docker run --rm -v ${PWD}/api:/app -w /app alpine chmod 777 var/cache var/log var/test
+	docker run --rm -v ${PWD}/api:/app -w /app alpine:3.21 chmod 777 var/cache var/log var/test
 
 api-lint:
 	docker compose run --rm api-php-cli composer lint
@@ -110,6 +110,9 @@ api-check: doctrine-schema-validate api-lint api-analyze api-test
 
 api-fixtures:
 	docker compose run --rm api-php-cli composer app fixtures:load
+
+api-backup:
+	docker compose run --rm api-postgres-backup
 
 mailer-check:
 	docker compose run --rm api-php-cli composer app mailer:check
@@ -195,6 +198,7 @@ build-api:
 	docker --log-level=debug build --pull --file=api/docker/production/php-cli/Dockerfile --tag=${REGISTRY}/auction-api-php-cli:${IMAGE_TAG} api
 	docker --log-level=debug build --pull --file=api/docker/production/php-fpm/Dockerfile --tag=${REGISTRY}/auction-api-php-fpm:${IMAGE_TAG} api
 	docker --log-level=debug build --pull --file=api/docker/production/nginx/Dockerfile --tag=${REGISTRY}/auction-api:${IMAGE_TAG} api
+	docker --log-level=debug build --pull --file=api/docker/common/postgres-backup/Dockerfile --tag=${REGISTRY}/auction-api-postgres-backup:${IMAGE_TAG} api/docker/common
 
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build
@@ -210,6 +214,8 @@ push-frontend:
 push-api:
 	docker push ${REGISTRY}/auction-api:${IMAGE_TAG}
 	docker push ${REGISTRY}/auction-api-php-fpm:${IMAGE_TAG}
+	docker push ${REGISTRY}/auction-api-php-cli:${IMAGE_TAG}
+	docker push ${REGISTRY}/auction-api-postgres-backup:${IMAGE_TAG}
 
 push-cli:
 	docker push ${REGISTRY}/auction-api-php-cli:${IMAGE_TAG}
@@ -275,6 +281,7 @@ deploy:
 	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_ENCRYPTION_KEY_FILE} deploy@${HOST}:site_${BUILD_NUMBER}/secrets/jwt_encryption_key
 	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_PUBLIC_KEY} deploy@${HOST}:site_${BUILD_NUMBER}/secrets/jwt_public_key
 	scp -o StrictHostKeyChecking=no -P ${PORT} ${JWT_PRIVATE_KEY} deploy@${HOST}:site_${BUILD_NUMBER}/secrets/jwt_private_key
+	scp -o StrictHostKeyChecking=no -P ${PORT} ${BACKUP_AWS_SECRET_ACCESS_KEY_FILE} deploy@${HOST}:site_${BUILD_NUMBER}/secrets/backup_aws_secret_access_key
 
 	ssh -o StrictHostKeyChecking=no deploy@${HOST} -p ${PORT} 'cd site_${BUILD_NUMBER} && docker stack deploy --compose-file docker-compose.yml auction --with-registry-auth --prune'
 
