@@ -33,7 +33,7 @@ final class MailerClient
      */
     public function hasEmailSentTo(string $to): bool
     {
-        $response = $this->client->get('/api/v2/search?kind=to&query=' . urlencode($to));
+        $response = $this->client->get('/api/v1/search?kind=to&query=' . urlencode($to));
         /** @var array{total:int} $data */
         $data = json_decode((string)$response->getBody(), true, 512, JSON_THROW_ON_ERROR);
         return $data['total'] > 0;

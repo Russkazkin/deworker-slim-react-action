@@ -102,7 +102,7 @@ services:
             - api_db_password
 
     mailer:
-        image: mailhog/mailhog
+        image: axllent/mailpit
 
     cucumber-node-cli:
         image: ${REGISTRY}/auction-cucumber-node-cli:${IMAGE_TAG}
